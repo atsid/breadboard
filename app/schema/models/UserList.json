@@ -23,11 +23,25 @@
             "$ref": "schema/models/UserList"
         }
     }, {
+        "rel": "schema/rel/create",
+        "href": "application/users",
+        "method": "POST",
+        "schema": {
+            "$ref": "schema/models/User"
+        }
+    }, {
         "rel": "schema/rel/item",
-        "href": "{uri}",
+        "href": "/application/users/{userId}",
         "method": "GET",
         "schema": {
             "$ref": "schema/models/User"
+        }
+    }, {
+        "rel": "schema/rel/up",
+        "href": "/application",
+        "method": "GET",
+        "schema": {
+            "$ref": "schema/models/Application"
         }
     }]
 }
