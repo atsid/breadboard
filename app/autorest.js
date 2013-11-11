@@ -1,5 +1,4 @@
-var fs = require("fs")
-    , vm = require('vm');
+var fs = require("fs");
 
 module.exports = function (app, config) {
     var scan = function () {
