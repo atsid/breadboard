@@ -9,7 +9,7 @@
 function create (context, callback) {
 
     var mongodb = require("mongodb"),
-        dbstring = "mongodb://127.0.0.1:27017/test";
+        dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
         var c
