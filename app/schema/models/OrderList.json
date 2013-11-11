@@ -23,16 +23,16 @@
             "$ref": "schema/models/OrderList"
         }
     }, {
-        "rel": "schema/rel/item",
-        "href": "application/users/{userId}/orders/{orderId}",
-        "method": "GET",
+        "rel": "schema/rel/create",
+        "href": "application/users/{userId}/orders",
+        "method": "POST",
         "schema": {
             "$ref": "schema/models/Order"
         }
     }, {
-        "rel": "schema/rel/create",
-        "href": "application/users/{userId}/orders",
-        "method": "POST",
+        "rel": "schema/rel/item",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "GET",
         "schema": {
             "$ref": "schema/models/Order"
         }

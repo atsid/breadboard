@@ -47,5 +47,12 @@
         "schema": {
             "$ref": "schema/models/PaymentList"
         }
+    }, {
+        "rel": "schema/rel/up",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "GET",
+        "schema": {
+            "$ref": "schema/models/Order"
+        }
     }]
 }
