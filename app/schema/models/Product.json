@@ -21,8 +21,13 @@
     },
     "links": [{
         "rel": "schema/rel/self",
-        "href": "application/users/{userId}/products/drinks/{drinkId}",
+        "href": "application/users/{userId}/products/{productId}",
         "method": "GET",
-        "schema": "schema/models/Drink"
+        "schema": "schema/models/Product"
+    }, {
+        "rel": "schema/rel/collection",
+        "href": "application/users/{userId}/products",
+        "method": "GET",
+        "schema": "schema/models/ProductList"
     }]
 }

@@ -1,0 +1,1 @@
+Specifies the parent collection to which this item belongs.

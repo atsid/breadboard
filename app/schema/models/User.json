@@ -24,6 +24,11 @@
         "method": "GET",
         "schema": "schema/models/User"
     }, {
+        "rel": "schema/rel/collection",
+        "href": "application/users",
+        "method": "GET",
+        "schema": "schema/models/UserList"
+    }, {
         "rel": "schema/rel/products",
         "href": "application/users/{userId}/products",
         "method": "GET",

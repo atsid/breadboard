@@ -3,7 +3,7 @@
         "items": {
             "type": "array",
             "items": {
-                "$ref": "schema/models/Drink"
+                "$ref": "schema/models/Product"
             }
         }
     },
@@ -19,6 +19,11 @@
         "schema": "schema/models/ProductList"
     }, {
         "rel": "schema/rel/create",
+        "href": "application/users/{userId}/products",
+        "method": "POST",
+        "schema": "schema/models/Product"
+    }, {
+        "rel": "schema/rel/create-order",
         "href": "application/users/{userId}/orders",
         "method": "POST",
         "schema": "schema/models/Order"

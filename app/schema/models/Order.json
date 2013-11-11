@@ -1,3 +1,31 @@
 {
-
+    "properties": {
+        "item": {
+            "$ref": "schema/models/Product"
+        },
+        "status": {
+            "type": "string",
+            "description": "Status of the product (drink) order"
+        },
+        "totalPrice": {
+            "type": "number",
+            "description": "Total price of the order for the user to pay"
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "GET",
+        "schema": "schema/models/Order"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "GET",
+        "schema": "schema/models/Order"
+    }, {
+        "rel": "schema/rel/collection",
+        "href": "application/users/{userId}/orders",
+        "method": "GET",
+        "schema": "schema/models/OrderList"
+    }]
 }
