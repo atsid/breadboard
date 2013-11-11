@@ -1,0 +1,1 @@
+Represents the users of a given context, such as of an application.

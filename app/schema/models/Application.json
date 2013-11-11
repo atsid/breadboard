@@ -1,0 +1,32 @@
+{
+    "properties": {
+        "_id": {
+            "type": "string",
+            "description": "Private, mongo-assigned identifier"
+        },
+        "uri": {
+            "type": "string",
+            "description": "URI of this object"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the application"
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application",
+        "method": "GET",
+        "schema": "schema/models/Application"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "application",
+        "method": "GET",
+        "schema": "schema/models/Application"
+    }, {
+        "rel": "schema/rel/users",
+        "href": "application/users",
+        "method": "GET",
+        "schema": "schema/models/UserList"
+    }]
+}

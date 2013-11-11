@@ -1,0 +1,1 @@
+Refers to a resource that can be used to monitor changes in an HTTP resource (e.g., via polling).

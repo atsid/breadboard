@@ -1,0 +1,37 @@
+{
+    "properties": {
+        "_id": {
+            "type": "string",
+            "description": "Private, mongo-assigned identifier"
+        },
+        "uri": {
+            "type": "string",
+            "description": "URI of this object"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the user"
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "{uri}",
+        "method": "GET",
+        "schema": "schema/models/User"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "{uri}",
+        "method": "GET",
+        "schema": "schema/models/User"
+    }, {
+        "rel": "schema/rel/menu",
+        "href": "{uri}/menu",
+        "method": "GET",
+        "schema": "schema/models/Menu"
+    }, {
+        "rel": "schema/rel/orders",
+        "href": "{uri}/orders",
+        "method": "GET",
+        "schema": "schema/models/OrderList"
+    }]
+}

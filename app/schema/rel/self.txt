@@ -1,0 +1,1 @@
+Refers to the same object that the link is attached to, e.g., the context object. Use this to refresh state.

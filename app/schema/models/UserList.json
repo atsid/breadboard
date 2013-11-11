@@ -1,0 +1,26 @@
+{
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "$ref": "schema/models/User"
+            }
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application/users",
+        "method": "GET",
+        "schema": "schema/models/UserList"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "application/users",
+        "method": "GET",
+        "schema": "schema/models/UserList"
+    }, {
+        "rel": "schema/rel/item",
+        "href": "{uri}",
+        "method": "GET",
+        "schema": "schema/models/User"
+    }]
+}
