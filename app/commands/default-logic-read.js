@@ -16,7 +16,7 @@ function read (context, callback) {
                 self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
-        cname = coll || self || "application";
+        cname = coll || self || "Application";
         c = db.collection(cname);
         c.findOne({_id: context.params.uri}, function (err, doc) {
             context.result = doc;

@@ -25,7 +25,7 @@ function create (context, callback) {
                 self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
-        cname = coll || self || "application";
+        cname = coll || self || "Application";
         c = db.collection(cname);
         context.entity._id = context.params.uri + "/" + id;
         c.insert(context.entity, function (err, doc) {

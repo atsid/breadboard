@@ -24,7 +24,7 @@ function remove (context, callback) {
                 self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
-        cname = coll || self || "application";
+        cname = coll || self || "Application";
         c = db.collection(cname);
         c.insert(context.entity, function (err, doc) {
             context.result = doc;
