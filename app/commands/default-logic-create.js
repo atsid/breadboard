@@ -20,9 +20,9 @@ function create (context, callback) {
         ;
         context.links.forEach(function (link) {
             if (link.rel === "schema/rel/collection") {
-                coll = link.schema.substring(link.schema.lastIndexOf("/")+1);
+                coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             } else if (link.rel === "schema/rel/self") {
-                self = link.schema.substring(link.schema.lastIndexOf("/")+1);
+                self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
         cname = coll || self || "application";

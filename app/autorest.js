@@ -18,40 +18,48 @@ module.exports = function (app, config) {
 
                         if ("GET" === link.method) {
                             app.get("/" + linkHref, config.middleware, function (req, res, next) {
-                                var context = {params: req.params, link: link, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-read.js", "UTF-8"),
+                                req.params.uri = req.path;
+                                var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-read.js", "UTF-8"),
                                     getHandler = eval("(function() {return " + handlerScript + "})()");
-
+                                console.log(handlerScript);
                                 getHandler(context, function () {
+                                    res.send(context.result);
                                 });
                             });
                         }
 
                         if ("PUT" === link.method) {
                             app.put("/" + linkHref, config.middleware, function (req, res, next) {
-                                var context = {params: req.params, link: link, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-update.js", "UTF-8"),
+                                req.params.uri = req.path;
+                                var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-update.js", "UTF-8"),
                                     putHandler = eval("(function() {return " + handlerScript + "})()");
 
                                 putHandler(context, function () {
+                                    res.send(context.result);
                                 });
                             });
                         }
 
                         if ("POST" === link.method) {
                             app.post("/" + linkHref, config.middleware, function (req, res, next) {
-                                var context = {params: req.params, link: link, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-create.js", "UTF-8"),
+                                req.params.uri = req.path;
+                                var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-create.js", "UTF-8"),
                                     postHandler = eval("(function() {return " + handlerScript + "})()");
 
                                 postHandler(context, function () {
+                                    res.send(context.result);
                                 });
                             });
                         }
 
                         if ("DELETE" == link.method) {
                             app.delete("/" + linkHref, config.middleware, function (req, res, next) {
-                                var context = {params: req.params, link: link, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-delete.js", "UTF-8"),
+                                req.params.uri = req.path;
+                                var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-delete.js", "UTF-8"),
                                     deleteHandler = eval("(function() {return " + handlerScript + "})()");
 
                                 deleteHandler(context, function () {
+                                    res.send(context.result);
                                 });
                             });
                         }

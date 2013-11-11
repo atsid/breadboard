@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: kevin.convy
- * Date: 11/11/13
- * Time: 11:40 AM
- * To change this template use File | Settings | File Templates.
- */
-
 function read (context, callback) {
 
     var mongodb = require("mongodb"),
@@ -19,9 +11,9 @@ function read (context, callback) {
         ;
         context.links.forEach(function (link) {
             if (link.rel === "schema/rel/collection") {
-                coll = link.schema.substring(link.schema.lastIndexOf("/")+1);
+                coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             } else if (link.rel === "schema/rel/self") {
-                self = link.schema.substring(link.schema.lastIndexOf("/")+1);
+                self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
         cname = coll || self || "application";
