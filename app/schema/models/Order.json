@@ -1,4 +1,5 @@
 {
+    "description": "Represents an order placed by a user within the application, and operated on by internal agents, such as a barista.",
     "properties": {
         "item": {
             "$ref": "schema/models/Product"
@@ -33,6 +34,11 @@
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "POST",
         "schema": "schema/models/Payment"
+    }, {
+        "rel": "schema/rel/edit",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "PUT",
+        "schema": "schema/models/Order"
     }, {
         "rel": "schema/rel/receive-order",
         "href": "application/users/{userId}/orders/{orderId}",

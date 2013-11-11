@@ -1,4 +1,5 @@
 {
+    "description": "Wrapper for a list of payments.",
     "properties": {
         "items": {
             "type": "array",

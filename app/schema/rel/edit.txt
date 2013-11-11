@@ -1,0 +1,1 @@
+This link allows editing of the specified resource.

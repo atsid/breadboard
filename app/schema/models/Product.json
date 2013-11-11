@@ -1,4 +1,5 @@
 {
+    "description": "Represents a product available in the storefront for this application (e.g., a menu item).",
     "properties": {
         "uri": {
             "type": "string",
