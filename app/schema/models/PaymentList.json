@@ -1,0 +1,31 @@
+{
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "$ref": "schema/models/Payment"
+            }
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application/users/{userId}/orders/{orderId}/payments",
+        "method": "GET",
+        "schema": "schema/models/PaymentList"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "application/users/{userId}/orders/{orderId}/payments",
+        "method": "GET",
+        "schema": "schema/models/PaymentList"
+    }, {
+        "rel": "schema/rel/item",
+        "href": "application/users/{userId}/orders/{orderId}/payments/{paymentId}",
+        "method": "GET",
+        "schema": "schema/models/Payment"
+    }, {
+        "rel": "schema/rel/create",
+        "href": "application/users/{userId}/orders/payments",
+        "method": "POST",
+        "schema": "schema/models/Payment"
+    }]
+}

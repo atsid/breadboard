@@ -5,7 +5,8 @@
         },
         "status": {
             "type": "string",
-            "description": "Status of the product (drink) order"
+            "description": "Status of the product (drink) order",
+            "enum": ["ordered", "in-process", "ready"]
         },
         "totalPrice": {
             "type": "number",
@@ -27,5 +28,14 @@
         "href": "application/users/{userId}/orders",
         "method": "GET",
         "schema": "schema/models/OrderList"
+    }, {
+        "rel": "schema/rel/create-payment",
+        "href": "application/users/{userId}/orders/{orderId}/payments",
+        "method": "POST",
+        "schema": "schema/models/Payment"
+    }, {
+        "rel": "schema/rel/receive-order",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "DELETE"
     }]
 }

@@ -1,0 +1,2 @@
+Specifies a resource that allows creation of a new object of the type defined in the schema property.
+In this case, specifically payment objects.
