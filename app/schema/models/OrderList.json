@@ -36,5 +36,12 @@
         "schema": {
             "$ref": "schema/models/Order"
         }
+    }, {
+        "rel": "schema/rel/up",
+        "href": "application/users/{userId}",
+        "method": "GET",
+        "schema": {
+            "$ref": "schema/models/User"
+        }
     }]
 }

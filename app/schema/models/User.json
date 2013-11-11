@@ -50,6 +50,13 @@
             "$ref": "schema/models/OrderList"
         }
     }, {
+        "rel": "schema/rel/edit",
+        "href": "application/users/{userId}",
+        "method": "PUT",
+        "schema": {
+            "$ref": "schema/models/User"
+        }
+    }, {
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}",
         "method": "DELETE"
