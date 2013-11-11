@@ -21,11 +21,15 @@
         "rel": "schema/rel/self",
         "href": "application",
         "method": "GET",
-        "schema": "schema/models/Application"
+        "schema": {
+            "$ref": "schema/models/Application"
+        }
     }, {
         "rel": "schema/rel/users",
         "href": "application/users",
         "method": "GET",
-        "schema": "schema/models/UserList"
+        "schema": {
+            "$ref": "schema/models/UserList"
+        }
     }]
 }

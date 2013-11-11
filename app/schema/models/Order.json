@@ -28,27 +28,37 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "GET",
-        "schema": "schema/models/Order"
+        "schema": {
+            "$ref": "schema/models/Order"
+        }
     }, {
         "rel": "schema/rel/monitor",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "GET",
-        "schema": "schema/models/Order"
+        "schema": {
+            "$ref": "schema/models/Order"
+        }
     }, {
         "rel": "schema/rel/collection",
         "href": "application/users/{userId}/orders",
         "method": "GET",
-        "schema": "schema/models/OrderList"
+        "schema": {
+            "$ref": "schema/models/OrderList"
+        }
     }, {
         "rel": "schema/rel/payment",
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "POST",
-        "schema": "schema/models/Payment"
+        "schema": {
+            "$ref": "schema/models/Payment"
+        }
     }, {
         "rel": "schema/rel/edit",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "PUT",
-        "schema": "schema/models/Order"
+        "schema": {
+            "$ref": "schema/models/Order"
+        }
     }, {
         "rel": "schema/rel/receive-order",
         "href": "application/users/{userId}/orders/{orderId}",

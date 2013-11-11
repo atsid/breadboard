@@ -12,21 +12,29 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}/products",
         "method": "GET",
-        "schema": "schema/models/ProductList"
+        "schema": {
+            "$ref": "schema/models/ProductList"
+        }
     }, {
         "rel": "schema/rel/monitor",
         "href": "application/users/{userId}/products",
         "method": "GET",
-        "schema": "schema/models/ProductList"
+        "schema": {
+            "$ref": "schema/models/ProductList"
+        }
     }, {
         "rel": "schema/rel/create",
         "href": "application/users/{userId}/products",
         "method": "POST",
-        "schema": "schema/models/Product"
+        "schema": {
+            "$ref": "schema/models/Product"
+        }
     }, {
         "rel": "schema/rel/create-order",
         "href": "application/users/{userId}/orders",
         "method": "POST",
-        "schema": "schema/models/Order"
+        "schema": {
+            "$ref": "schema/models/Order"
+        }
     }]
 }

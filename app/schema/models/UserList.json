@@ -12,16 +12,22 @@
         "rel": "schema/rel/self",
         "href": "application/users",
         "method": "GET",
-        "schema": "schema/models/UserList"
+        "schema": {
+            "$ref": "schema/models/UserList"
+        }
     }, {
         "rel": "schema/rel/monitor",
         "href": "application/users",
         "method": "GET",
-        "schema": "schema/models/UserList"
+        "schema": {
+            "$ref": "schema/models/UserList"
+        }
     }, {
         "rel": "schema/rel/item",
         "href": "{uri}",
         "method": "GET",
-        "schema": "schema/models/User"
+        "schema": {
+            "$ref": "schema/models/User"
+        }
     }]
 }

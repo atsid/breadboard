@@ -25,21 +25,29 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}",
         "method": "GET",
-        "schema": "schema/models/User"
+        "schema": {
+            "$ref": "schema/models/User"
+        }
     }, {
         "rel": "schema/rel/collection",
         "href": "application/users",
         "method": "GET",
-        "schema": "schema/models/UserList"
+        "schema": {
+            "$ref": "schema/models/UserList"
+        }
     }, {
         "rel": "schema/rel/products",
         "href": "application/users/{userId}/products",
         "method": "GET",
-        "schema": "schema/models/ProductList"
+        "schema": {
+            "$ref": "schema/models/ProductList"
+        }
     }, {
         "rel": "schema/rel/orders",
         "href": "application/users/{userId}/orders",
         "method": "GET",
-        "schema": "schema/models/OrderList"
+        "schema": {
+            "$ref": "schema/models/OrderList"
+        }
     }]
 }

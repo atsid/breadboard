@@ -30,16 +30,22 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}/orders/{orderId}/payments/{paymentId}",
         "method": "GET",
-        "schema": "schema/models/Payment"
+        "schema": {
+            "$ref": "schema/models/Payment"
+        }
     }, {
         "rel": "schema/rel/monitor",
         "href": "application/users/{userId}/orders/{orderId}/payments/{paymentId}",
         "method": "GET",
-        "schema": "schema/models/Payment"
+        "schema": {
+            "$ref": "schema/models/Payment"
+        }
     }, {
         "rel": "schema/rel/collection",
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "GET",
-        "schema": "schema/models/PaymentList"
+        "schema": {
+            "$ref": "schema/models/PaymentList"
+        }
     }]
 }
