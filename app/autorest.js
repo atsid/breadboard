@@ -20,7 +20,6 @@ module.exports = function (app, config) {
                                 req.params.uri = req.path;
                                 var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = fs.readFileSync("commands/default-logic-read.js", "UTF-8"),
                                     getHandler = eval("(function() {return " + handlerScript + "})()");
-                                console.log(handlerScript);
                                 getHandler(context, function () {
                                     res.send(context.result);
                                 });
