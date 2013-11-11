@@ -9,7 +9,8 @@ if (process.env.license) {
 var express = require('express')
     , http = require('http')
     , path = require('path')
-    , autorest = require('./autorest');
+    , autorest = require('./autorest')
+    , schemaService = require('./schema-service');
 
 var app = express();
 
@@ -25,6 +26,10 @@ app.use(express.static(__dirname));
 autorest(app, {
     middleware: [express.bodyParser()]
 }).scan();
+
+schemaService(app, {
+    middleware: [express.bodyParser()]
+});
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
