@@ -1,6 +1,6 @@
 //lets load newrelic - if we have it
 if (process.env.license) {
-  require('newrelic');  
+    require('newrelic');
 }
 
 /**
@@ -8,7 +8,8 @@ if (process.env.license) {
  */
 var express = require('express')
     , http = require('http')
-    , path = require('path');
+    , path = require('path')
+    , autorest = require('./autorest');
 
 var app = express();
 
@@ -21,7 +22,10 @@ app.use(express.static(__dirname));
 //    modelDir: "./schema/models/mongoose",
 //    appDir: process.cwd() + '/'
 //});
+autorest(app, {
+    middleware: [express.bodyParser()]
+}).scan();
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
