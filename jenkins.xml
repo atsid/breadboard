@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build and test the node.js app</description>
+  <logRotator>
+    <daysToKeep>60</daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>20</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <nectar.plugins.rbac.groups.JobProxyGroupContainer>
+      <groups/>
+    </nectar.plugins.rbac.groups.JobProxyGroupContainer>
+    <com.cloudbees.jenkins.plugins.PublicKey/>
+    <com.cloudbees.plugins.deployer.DeployNowJobProperty>
+      <oneClickDeploy>false</oneClickDeploy>
+      <configuration>
+        <user>(jenkins)</user>
+        <account>${account}</account>
+        <deployables/>
+      </configuration>
+    </com.cloudbees.plugins.deployer.DeployNowJobProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec></refspec>
+        <url>${repositoryUrl}</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>**</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>false</useShallowClone>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Default)</jdk>
+  <triggers class="vector">
+    <com.cloudbees.jenkins.forge.ForgePushTrigger>
+      <spec></spec>
+    </com.cloudbees.jenkins.forge.ForgePushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>
+node_version=0.10.21
+
+if [ ! -e nodejs-plugin-$node_version.zip ]
+then
+    wget https://s3.amazonaws.com/clickstacks/admin/nodejs-plugin-$node_version.zip
+    unzip nodejs-plugin-$node_version.zip
+    tar xf node.tar.gz
+    mv node-v* node_lib 
+fi
+
+rm -rf target
+mkdir target
+
+export PATH=$PATH:$WORKSPACE/node_lib/bin
+
+cd app
+npm install
+npm test
+
+rm -rf ../target/app.zip
+zip -r ../target/app.zip *
+
+
+</command>
+    </hudson.tasks.Shell>
+    <com.cloudbees.plugins.deployer.DeployBuilder>
+      <configuration>
+        <user>(jenkins)</user>
+        <account>${account}</account>
+        <deployables>
+          <com.cloudbees.plugins.deployer.deployables.WildcardMatchingDeployable>
+            <applicationId>${applicationName}</applicationId>
+            <applicationEnvironment></applicationEnvironment>
+            <applicationConfig/>
+            <apiEndPoint>https://api.cloudbees.com/api</apiEndPoint>
+            <filePattern>target/*.zip</filePattern>
+          </com.cloudbees.plugins.deployer.deployables.WildcardMatchingDeployable>
+        </deployables>
+      </configuration>
+    </com.cloudbees.plugins.deployer.DeployBuilder>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

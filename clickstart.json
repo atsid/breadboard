@@ -1,0 +1,25 @@
+{
+    "id": "nodejs-clickstart",
+    "name": "Node.js web server",
+    "source": "github",
+    "description" : "Deploy a node.js application on CloudBees with continuous deployment (beta)",
+    "icon" : "https://d3ko533tu1ozfq.cloudfront.net/clickstart/nodejs_large.png",    
+
+    "supported-by" : "community",
+    "order" : 2,
+
+    "runtime": {
+        "type": "nodejs",
+         "app-parameters" : { 
+            "runtime.node.version": "0.10.21", 
+            "runtime.PLUGIN.SRC.nodejs": "https://s3.amazonaws.com/clickstacks/admin/nodejs-clickstack.zip"
+        }    
+    },
+    "build-with-jenkins": {
+	"template": {
+            "type": "https://raw.github.com/CloudBees-community/nodejs-clickstart/master/jenkins.xml",
+            "options": {
+            }            
+        }
+    }
+}
