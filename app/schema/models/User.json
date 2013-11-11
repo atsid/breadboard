@@ -49,5 +49,9 @@
         "schema": {
             "$ref": "schema/models/OrderList"
         }
+    }, {
+        "rel": "schema/rel/remove",
+        "href": "application/users/{userId}",
+        "method": "DELETE"
     }]
 }

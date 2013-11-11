@@ -23,6 +23,13 @@
             "$ref": "schema/models/UserList"
         }
     }, {
+        "rel": "schema/rel/create",
+        "href": "application/users",
+        "method": "POST",
+        "schema": {
+            "$ref": "schema/models/User"
+        }
+    }, {
         "rel": "schema/rel/item",
         "href": "/application/users/{userId}",
         "method": "GET",
