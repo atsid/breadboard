@@ -3,24 +3,22 @@
     "properties": {
         "_id": {
             "type": "string",
-            "description": "Private, mongo-assigned identifier"
+            "description": "Private, mongo-assigned identifier",
+            "readonly": true
         },
         "uri": {
             "type": "string",
-            "description": "URI of this object"
+            "description": "URI of this object",
+            "readonly": true
         },
         "name": {
             "type": "string",
-            "description": "Name of the application"
+            "description": "Name of the application",
+            "readonly": true
         }
     },
     "links": [{
         "rel": "schema/rel/self",
-        "href": "application",
-        "method": "GET",
-        "schema": "schema/models/Application"
-    }, {
-        "rel": "schema/rel/monitor",
         "href": "application",
         "method": "GET",
         "schema": "schema/models/Application"

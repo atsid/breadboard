@@ -1,9 +1,15 @@
 {
     "description": "Represents a product available in the storefront for this application (e.g., a menu item).",
     "properties": {
+        "_id": {
+            "type": "string",
+            "description": "Private, mongo-assigned identifier",
+            "readonly": true
+        },
         "uri": {
             "type": "string",
-            "description": "URI to view details of this drink product option"
+            "description": "URI of this object",
+            "readonly": true
         },
         "type": {
             "type": "string",
@@ -30,5 +36,9 @@
         "href": "application/users/{userId}/products",
         "method": "GET",
         "schema": "schema/models/ProductList"
+    }, {
+        "rel": "schema/rel/remove",
+        "href": "application/users/{userId}/products/{productId}",
+        "method": "DELETE"
     }]
 }

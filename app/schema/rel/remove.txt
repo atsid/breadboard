@@ -1,0 +1,1 @@
+This relation removes the object in question, no matter the current state (e.g., a cancel).

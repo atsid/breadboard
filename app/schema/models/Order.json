@@ -1,6 +1,16 @@
 {
     "description": "Represents an order placed by a user within the application, and operated on by internal agents, such as a barista.",
     "properties": {
+        "_id": {
+            "type": "string",
+            "description": "Private, mongo-assigned identifier",
+            "readonly": true
+        },
+        "uri": {
+            "type": "string",
+            "description": "URI of this object",
+            "readonly": true
+        },
         "item": {
             "$ref": "schema/models/Product"
         },
@@ -30,7 +40,7 @@
         "method": "GET",
         "schema": "schema/models/OrderList"
     }, {
-        "rel": "schema/rel/create-payment",
+        "rel": "schema/rel/payment",
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "POST",
         "schema": "schema/models/Payment"
@@ -41,6 +51,10 @@
         "schema": "schema/models/Order"
     }, {
         "rel": "schema/rel/receive-order",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "DELETE"
+    }, {
+        "rel": "schema/rel/remove",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "DELETE"
     }]

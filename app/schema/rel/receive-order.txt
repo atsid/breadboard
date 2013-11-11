@@ -1,1 +1,2 @@
-Invoke this link to receive the order and complete the process. For RestBucks, this deletes from the active system.
+Invoke this link to receive the order and complete the process.
+For RestBucks, this deletes from the active system when the status is "ready".

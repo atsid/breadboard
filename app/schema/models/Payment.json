@@ -1,6 +1,16 @@
 {
     "description": "Represents a payment for orders within the system.",
     "properties": {
+        "_id": {
+            "type": "string",
+            "description": "Private, mongo-assigned identifier",
+            "readonly": true
+        },
+        "uri": {
+            "type": "string",
+            "description": "URI of this object",
+            "readonly": true
+        },
         "type": {
             "type": "string",
             "description": "The payment type used",

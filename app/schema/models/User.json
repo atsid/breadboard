@@ -3,11 +3,13 @@
     "properties": {
         "_id": {
             "type": "string",
-            "description": "Private, mongo-assigned identifier"
+            "description": "Private, mongo-assigned identifier",
+            "readonly": true
         },
         "uri": {
             "type": "string",
-            "description": "URI of this object"
+            "description": "URI of this object",
+            "readonly": true
         },
         "name": {
             "type": "string",
@@ -21,11 +23,6 @@
     },
     "links": [{
         "rel": "schema/rel/self",
-        "href": "application/users/{userId}",
-        "method": "GET",
-        "schema": "schema/models/User"
-    }, {
-        "rel": "schema/rel/monitor",
         "href": "application/users/{userId}",
         "method": "GET",
         "schema": "schema/models/User"
