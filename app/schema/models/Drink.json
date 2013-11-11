@@ -1,0 +1,28 @@
+{
+    "properties": {
+        "uri": {
+            "type": "string",
+            "description": "URI to view details of this drink product option"
+        },
+        "type": {
+            "type": "string",
+            "description": "The type of drink being ordered",
+            "enum": ["latte", "drip", "tea"]
+        },
+        "price": {
+            "type": "number",
+            "description": "The cost of the drink"
+        },
+        "size": {
+            "type": "string",
+            "description": "The size of drink ordered",
+            "enum": ["small", "medium", "large"]
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application/users/{userId}/products/drinks/{drinkId}",
+        "method": "GET",
+        "schema": "schema/models/Drink"
+    }]
+}

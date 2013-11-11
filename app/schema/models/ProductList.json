@@ -1,0 +1,26 @@
+{
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "$ref": "schema/models/Drink"
+            }
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application/users/{userId}/products",
+        "method": "GET",
+        "schema": "schema/models/ProductList"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "application/users/{userId}/products",
+        "method": "GET",
+        "schema": "schema/models/ProductList"
+    }, {
+        "rel": "schema/rel/create",
+        "href": "application/users/{userId}/orders",
+        "method": "POST",
+        "schema": "schema/models/Order"
+    }]
+}

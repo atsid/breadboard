@@ -1,0 +1,31 @@
+{
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "$ref": "schema/models/Order"
+            }
+        }
+    },
+    "links": [{
+        "rel": "schema/rel/self",
+        "href": "application/users/{userId}/orders",
+        "method": "GET",
+        "schema": "schema/models/OrderList"
+    }, {
+        "rel": "schema/rel/monitor",
+        "href": "application/users/{userId}/orders",
+        "method": "GET",
+        "schema": "schema/models/OrderList"
+    }, {
+        "rel": "schema/rel/item",
+        "href": "application/users/{userId}/orders/{orderId}",
+        "method": "GET",
+        "schema": "schema/models/Order"
+    }, {
+        "rel": "schema/rel/create",
+        "href": "application/users/{userId}/orders",
+        "method": "POST",
+        "schema": "schema/models/Order"
+    }]
+}

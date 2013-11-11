@@ -15,22 +15,22 @@
     },
     "links": [{
         "rel": "schema/rel/self",
-        "href": "{uri}",
+        "href": "application/users/{userId}",
         "method": "GET",
         "schema": "schema/models/User"
     }, {
         "rel": "schema/rel/monitor",
-        "href": "{uri}",
+        "href": "application/users/{userId}",
         "method": "GET",
         "schema": "schema/models/User"
     }, {
-        "rel": "schema/rel/menu",
-        "href": "{uri}/menu",
+        "rel": "schema/rel/products",
+        "href": "application/users/{userId}/products",
         "method": "GET",
-        "schema": "schema/models/Menu"
+        "schema": "schema/models/ProductList"
     }, {
         "rel": "schema/rel/orders",
-        "href": "{uri}/orders",
+        "href": "application/users/{userId}/orders",
         "method": "GET",
         "schema": "schema/models/OrderList"
     }]

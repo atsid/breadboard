@@ -1,0 +1,1 @@
+Refers to an item in a collection.
