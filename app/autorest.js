@@ -13,7 +13,7 @@ module.exports = function (app, config) {
 
                     model.links.forEach(function (link) {
 
-                        var linkHref = link.href.replace("{", ":").replace("}", ""),
+                        var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
                             schemaModel = require("./" + link.schema['$ref'] + ".json"),
                             handlerFunc = function (defaultHandlerPath, req, res) {
 
@@ -24,6 +24,10 @@ module.exports = function (app, config) {
 
                                 handler(context, function () {
 
+                                    console.log("executing handler with params");
+                                    Object.keys(context.params).forEach(function (param) {
+                                        console.log(param + " : " + context.params[param]);
+                                    });
                                     var outputLinks = [];
 
                                     schemaModel.links.forEach(function (instanceLink) {
@@ -34,6 +38,13 @@ module.exports = function (app, config) {
                                             linkHandlerScript = fs.readFileSync(linkFilterCommand + ".js", "UTF-8"),
                                             linkFilterHandler = eval("(function() {return " + linkHandlerScript + "})()");
 
+                                        function linkHrefExpander(uri, params) {
+                                            Object.keys(params).forEach(function (param) {
+                                                uri = uri.replace("{" + param + "}", params[param]);
+                                            });
+                                            return uri;
+                                        }
+
                                         linkFilterHandler({
                                             params: context.params,
                                             link: instanceLink,
@@ -41,6 +52,7 @@ module.exports = function (app, config) {
                                             result: context.result
                                         }, function (linkToKeep) {
                                             if (linkToKeep) {
+                                                linkToKeep.href = linkHrefExpander(linkToKeep.href, context.params);
                                                 outputLinks.push(linkToKeep);
                                             }
                                         });
