@@ -33,7 +33,7 @@
             "command": "commands/default-filter-rql",
             "arguments": {
                 "user": "application/users/{userId}",
-                "rql": "user.role=customer"
+                "rql": "schema/rql/user-is-customer"
             }
         }
     }, {

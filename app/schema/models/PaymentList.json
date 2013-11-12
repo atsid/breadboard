@@ -41,7 +41,7 @@
             "arguments": {
                 "user": "application/users/{userId}",
                 "payments": "application/users/{userId}/orders/{orderId}/payments",
-                "rql": "user.role=customer&payments(0).status=paid"
+                "rql": "schema/rql/customer-needs-to-pay"
             }
         }
     }]

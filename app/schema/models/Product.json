@@ -44,7 +44,7 @@
             "command": "commands/default-filter-rql",
             "arguments": {
                 "user": "application/users/{userId}",
-                "rql": "user.role=barista"
+                "rql": "schema/rql/user-is-barista"
             }
         }
     }, {
@@ -55,7 +55,7 @@
             "command": "commands/default-filter-rql",
             "arguments": {
                 "user": "application/users/{userId}",
-                "rql": "user.role=barista"
+                "rql": "schema/rql/user-is-barista"
             }
         }
     }, {

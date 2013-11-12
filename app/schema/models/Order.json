@@ -57,7 +57,7 @@
             "arguments": {
                 "user": "application/users/{userId}",
                 "payments": "application/users/{userId}/orders/{orderId}/payments",
-                "rql": "user.role=customer&payments(0).status=unpaid"
+                "rql": "schema/rql/customer-needs-to-pay"
             }
         }
     }, {
@@ -71,7 +71,7 @@
             "command": "commands/default-filter-rql",
             "arguments": {
                 "user": "application/users/{userId}",
-                "rql": "user.role=barista"
+                "rql": "schema/rql/user-is-barista"
             }
         }
     }, {
@@ -84,7 +84,7 @@
                 "user": "application/users/{userId}",
                 "payments": "application/users/{userId}/orders/{orderId}/payments",
                 "order": "application/users/{userId}/orders/{orderId}",
-                "rql": "user.role=customer&order.status=ready&payments(0).status=paid"
+                "rql": "schema/rql/customer-can-receive-order"
             }
         }
     }, {
@@ -95,7 +95,7 @@
             "command": "commands/default-filter-rql",
             "arguments": {
                 "user": "application/users/{userId}",
-                "rql": "user.role=customer"
+                "rql": "schema/rql/user-is-customer"
             }
         }
     }]
