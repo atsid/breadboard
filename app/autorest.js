@@ -1,4 +1,5 @@
-var fs = require("fs");
+var fs = require("fs"),
+    http = require("http");
 
 module.exports = function (app, config) {
     var scan = function () {
@@ -34,7 +35,9 @@ module.exports = function (app, config) {
 
                                         console.log("checking the links to determine if they should be added " + instanceLink.rel);
 
-                                        var linkFilterCommand = (instanceLink.filter && instanceLink.filter.command) ? instanceLink.filter.command : "./commands/default-filter-include",
+                                        var linkFilter = instanceLink.filter,
+                                            linkFilterCommand = linkFilter && linkFilter.command ? linkFilter.command : "./commands/default-filter-include",
+                                            linkFilterArguments = linkFilter && linkFilter.arguments ? linkFilter.arguments : {},
                                             linkHandlerScript = fs.readFileSync(linkFilterCommand + ".js", "UTF-8"),
                                             linkFilterHandler = eval("(function() {return " + linkHandlerScript + "})()");
 
@@ -44,6 +47,24 @@ module.exports = function (app, config) {
                                             });
                                             return uri;
                                         }
+
+                                        //executes an http get for every arg and pushes it into the args map
+                                        function retrieveLinkFilterArguments(args, callback) {
+
+                                            console.log("retrieving link filter args");
+
+                                            Object.keys(args).forEach(function (arg) {
+                                                var argUri = args[arg];
+                                                console.log("looking up arg [" + arg + "] @ " + argUri);
+                                            });
+
+                                            callback(args);
+
+                                        }
+
+                                        retrieveLinkFilterArguments(linkFilterArguments, function (args) {
+                                            console.log("args retrieved!");
+                                        });
 
                                         linkFilterHandler({
                                             params: context.params,
