@@ -51,6 +51,9 @@
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}/products/{productId}",
         "method": "DELETE",
+        "schema": {
+            "$ref": "schema/models/Product"
+        },
         "filter": {
             "command": "commands/default-filter-rql",
             "arguments": {

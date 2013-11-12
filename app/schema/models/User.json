@@ -59,6 +59,9 @@
     }, {
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}",
-        "method": "DELETE"
+        "method": "DELETE",
+        "schema": {
+            "$ref": "schema/models/User"
+        }
     }]
 }

@@ -78,6 +78,9 @@
         "rel": "schema/rel/receive-order",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "DELETE",
+        "schema": {
+            "$ref": "schema/models/Order"
+        },
         "filter": {
             "command": "commands/default-filter-rql",
             "arguments": {
@@ -91,6 +94,9 @@
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "DELETE",
+        "schema": {
+            "$ref": "schema/models/Order"
+        },
         "filter": {
             "command": "commands/default-filter-rql",
             "arguments": {
