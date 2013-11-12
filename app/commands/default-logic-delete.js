@@ -12,11 +12,11 @@ function remove (context, callback) {
         dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
-        var c
-            ,self
-            ,coll
-            ,cname
-        ;
+        var c,
+            self,
+            coll,
+            cname;
+
         context.links.forEach(function (link) {
             if (link.rel === "schema/rel/collection") {
                 coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
@@ -24,7 +24,8 @@ function remove (context, callback) {
                 self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
-        cname = coll || self || "Application";
+        cname = coll || self;
+
         c = db.collection(cname);
         c.remove({_id: context.params.uri}, function (err, doc) {
             context.result = doc;

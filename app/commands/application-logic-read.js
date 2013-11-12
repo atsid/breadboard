@@ -9,12 +9,9 @@ function read(context, callback) {
         dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
-        var c
-            , self
-            , coll
-            , cname = "application"
-            ;
-        cname = coll || self || "Application";
+        var c,
+            cname = "Application";
+
         c = db.collection(cname);
         c.findOne({ }, function (err, doc) {
             context.result = doc;

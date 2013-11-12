@@ -12,12 +12,13 @@ function read(context, callback) {
         dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
-        var c
-            , self
-            , coll
-            , cname = "application"
-            , link = context.link;
-        ;
+
+        var c,
+            self,
+            coll,
+            cname,
+            link = context.link;
+
         context.links.forEach(function (link) {
             if (link.rel === "schema/rel/collection") {
                 coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/") + 1);
@@ -25,7 +26,10 @@ function read(context, callback) {
                 self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/") + 1);
             }
         });
-        cname = coll || self || "Application";
+        cname = coll || self;
+
+        console.log("executing default read logic for " + cname);
+
         c = db.collection(cname);
         c.findOne({_id: context.params.uri}, function (err, doc) {
             context.result = doc;

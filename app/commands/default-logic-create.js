@@ -12,12 +12,12 @@ function create (context, callback) {
         dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
-        var c
-            ,self
-            ,coll
-            ,id = new mongodb.BSONPure.ObjectID()
-            ,cname
-        ;
+        var c,
+            self,
+            coll,
+            id = new mongodb.BSONPure.ObjectID(),
+            cname;
+
         context.links.forEach(function (link) {
             if (link.rel === "schema/rel/collection") {
                 coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
@@ -25,7 +25,8 @@ function create (context, callback) {
                 self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
             }
         });
-        cname = coll || self || "Application";
+        cname = coll || self;
+
         c = db.collection(cname);
         context.entity._id = context.params.uri + "/" + id;
         c.insert(context.entity, function (err, doc) {
