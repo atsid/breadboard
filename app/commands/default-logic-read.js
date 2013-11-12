@@ -32,18 +32,22 @@ function read(context, callback) {
 
         db.collection(cname, function (err, col) {
 
-            col.findOne({_id: context.params.uri}, function (err, doc) {
-
-                //if this is supposed to read a list (!coll) and it doesn't yet exist, simply return empty
-                if (doc == null && !coll) {
-                    doc = {
-                        "items": []
+            if (!coll) {
+                col.find().toArray(function (err, docs) {
+                    if (docs === null) {
+                        docs = [];
+                    }
+                    context.result = {
+                        items: docs
                     };
-                }
-                context.result = doc;
-                console.log("Reading from collection: " + cname + " : " + JSON.stringify(context.result));
-                callback(context)
-            });
+                    callback(context);
+                });
+            } else {
+                col.findOne({_id: context.params.uri}, function (err, doc) {
+                    context.result = doc;
+                    callback(context);
+                });
+            }
 
         });
 

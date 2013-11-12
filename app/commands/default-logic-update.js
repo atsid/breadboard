@@ -27,10 +27,10 @@ function update (context, callback) {
         cname = coll || self;
 
         c = db.collection(cname);
-        c.insert(context.entity, function (err, doc) {
-            context.result = doc;
+        c.update({_id: context.entity._id}, context.entity, function (err, doc) {
+            context.result = context.entity;
             console.log("Updating to collection: " + cname + " : " + JSON.stringify(context.result));
-            callback(context)
+            callback(context);
         });
     });
 };

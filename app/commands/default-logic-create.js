@@ -29,10 +29,12 @@ function create (context, callback) {
 
         c = db.collection(cname);
         context.entity._id = context.params.uri + "/" + id;
-        c.insert(context.entity, function (err, doc) {
-            context.result = doc;
+        context.entity.uri = context.entity._id;
+        c.insert(context.entity, function (err, docs) {
+            context.result = docs[0];
             console.log("Created in collection: " + cname + " :" + JSON.stringify("result: " +  context.result));
             callback(context)
         });
+
     });
 };
