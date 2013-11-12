@@ -23,6 +23,9 @@
         "method": "GET",
         "schema": {
             "$ref": "schema/models/Application"
+        },
+        "logic": {
+            "command": "commands/application-logic-read"
         }
     }, {
         "rel": "schema/rel/users",

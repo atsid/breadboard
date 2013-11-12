@@ -5,7 +5,6 @@
  * Time: 11:40 AM
  * To change this template use File | Settings | File Templates.
  */
-
 function remove (context, callback) {
 
     var mongodb = require("mongodb"),
