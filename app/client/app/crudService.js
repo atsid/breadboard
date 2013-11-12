@@ -3,36 +3,22 @@ define([
     'dojo/request/xhr'
 ], function (lang, xhr) {
 
-    var dummy = {
-        "item": {
-            "_id": 1,
-            "uri": "hello/world",
-            "name": "universe"
-        },
-        "links": [{
-            "rel": "schema/rel/self",
-            "href": "application",
-            "method": "GET",
-            "schema": {
-                "$ref": "schema/models/Application"
-            }
-        }, {
-            "rel": "schema/rel/users",
-            "href": "application/users",
-            "method": "GET",
-            "schema": {
-                "$ref": "schema/models/UserList"
-            }
-        }]
+    var dataRels = {
+        "schema/rel/create": 1,
+        "schema/rel/edit": 1
     };
 
     return {
-        exec: function (uri, method, model, callback) {
-
-            xhr(uri, {
-                handleAs: "json"
-            }).then(callback);
-
+        exec: function (link, model, callback) {
+            var options = {
+                handleAs: "json",
+                method: link.method || "GET"
+            };
+            if (dataRels[link.rel]) {
+                options.data = model;
+            }
+            callback = callback || model;
+            xhr(link.href, options).then(callback);
         }
     };
 });

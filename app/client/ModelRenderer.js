@@ -9,6 +9,7 @@ define([
     'dojo/dom-construct',
     './Evented',
     './Base',
+    'schematic/SchemaResolver',
     'dojo/parser'
 ],
 function (
@@ -21,7 +22,8 @@ function (
     Button,
     domConstruct,
     Evented,
-    Base
+    Base,
+    SchemaResolver
 ) {
     window.at = at;
 
@@ -52,7 +54,7 @@ function (
                     return statefulModel.toPlainObject();
                 },
                 refresh: function (link) {
-                    crudService.exec(link.uri, link.method, this.getModel(), function (response) {
+                    crudService.exec(link, function (response) {
                         var model = modelHelper.getProperties(modelHelper.getItem(repsonse.item), isEditable);
                         statefulModel = new StatefulModel({data: model});
                         generator.set('children', statefulModel);
@@ -71,7 +73,7 @@ function (
                         style: "float:left"
                     });
                     if (!buttonBar) {
-                        buttonBar = domConstruct.create('div', {}, generator.domNode);
+                        buttonBar = domConstruct.create('div', {style: {width: "100%"}}, generator.domNode);
                     }
                     button.placeAt(buttonBar);
                     button.on('Click', clickHandler);
