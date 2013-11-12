@@ -55,7 +55,13 @@ module.exports = function (app, config) {
 
                                             Object.keys(args).forEach(function (arg) {
                                                 var argUri = args[arg];
-                                                console.log("looking up arg [" + arg + "] @ " + argUri);
+                                                argUri = linkHrefExpander(argUri, context.params);
+                                                console.log("\tlooking up arg [" + arg + "] @ " + argUri);
+
+                                                http.get("http://localhost:3000/" + argUri, function (resp) {
+                                                    console.log("got response");
+                                                });
+
                                             });
 
                                             callback(args);
