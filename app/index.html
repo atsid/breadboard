@@ -4,6 +4,41 @@
     <title>Hateoas Node Application</title>
 </head>
 <body>
+
+<script type="text/javascript">
+    var dojoConfig = {
+            async: true,
+            packages: [
+                {
+                    name: "my",
+                    location: "/client"
+                }
+            ]
+        },
+        initialUri = "",
+        initialMethod = "GET";
+
+</script>
+
+<!-- Bootstrap Dojo From Google's CDN -->
+<!-- removing the protocol from src url auto detects if current page is served via http or https and also loads the dojo resources from matching protocol -->
+<script
+        type="text/javascript"
+        src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js">
+</script>
+
+<script type="text/javascript">
+    require(["my/app/responseRenderer", "my/app/appView", "my/app/crudService"], function(responseRenderer, appView, crudService){
+        appView.domNode.style.width = "100%";
+        appView.domNode.style.height = "100%";
+        appView.placeAt(document.getElementById("appContainer"));
+        appView.startup();
+        crudService.exec(initialUri, initialMethod, {}, function (response) {
+            responseRenderer.render(response);
+        });
+    });
+</script>
 <h1>Hateoas Node Application</h1>
+<div id="appContainer"></div>
 </body>
 </html>
