@@ -76,6 +76,11 @@ module.exports = function (app, config) {
                                         });
 
                                         var selfUri = context.result ? (context.result.uri || req.path) : "";
+                                        if (context.result) {
+                                            console.log("result uri:" + context.result.uri);
+                                        }
+                                        console.log("path: " + req.path);
+
                                         linkFilterHandler({
                                             params: context.params,
                                             link: instanceLink,
@@ -83,6 +88,10 @@ module.exports = function (app, config) {
                                             result: context.result
                                         }, function (linkToKeep) {
                                             if (linkToKeep) {
+                                                var href = instanceLink.href;
+                                                var len  = req.path;
+                                                href = req.path + href.substring(req.path.length);
+                                                console.log("new href: " + href);
                                                 linkToKeep.href = instanceLink.rel === "schema/rel/self" ? selfUri : linkHrefExpander(linkToKeep.href, context.params);
                                                 outputLinks.push(linkToKeep);
                                             }
