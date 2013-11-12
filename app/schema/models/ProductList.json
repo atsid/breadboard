@@ -37,13 +37,6 @@
             }
         }
     }, {
-        "rel": "schema/rel/item",
-        "href": "application/users/{userId}/products/{productId}",
-        "method": "GET",
-        "schema": {
-            "$ref": "schema/models/Product"
-        }
-    }, {
         "rel": "schema/rel/create-order",
         "href": "application/users/{userId}/orders",
         "method": "POST",

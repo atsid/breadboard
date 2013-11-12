@@ -23,13 +23,6 @@
             "$ref": "schema/models/PaymentList"
         }
     }, {
-        "rel": "schema/rel/item",
-        "href": "application/users/{userId}/orders/{orderId}/payments/{paymentId}",
-        "method": "GET",
-        "schema": {
-            "$ref": "schema/models/Payment"
-        }
-    }, {
         "rel": "schema/rel/create",
         "href": "application/users/{userId}/orders/payments",
         "method": "POST",
