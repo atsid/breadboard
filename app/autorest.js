@@ -7,7 +7,6 @@ module.exports = function (app, config) {
 
             files.forEach(function (file) {
                 console.log("Scanning file " + file);
-
                 var model = require("./schema/models/" + file);
 
                 if (model.links) {
@@ -15,19 +14,19 @@ module.exports = function (app, config) {
                     model.links.forEach(function (link) {
 
                         var linkHref = link.href.replace("{", ":").replace("}", ""),
-
+                            schemaModel = require("./" + link.schema['$ref'] + ".json"),
                             handlerFunc = function (defaultHandlerPath, req, res) {
 
                                 req.params.uri = req.path;
 
-                                var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = (link.logic && link.logic.command) ? fs.readFileSync(link.logic.command + ".js", "UTF-8") : fs.readFileSync(defaultHandlerPath, "UTF-8"),
+                                var context = {params: req.params, model: schemaModel, links: schemaModel.links, entity: req.body, results: {}}, handlerScript = (link.logic && link.logic.command) ? fs.readFileSync(link.logic.command + ".js", "UTF-8") : fs.readFileSync(defaultHandlerPath, "UTF-8"),
                                     handler = eval("(function() {return " + handlerScript + "})()");
 
                                 handler(context, function () {
 
                                     var outputLinks = [];
 
-                                    model.links.forEach(function (instanceLink) {
+                                    schemaModel.links.forEach(function (instanceLink) {
 
                                         console.log("checking the links to determine if they should be added " + instanceLink.rel);
 
@@ -72,6 +71,7 @@ module.exports = function (app, config) {
                             console.log("Creating endpoint " + link.method + " using " + endpoint.appFunc + " with command " + endpoint.defaultCommand);
 
                             endpoint.appFunc("/" + linkHref, config.middleware, function (req, res, next) {
+                                console.log("Executing " + link.method + " on " + req.path + " with command " + endpoint.defaultCommand);
                                 handlerFunc(endpoint.defaultCommand, req, res);
                             });
                         }

@@ -1,4 +1,4 @@
-function read (context, callback) {
+function read(context, callback) {
 
     /**
      * Default read operation for the object of interest, with no other business logic.
@@ -13,15 +13,16 @@ function read (context, callback) {
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
         var c
-            ,self
-            ,coll
-            ,cname = "application"
+            , self
+            , coll
+            , cname = "application"
+            , link = context.link;
         ;
         context.links.forEach(function (link) {
             if (link.rel === "schema/rel/collection") {
-                coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
+                coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/") + 1);
             } else if (link.rel === "schema/rel/self") {
-                self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
+                self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/") + 1);
             }
         });
         cname = coll || self || "Application";
