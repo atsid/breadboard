@@ -3,9 +3,9 @@ define([
     'dojo/request/xhr'
 ], function (lang, xhr) {
 
-    var dataRels = {
-        "schema/rel/create": 1,
-        "schema/rel/edit": 1
+    var bodyMethods = {
+        "POST": 1,
+        "PUT": 1
     };
 
     return {
@@ -14,7 +14,7 @@ define([
                 handleAs: "json",
                 method: link.method || "GET"
             };
-            if (dataRels[link.rel]) {
+            if (bodyMethods[link.method]) {
                 options.data = model;
             }
             callback = callback || model;
