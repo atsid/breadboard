@@ -58,10 +58,10 @@ module.exports = function (app, config) {
 
                             },
                             endpointMapping = {
-                                "GET": { appFunc: app.get.bind(app), defaultCommand: "commands/default-logic-read.js" },
-                                "PUT": { appFunc: app.put.bind(app), defaultCommand: "commands/default-logic-update.js" },
-                                "POST": { appFunc: app.post.bind(app), defaultCommand: "commands/default-logic-create.js" },
-                                "DELETE": { appFunc: app.delete.bind(app), defaultCommand: "commands/default-logic-delete.js"}};
+                                "GET": { appFunc: app.get.bind(app), processor: config.middleware, defaultCommand: "commands/default-logic-read.js" },
+                                "PUT": { appFunc: app.put.bind(app), processor: config.middleware, defaultCommand: "commands/default-logic-update.js" },
+                                "POST": { appFunc: app.post.bind(app), processor: config.middleware, defaultCommand: "commands/default-logic-create.js" },
+                                "DELETE": { appFunc: app.delete.bind(app), processor: config.noparse, defaultCommand: "commands/default-logic-delete.js"}};
 
                         console.log("Found " + link.rel + " with method " + link.method + " with url " + linkHref);
 
@@ -70,8 +70,9 @@ module.exports = function (app, config) {
 
                             console.log("Creating endpoint " + link.method + " using " + endpoint.appFunc + " with command " + endpoint.defaultCommand);
 
-                            endpoint.appFunc("/" + linkHref, config.middleware, function (req, res, next) {
+                            endpoint.appFunc("/" + linkHref, endpoint.processor, function (req, res, next) {
                                 console.log("Executing " + link.method + " on " + req.path + " with command " + endpoint.defaultCommand);
+
                                 handlerFunc(endpoint.defaultCommand, req, res);
                             });
                         }
