@@ -18,31 +18,20 @@ module.exports = function (app, config) {
                             handler(context, function () {
                                 res.send(context.result);
                             });
-                        };
+                        }, endpointMapping = {
+                            "GET": { appFunc: app.get.bind(app), defaultCommand: "commands/default-logic-read.js" },
+                            "PUT": { appFunc: app.put.bind(app), defaultCommand: "commands/default-logic-update.js" },
+                            "POST": { appFunc: app.post.bind(app), defaultCommand: "commands/default-logic-create.js" },
+                            "DELETE": { appFunc: app.delete.bind(app), defaultCommand: "commands/default-logic-delete.js"}};
+
 
                         console.log("Found " + link.rel + " with method " + link.method + " with url " + linkHref);
+                        if (endpointMapping[link.method]) {
+                            var endpoint = endpointMapping[link.method];
 
-                        if ("GET" === link.method) {
-                            app.get("/" + linkHref, config.middleware, function (req, res, next) {
-                                handlerFunc("commands/default-logic-read.js", req, res);
-                            });
-                        }
-
-                        if ("PUT" === link.method) {
-                            app.put("/" + linkHref, config.middleware, function (req, res, next) {
-                                handlerFunc("commands/default-logic-update.js", req, res);
-                            });
-                        }
-
-                        if ("POST" === link.method) {
-                            app.post("/" + linkHref, config.middleware, function (req, res, next) {
-                                handlerFunc("commands/default-logic-create.js", req, res);
-                            });
-                        }
-
-                        if ("DELETE" == link.method) {
-                            app.delete("/" + linkHref, config.middleware, function (req, res, next) {
-                                handlerFunc("commands/default-logic-delete.js", req, res);
+                            console.log("Creating endpoint " + link.method + " using " + endpoint.appFunc + " with command " + endpoint.defaultCommand);
+                            endpoint.appFunc("/" + linkHref, config.middleware, function (req, res, next) {
+                                handlerFunc(endpoint.defaultCommand, req, res);
                             });
                         }
                     });
