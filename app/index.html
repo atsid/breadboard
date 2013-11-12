@@ -3,38 +3,43 @@
 <head>
     <title>Hateoas Node Application</title>
     <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/claro/claro.css"/>
+    <style type="text/css">
+        .row { width: 500px; display: inline-block; margin: 5px; }
+        .cell { width: 20%;  display:inline-block; }
+        .textcell { width: 30%;  display:inline-block; }
+    </style>
 </head>
 <body class="claro">
 
 <script type="text/javascript">
     var dojoConfig = {
             async: true,
-            packages: [
-                {
-                    name: "my",
-                    location: "/client"
-                }
-            ]
+            packages: [{
+                name: "my",
+                location: "/client"
+            }, {
+                name: "schematic",
+                location: "/client/lib/schematic"
+            }]
         },
-        initialUri = "application",
-        initialMethod = "GET";
+        initialUri = "application";
 
 </script>
 
-<!-- Bootstrap Dojo From Google's CDN -->
-<!-- removing the protocol from src url auto detects if current page is served via http or https and also loads the dojo resources from matching protocol -->
 <script
         type="text/javascript"
         src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js">
 </script>
 
+<script type="text/javascript" src="/client/lib/schematic-js.js"></script>
+
 <script type="text/javascript">
     require(["my/app/responseRenderer", "my/app/appView", "my/app/crudService"], function(responseRenderer, appView, crudService){
-        appView.domNode.style.width = "100%";
+        appView.domNode.style.width = "800px";
         appView.domNode.style.height = "100%";
         appView.placeAt(document.getElementById("appContainer"));
         appView.startup();
-        crudService.exec(initialUri, initialMethod, {}, function (response) {
+        crudService.exec({href: initialUri}, function (response) {
             responseRenderer.render(response);
         });
     });

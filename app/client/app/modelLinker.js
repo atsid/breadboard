@@ -1,14 +1,12 @@
 define([
     'dojo/_base/array',
-    './crudService',
-    './navigationService'
+    './crudService'
 ], function (
     dojoArray,
-    crudService,
-    navigationService
+    crudService
 ) {
 
-    var relTolabel = {
+    var relToLabel = {
         "schema/rel/self": "Refresh",
         "schema/rel/create": "Create",
         "schema/rel/edit": "Edit",
@@ -18,8 +16,8 @@ define([
     return {
         addLinks: function (links, mvc) {
             dojoArray.forEach(links, function (link) {
-                var action, label;
-                switch (link.rel) {
+                var action, label, rel = link.rel;
+                switch (rel) {
                     case "schema/rel/monitor":
                         action = this.createMonitor(link, mvc);
                         break;
@@ -33,9 +31,12 @@ define([
                         action = this.createModelActionButton(link, mvc);
                         break;
                     default:
-                        label = link.rel.split('/');
-                        label = label[label.length - 1];
-                        label = label.charAt(0).toUpperCase() + label.substr(1);
+                        label = relToLabel[rel];
+                        if (!label) {
+                            label = rel.split('/');
+                            label = label[label.length - 1];
+                            label = label.charAt(0).toUpperCase() + label.substr(1);
+                        }
                         action = this.createNavigationButton(link, mvc, label);
                 }
             }, this);
@@ -57,23 +58,23 @@ define([
         },
 
         createNavigationButton: function (link, mvc, label) {
-            label = label || relToLabel(link.rel);
+            label = label || relToLabel[link.rel];
             mvc.createButton(label, function () {
-                navigationService.exec(link.uri, link.method, function (response) {
+                crudService.exec(link, function (response) {
                     mvc.onNavigate(response);
                 });
             });
         },
 
         createModelActionButton: function (link, mvc) {
-            var label = relToLabel(link.rel);
+            var label = relToLabel[link.rel];
             mvc.createButton(label, function () {
                 if (label === 'Delete') {
                     if (confirm("Are you sure?") != true) {
                         return;
                     }
                 }
-                crudService.exec(link.uri, link.method, mvc.getModel(), function (response) {
+                crudService.exec(link, mvc.getModel(), function (response) {
                     mvc.onNavigate(response);
                 });
             });
