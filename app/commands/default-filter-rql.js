@@ -6,8 +6,8 @@ function filter(context, callback) {
 
     console.log("Executing rql query " + context.link.filter.arguments.rql);
 
-    var queryExecutor = require("rql/js-array"), args = context.args, fs = require("fs"),
-        result = queryExecutor.executeQuery(fs.readFileSync(context.link.filter.arguments.rql + ".rql", "UTF-8"), {}, [args]);
+//    var queryExecutor = require("rql/js-array"), args = context.args, fs = require("fs"),
+//        result = queryExecutor.executeQuery(fs.readFileSync(context.link.filter.arguments.rql + ".rql", "UTF-8"), {}, [args]);
 
-    callback(result.length > 0);
+    callback(context.link);
 };
