@@ -91,10 +91,10 @@ module.exports = function (app, config) {
 
                             },
                             endpointMapping = {
-                                "GET": { appFunc: app.get.bind(app), processor: config.middleware, defaultCommand: "commands/default-logic-read.js" },
-                                "PUT": { appFunc: app.put.bind(app), processor: config.middleware, defaultCommand: "commands/default-logic-update.js" },
-                                "POST": { appFunc: app.post.bind(app), processor: config.middleware, defaultCommand: "commands/default-logic-create.js" },
-                                "DELETE": { appFunc: app.delete.bind(app), processor: config.noparse, defaultCommand: "commands/default-logic-delete.js"}};
+                                "GET": { appFunc: app.get.bind(app), responseCode: 200, processor: config.middleware, defaultCommand: "commands/default-logic-read.js" },
+                                "PUT": { appFunc: app.put.bind(app), responseCode: 200, processor: config.middleware, defaultCommand: "commands/default-logic-update.js" },
+                                "POST": { appFunc: app.post.bind(app), responseCode: 201, processor: config.middleware, defaultCommand: "commands/default-logic-create.js" },
+                                "DELETE": { appFunc: app.delete.bind(app), responseCode: 204, processor: config.noparse, defaultCommand: "commands/default-logic-delete.js"}};
 
                         console.log("Found " + link.rel + " with method " + link.method + " with url " + linkHref);
 
@@ -107,6 +107,7 @@ module.exports = function (app, config) {
                                 console.log("Executing " + link.method + " on " + req.path + " with command " + endpoint.defaultCommand);
 
                                 handlerFunc(endpoint.defaultCommand, req, res);
+                                res.status(endpoint.responseCode);
                             });
                         }
                     });
