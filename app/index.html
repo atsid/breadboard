@@ -6,9 +6,11 @@
     <style type="text/css">
         body {
             font-family: Helvetica, Myriad, Arial, sans-serif;
+            font-size: 18px;
         }
         input {
             width: 100px;
+            font-size: 18px;
         }
         .item-uri {
             width: 400px;
@@ -17,17 +19,27 @@
             margin: 0 5px 0 20px;
         }
         #appContainer, #secondAppContainer {
-            border: 1px solid #ddd;
             margin: 20px;
             padding: 10px;
         }
         header {
-            margin-top: 10px;
+            margin-top: 20px;
             color: #889;
         }
         button {
             font-size: 14px;
             font-weight: bold;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        h1 {
+            font-size: 48px;
+        }
+        .one, .three, .five, .seven {
+            color: #bbb;
+        }
+        .two, .four, .six {
+            color: #777;
         }
         .row { width: 500px; display: inline-block; margin: 5px; }
         .cell { width: 20%;  display:inline-block; }
@@ -64,7 +76,7 @@
     });
 
 </script>
-<h1>HATEOAS Node Application</h1>
+<h1><span class="one">HYPERMEDIA</span><span class="two">AS</span><span class="three">THE</span><span class="four">ENGINE</span><span class="five">OF</span><span class="six">APPLICATION</span><span class="seven">STATE</span></h1>
 <div id="secondAppContainer"></div>
 </body>
 </html>

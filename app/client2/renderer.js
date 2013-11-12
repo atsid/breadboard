@@ -8,6 +8,12 @@ define([
     crudService
 ) {
 
+    var friendly = {
+        "schema/rel/self": "Refresh",
+        "schema/rel/up": "Back",
+        "schema/rel/collection": "Parent List"
+    };
+
     var actions = {
         "schema/rel/create": function (link, links) {
 
@@ -91,7 +97,9 @@ define([
     }
 
     function addItem(item, container) {
-        Object.keys(item).forEach(function (key) {
+        var keys = Object.keys(item);
+        keys.sort();
+        keys.forEach(function (key) {
 
             if (!hideProps[key]) {
                 var value = item[key];
@@ -132,7 +140,10 @@ define([
         var container = dom.byId("secondAppContainer");
         var elements = {};
 
-        Object.keys(properties).forEach(function (key) {
+        var keys = Object.keys(properties);
+        keys.sort();
+
+        keys.forEach(function (key) {
 
             console.log(key);
             var value = properties[key];
@@ -151,7 +162,8 @@ define([
                 }
 
                 if (value.readonly) {
-                    element.disabled = true;
+                    label.style.display = "none";
+                    element.style.display = "none";
                 }
                 container.appendChild(label);
                 container.appendChild(element);
@@ -191,7 +203,7 @@ define([
 
     function renderItem(response, container) {
         var header = document.createElement("header");
-        header.innerHTML = "Item";
+        header.innerHTML = "ITEM";
         container.appendChild(header);
 
         var data = response.data;
@@ -202,7 +214,7 @@ define([
 
     function renderItems(response, container) {
         var header = document.createElement("header");
-        header.innerHTML = "Items";
+        header.innerHTML = "ITEMS";
         container.appendChild(header);
 
         var data = response.data;
@@ -221,7 +233,7 @@ define([
     function renderLinks(response, container) {
 
         var header = document.createElement("header");
-        header.innerHTML = "Links";
+        header.innerHTML = "LINKS";
         container.appendChild(header);
 
         var links = response.links;
@@ -233,10 +245,12 @@ define([
             if (!hide[rel]) {
 
                 var button = document.createElement("button");
-                var word = rel.substring(rel.lastIndexOf("/") + 1, rel.length);
-                var text = word.substring(0, 1).toUpperCase() + word.substring(1, word.length);
-                text = text.replace("-", " ");
-
+                var text = friendly[rel];
+                if (!text) {
+                    var word = rel.substring(rel.lastIndexOf("/") + 1, rel.length);
+                    var text = word.substring(0, 1).toUpperCase() + word.substring(1, word.length);
+                    text = text.replace("-", " ");
+                }
                 button.innerHTML = text;
                 button.onclick = function () {
 
