@@ -35,9 +35,9 @@ function (
 
         getItems: function (response, callback) {
             var count = 0,
-                item = response.item,
+                item = response.data || {},
                 responseItems = item.items ? item.items : [item],
-                total = responseItems.length,
+                total = responseItems.length || 1,
                 items = [],
                 testReady = function (item, i) {
                     items[i] = item;
@@ -47,10 +47,13 @@ function (
                     }
                 };
 
+            if (!responseItems.length) {
+                responseItems = [{}];
+            }
             responseItems.forEach(function (responseItem, i) {
                 var item = dojoLang.mixin({}, responseItem);
                 if (item.href) {
-                    crudService.get(item.href, function (model) {
+                    crudService.exec({uri: item.href}, function (model) {
                         testReady(model, i);
                     });
                 } else {
