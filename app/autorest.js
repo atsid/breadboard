@@ -48,7 +48,7 @@ module.exports = function (app, config) {
                                     });
 
                                     var response = {
-                                        item: context.result,
+                                        data: context.result,
                                         links: outputLinks
                                     };
 
