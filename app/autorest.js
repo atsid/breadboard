@@ -7,7 +7,8 @@ module.exports = function (app, config) {
 
             files.forEach(function (file) {
                 console.log("Scanning file " + file);
-                model = require("./schema/models/" + file);
+
+                var model = require("./schema/models/" + file);
 
                 if (model.links) {
 
