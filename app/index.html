@@ -1,9 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hateoas Node Application</title>
+    <title>HATEOAS</title>
     <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/claro/claro.css"/>
     <style type="text/css">
+        body {
+            font-family: Helvetica, Myriad, Arial, sans-serif;
+        }
+        input {
+            width: 100px;
+        }
+        .item-uri {
+            width: 400px;
+        }
+        label {
+            margin: 0 5px 0 20px;
+        }
+        #appContainer, #secondAppContainer {
+            border: 1px solid #ddd;
+            margin: 20px;
+            padding: 10px;
+        }
+        header {
+            margin-top: 10px;
+            color: #889;
+        }
+        button {
+            font-size: 14px;
+            font-weight: bold;
+        }
         .row { width: 500px; display: inline-block; margin: 5px; }
         .cell { width: 20%;  display:inline-block; }
         .textcell { width: 30%;  display:inline-block; }
@@ -11,40 +36,35 @@
 </head>
 <body class="claro">
 
-<script type="text/javascript">
+<script>
     var dojoConfig = {
             async: true,
             packages: [{
                 name: "my",
                 location: "/client"
             }, {
-                name: "schematic",
-                location: "/client/lib/schematic"
+                name: "js",
+                location: "/client2"
             }]
         },
         initialUri = "application";
 
 </script>
 
-<script
-        type="text/javascript"
-        src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js">
-</script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
 
-<script type="text/javascript" src="/client/lib/schematic-js.js"></script>
+<script>
 
-<script type="text/javascript">
-    require(["my/app/responseRenderer", "my/app/appView", "my/app/crudService"], function(responseRenderer, appView, crudService){
-        appView.domNode.style.width = "800px";
-        appView.domNode.style.height = "100%";
-        appView.placeAt(document.getElementById("appContainer"));
-        appView.startup();
-        crudService.exec({href: initialUri}, function (response) {
-            responseRenderer.render(response);
-        });
+    require(["js/renderer"], function(renderer) {
+
+        console.log("starting");
+
+        renderer.render(initialUri);
+
     });
+
 </script>
-<h1>Hateoas Node Application</h1>
-<div id="appContainer"></div>
+<h1>HATEOAS Node Application</h1>
+<div id="secondAppContainer"></div>
 </body>
 </html>
