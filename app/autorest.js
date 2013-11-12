@@ -16,7 +16,6 @@ module.exports = function (app, config) {
                             var context = {params: req.params, links: model.links, entity: req.body, results: {}}, handlerScript = (link.logic && link.logic.command) ? fs.readFileSync(link.logic.command + ".js", "UTF-8") : fs.readFileSync(defaultHandlerPath, "UTF-8"),
                                 handler = eval("(function() {return " + handlerScript + "})()");
                             handler(context, function () {
-                                context.result.links = model.links;
                                 res.send(context.result);
                             });
                         };
