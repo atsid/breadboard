@@ -82,7 +82,7 @@ module.exports = function (app, config) {
                                             result: context.result
                                         }, function (linkToKeep) {
                                             if (linkToKeep) {
-                                                linkToKeep.href = linkHrefExpander(linkToKeep.href, context.params);
+                                                linkToKeep.href = instanceLink.rel === "schema/rel/self" ? context.result.uri : linkHrefExpander(linkToKeep.href, context.params);
                                                 outputLinks.push(linkToKeep);
                                             }
                                         });
