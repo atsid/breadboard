@@ -1,6 +1,7 @@
 define([
-    '../lang'
-], function (lang) {
+    '../lang',
+    'dojo/request/xhr'
+], function (lang, xhr) {
 
     var dummy = {
         "item": {
@@ -27,7 +28,11 @@ define([
 
     return {
         exec: function (uri, method, model, callback) {
-            callback(dummy);
+
+            xhr(uri, {
+                handleAs: "json"
+            }).then(callback);
+
         }
     };
 });
