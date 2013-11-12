@@ -42,9 +42,11 @@ module.exports = function (app, config) {
                                             linkFilterHandler = eval("(function() {return " + linkHandlerScript + "})()");
 
                                         function linkHrefExpander(uri, params) {
-                                            Object.keys(params).forEach(function (param) {
-                                                uri = uri.replace("{" + param + "}", params[param]);
-                                            });
+                                            if (uri) {
+                                                Object.keys(params).forEach(function (param) {
+                                                    uri = uri.replace("{" + param + "}", params[param]);
+                                                });
+                                            }
                                             return uri;
                                         }
 
@@ -55,6 +57,7 @@ module.exports = function (app, config) {
 
                                             Object.keys(args).forEach(function (arg) {
                                                 var argUri = args[arg];
+                                                console.log("raw argUri: " + argUri);
                                                 argUri = linkHrefExpander(argUri, context.params);
                                                 console.log("\tlooking up arg [" + arg + "] @ " + argUri);
 
