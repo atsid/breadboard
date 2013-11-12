@@ -17,12 +17,6 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname));
 
-//restsmd(app, {
-//    mongoInstance: "mongodb://cloudbees:dba69a3b8d21d8f16c1393935dbab7bf@alex.mongohq.com:10018/BYe5thvosvLkf8H88k10Tg",
-////    mongoInstance: "mongodb://localhost",
-//    modelDir: "./schema/models/mongoose",
-//    appDir: process.cwd() + '/'
-//});
 autorest(app, {
     middleware: [express.bodyParser()]
 }).scan();
