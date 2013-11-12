@@ -35,6 +35,14 @@
         "method": "POST",
         "schema": {
             "$ref": "schema/models/Payment"
+        },
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "payments": "application/users/{userId}/orders/{orderId}/payments",
+                "rql": "user.role=customer&payments(0).status=paid"
+            }
         }
     }]
 }

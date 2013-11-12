@@ -39,6 +39,24 @@
         "method": "PUT",
         "schema": {
             "$ref": "schema/models/Product"
+        },
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "rql": "user.role=barista"
+            }
+        }
+    }, {
+        "rel": "schema/rel/remove",
+        "href": "application/users/{userId}/products/{productId}",
+        "method": "DELETE",
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "rql": "user.role=barista"
+            }
         }
     }, {
         "rel": "schema/rel/collection",
@@ -47,9 +65,5 @@
         "schema": {
             "$ref": "schema/models/ProductList"
         }
-    }, {
-        "rel": "schema/rel/remove",
-        "href": "application/users/{userId}/products/{productId}",
-        "method": "DELETE"
     }]
 }

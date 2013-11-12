@@ -1,5 +1,13 @@
 function read (context, callback) {
 
+    /**
+     * Default read operation for the object of interest, with no other business logic.
+     * It reads the object from mongodb.
+     * In order to determine what table (collection) to use, it looks first for the "collection"
+     * link, which defines that collection an item is within. If this link is not present,
+     * we are dealing with an actual collection, in which case the "self" link is used.
+     */
+
     var mongodb = require("mongodb"),
         dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
 

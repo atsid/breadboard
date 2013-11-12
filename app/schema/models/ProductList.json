@@ -28,6 +28,13 @@
         "method": "POST",
         "schema": {
             "$ref": "schema/models/Product"
+        },
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "rql": "user.role=barista"
+            }
         }
     }, {
         "rel": "schema/rel/item",

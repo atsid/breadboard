@@ -51,6 +51,14 @@
         "method": "POST",
         "schema": {
             "$ref": "schema/models/Payment"
+        },
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "payments": "application/users/{userId}/orders/{orderId}/payments",
+                "rql": "user.role=customer&payments(0).status=unpaid"
+            }
         }
     }, {
         "rel": "schema/rel/edit",
@@ -58,14 +66,37 @@
         "method": "PUT",
         "schema": {
             "$ref": "schema/models/Order"
+        },
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "rql": "user.role=barista"
+            }
         }
     }, {
         "rel": "schema/rel/receive-order",
         "href": "application/users/{userId}/orders/{orderId}",
-        "method": "DELETE"
+        "method": "DELETE",
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "payments": "application/users/{userId}/orders/{orderId}/payments",
+                "order": "application/users/{userId}/orders/{orderId}",
+                "rql": "user.role=customer&order.status=ready&payments(0).status=paid"
+            }
+        }
     }, {
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}/orders/{orderId}",
-        "method": "DELETE"
+        "method": "DELETE",
+        "filter": {
+            "command": "commands/default-filter-rql",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "rql": "user.role=customer"
+            }
+        }
     }]
 }
