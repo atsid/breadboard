@@ -1,1 +1,1 @@
-user/role=customer&payments.length>0&payments[0]/status=unpaid
+user/data/role=customer&payments.length>0&payments[0]/status=unpaid

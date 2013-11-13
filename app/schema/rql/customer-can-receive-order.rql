@@ -1,1 +1,1 @@
-user/role=customer&order/status=ready&payment.length>0&payments[0]/status=paid
+user/data/role=customer&order/data/status=ready&payment.length>0&payments[0]/status=paid

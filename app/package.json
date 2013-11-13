@@ -9,6 +9,7 @@
         "express": "3.2.3",
         "newrelic": "*",
         "mongodb": "*",
-        "rql": "*"
+        "rql": "*",
+        "async": "*"
     }
 }
