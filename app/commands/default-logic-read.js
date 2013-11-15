@@ -41,14 +41,15 @@ function read(context, callback) {
                         items: docs
                     };
                     callback(context);
+                    db.close();
                 });
             } else {
                 col.findOne({_id: context.params.uri}, function (err, doc) {
                     context.result = doc;
                     callback(context);
+                    db.close();
                 });
             }
-            db.close();
 
         });
 
