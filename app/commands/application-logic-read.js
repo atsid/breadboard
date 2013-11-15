@@ -15,6 +15,7 @@ function read(context, callback) {
         c = db.collection(cname);
         c.findOne({ }, function (err, doc) {
             context.result = doc;
+            db.close();
             console.log("Reading from collection: " + cname + " : " + JSON.stringify(context.result));
             callback(context)
         });

@@ -48,6 +48,7 @@ function read(context, callback) {
                     callback(context);
                 });
             }
+            db.close();
 
         });
 

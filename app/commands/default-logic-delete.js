@@ -28,6 +28,7 @@ function remove (context, callback) {
 
         c = db.collection(cname);
         c.remove({_id: context.params.uri}, function (err, count) {
+            db.close();
             console.log("Removing (x) items from collection: " + cname + " : " + count);
             callback(context)
         });

@@ -33,6 +33,7 @@ function create (context, callback) {
         c.insert(context.entity, function (err, docs) {
             context.result = docs[0];
             console.log("Created in collection: " + cname + " :" + JSON.stringify("result: " +  context.result));
+            db.close();
             callback(context)
         });
 

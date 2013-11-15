@@ -29,6 +29,7 @@ function update (context, callback) {
         c = db.collection(cname);
         c.update({_id: context.entity._id}, context.entity, function (err, doc) {
             context.result = context.entity;
+            db.close();
             console.log("Updating to collection: " + cname + " : " + JSON.stringify(context.result));
             callback(context);
         });
