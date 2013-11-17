@@ -1,7 +1,8 @@
 var fs = require("fs"),
     http = require("http"),
     async = require("async"),
-    argLoader = require("./arg-loader.js");
+    argLoader = require("./arg-loader.js"),
+    clone = require("clone");
 
 module.exports = function (app, config) {
     var scan = function () {
@@ -85,9 +86,8 @@ module.exports = function (app, config) {
                                                         schemaModel.links.forEach(function (schemaLink) {
                                                             schemaLinkFunctions.push(function (schemaCallback) {
                                                                 // Make sure we use a clone of the schema model so we don't modify the original!!!
-                                                                linkFunction(JSON.parse(JSON.stringify(schemaLink)), schemaCallback);
+                                                                linkFunction(clone(schemaLink), schemaCallback);
                                                             });
-
                                                         });
 
                                                         async.series(schemaLinkFunctions, function () {

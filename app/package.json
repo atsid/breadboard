@@ -10,6 +10,7 @@
         "newrelic": "*",
         "mongodb": "*",
         "rql": "*",
-        "async": "*"
+        "async": "*",
+        "clone": "*"
     }
 }
