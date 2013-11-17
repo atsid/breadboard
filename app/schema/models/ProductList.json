@@ -8,47 +8,60 @@
             }
         }
     },
-    "links": [{
-        "rel": "schema/rel/self",
-        "href": "application/users/{userId}/products",
-        "method": "GET",
-        "schema": {
-            "$ref": "schema/models/ProductList"
-        }
-    }, {
-        "rel": "schema/rel/monitor",
-        "href": "application/users/{userId}/products",
-        "method": "GET",
-        "schema": {
-            "$ref": "schema/models/ProductList"
-        }
-    }, {
-        "rel": "schema/rel/create",
-        "href": "application/users/{userId}/products",
-        "method": "POST",
-        "schema": {
-            "$ref": "schema/models/Product"
+    "links": [
+        {
+            "rel": "schema/rel/self",
+            "href": "application/users/{userId}/products",
+            "method": "GET",
+            "schema": {
+                "$ref": "schema/models/ProductList"
+            }
         },
-        "filter": {
-            "command": "commands/default-filter-rql",
-            "arguments": {
-                "user": "application/users/{userId}",
-                "rql": "schema/rql/user-is-barista"
+        {
+            "rel": "schema/rel/monitor",
+            "href": "application/users/{userId}/products",
+            "method": "GET",
+            "schema": {
+                "$ref": "schema/models/ProductList"
+            }
+        },
+        {
+            "rel": "schema/rel/create",
+            "href": "application/users/{userId}/products",
+            "method": "POST",
+            "schema": {
+                "$ref": "schema/models/Product"
+            },
+            "filter": {
+                "command": "commands/default-filter-rql",
+                "arguments": {
+                    "user": "application/users/{userId}",
+                    "rql": "schema/rql/user-is-barista"
+                }
+            }
+        },
+        {
+            "rel": "schema/rel/create-order",
+            "href": "application/users/{userId}/orders",
+            "method": "POST",
+            "schema": {
+                "$ref": "schema/models/Order"
+            },
+            "filter": {
+                "command": "commands/default-filter-rql",
+                "arguments": {
+                    "user": "application/users/{userId}",
+                    "rql": "schema/rql/user-is-customer"
+                }
+            }
+        },
+        {
+            "rel": "schema/rel/up",
+            "href": "application/users/{userId}",
+            "method": "GET",
+            "schema": {
+                "$ref": "schema/models/User"
             }
         }
-    }, {
-        "rel": "schema/rel/create-order",
-        "href": "application/users/{userId}/orders",
-        "method": "POST",
-        "schema": {
-            "$ref": "schema/models/Order"
-        }
-    }, {
-        "rel": "schema/rel/up",
-        "href": "application/users/{userId}",
-        "method": "GET",
-        "schema": {
-            "$ref": "schema/models/User"
-        }
-    }]
+    ]
 }
