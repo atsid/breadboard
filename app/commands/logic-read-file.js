@@ -41,6 +41,4 @@ function read (context, callback) {
         });
     }
 
-
-
 };

@@ -9,7 +9,7 @@ function read(context, callback) {
      */
 
     var mongodb = require("mongodb"),
-        dbstring = "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw";
+        dbstring = app.get("mongodb.connect");
 
     mongodb.MongoClient.connect(dbstring, function (err, db) {
 
