@@ -54,7 +54,6 @@ module.exports = {
             schemaLinkFunctions.push(function (schemaCallback) {
                 // Make sure we use a clone of the schema model so we don't modify the original!!!
                 linkFunction(context, outputLinks, req, clone(schemaLink), schemaCallback);
-//                linkFunction = function (context, outputLinks, req, instanceLink, schemaCallback) {
             });
         });
 
