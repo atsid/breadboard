@@ -14,7 +14,7 @@
         "name": {
             "type": "string",
             "description": "Name of the application",
-            "readonly": true
+            "readonly": false
         }
     },
     "links": [{
@@ -25,7 +25,14 @@
             "$ref": "schema/models/Application"
         },
         "logic": {
-            "command": "commands/application-logic-read"
+            "command": "commands/logic-read-file-application"
+        }
+    }, {
+        "rel": "schema/rel/create",
+        "href": "application",
+        "method": "POST",
+        "schema": {
+            "$ref": "schema/models/Application"
         }
     }, {
         "rel": "schema/rel/users",
