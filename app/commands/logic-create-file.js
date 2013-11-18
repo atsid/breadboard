@@ -1,9 +1,9 @@
-function create (context, callback) {
+exports.execute = function (context, app, callback) {
 
     console.log("create file called");
     console.log(JSON.stringify(context));
 
-    var file = require("./util/file"),
+    var file = require("../util/file"),
         uuid = require("node-uuid"),
         coll,
         self,

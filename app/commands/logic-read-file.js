@@ -1,9 +1,9 @@
-function read (context, callback) {
+exports.execute = function (context, app, callback) {
 
     console.log("read file called");
     console.log(JSON.stringify(context));
 
-    var file = require("./util/file"),
+    var file = require("../util/file"),
         coll,
         self,
         cname,

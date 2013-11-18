@@ -21,10 +21,13 @@ module.exports = function (app, config) {
 
                                                 req.params.uri = req.path;
 
-                                                var context = {params: req.params, model: schemaModel, links: schemaModel.links, entity: req.body, results: {}}, handlerScript = (link.logic && link.logic.command) ? fs.readFileSync(link.logic.command + ".js", "UTF-8") : fs.readFileSync(defaultHandlerPath, "UTF-8"),
-                                                    handler = eval("(function() {return " + handlerScript + "})()");
+                                                var context = {params: req.params, model: schemaModel, links: schemaModel.links, entity: req.body, results: {}},
+                                                    commandFilename = link.logic ? link.logic.command : defaultHandlerPath;
+                                                    //handlerScript = (link.logic && link.logic.command) ? fs.readFileSync(link.logic.command + ".js", "UTF-8") : fs.readFileSync(defaultHandlerPath, "UTF-8"),
+                                                    //handler = eval("(function() {return " + handlerScript + "})()");
+                                                    handler = require(commandFilename);
 
-                                                handler(context, function () {
+                                                handler.execute(context, app, function () {
 
                                                         console.log("executing handler with params");
                                                         Object.keys(context.params).forEach(function (param) {

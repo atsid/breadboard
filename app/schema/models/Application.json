@@ -25,7 +25,7 @@
             "$ref": "schema/models/Application"
         },
         "logic": {
-            "command": "commands/logic-read-file-application"
+            "command": "./commands/logic-read-file-application.js"
         }
     }, {
         "rel": "schema/rel/create",

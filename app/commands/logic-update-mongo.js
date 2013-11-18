@@ -1,4 +1,4 @@
-function update (context, callback) {
+exports.execute = function (context, app, callback) {
 
     /**
      * Default update operation for the object of interest, with no other business logic.

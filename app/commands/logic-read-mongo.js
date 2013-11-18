@@ -1,4 +1,4 @@
-function read(context, callback) {
+exports.execute = function (context, app, callback) {
 
     /**
      * Default read operation for the object of interest, with no other business logic.

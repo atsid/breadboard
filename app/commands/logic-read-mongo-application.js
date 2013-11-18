@@ -1,4 +1,4 @@
-function read(context, callback) {
+exports.execute = function (context, app, callback) {
 
     /**
      * This is a special command to load the application. There can be only one (highlander!),

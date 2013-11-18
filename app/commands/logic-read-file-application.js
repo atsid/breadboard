@@ -1,10 +1,10 @@
-function read (context, callback) {
+exports.execute = function (context, app, callback) {
 
     //TODO: this should just load the regular read file, execute it, and return the first (only) one
-    console.log("read called");
+    console.log("read application called");
     console.log(JSON.stringify(context));
 
-    var file = require("./util/file"),
+    var file = require("../util/file.js"),
         cname = "Application",
         root = app.get("dataPath"),
         path = root + cname;
