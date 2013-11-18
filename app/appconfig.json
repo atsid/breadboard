@@ -1,10 +1,10 @@
 {
     "defaults": {
         "logic": {
-            "get": "./commands/logic-read-file.js",
-            "post": "./commands/logic-create-file.js",
-            "put": "./commands/logic-update-file.js",
-            "delete": "./commands/logic-delete-file.js"
+            "get": "./commands/logic-read-file",
+            "post": "./commands/logic-create-file",
+            "put": "./commands/logic-update-file",
+            "delete": "./commands/logic-delete-file"
         }
     },
     "dataPath": "/tmp/breadboard-data/",

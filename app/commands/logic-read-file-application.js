@@ -4,7 +4,7 @@ exports.execute = function (context, app, callback) {
     console.log("read application called");
     console.log(JSON.stringify(context));
 
-    var file = require("../util/file.js"),
+    var file = require("../util/file"),
         cname = "Application",
         root = app.get("dataPath"),
         path = root + cname;

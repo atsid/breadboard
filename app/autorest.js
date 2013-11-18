@@ -22,9 +22,7 @@ module.exports = function (app, config) {
                                                 req.params.uri = req.path;
 
                                                 var context = {params: req.params, model: schemaModel, links: schemaModel.links, entity: req.body, results: {}},
-                                                    commandFilename = link.logic ? link.logic.command : defaultHandlerPath;
-                                                    //handlerScript = (link.logic && link.logic.command) ? fs.readFileSync(link.logic.command + ".js", "UTF-8") : fs.readFileSync(defaultHandlerPath, "UTF-8"),
-                                                    //handler = eval("(function() {return " + handlerScript + "})()");
+                                                    commandFilename = link.logic ? "./" + link.logic.command : defaultHandlerPath;
                                                     handler = require(commandFilename);
 
                                                 handler.execute(context, app, function () {
@@ -39,10 +37,11 @@ module.exports = function (app, config) {
                                                                 console.log("checking the links to determine if they should be added " + instanceLink.rel);
 
                                                                 var linkFilter = instanceLink.filter,
-                                                                    linkFilterCommand = linkFilter && linkFilter.command ? linkFilter.command : "./commands/default-filter-include",
+                                                                    linkFilterCommand = linkFilter ? "./" + linkFilter.command : "./commands/default-filter-include",
                                                                     linkFilterArguments = linkFilter && linkFilter.arguments ? linkFilter.arguments : {},
-                                                                    linkHandlerScript = fs.readFileSync(linkFilterCommand + ".js", "UTF-8"),
-                                                                    linkFilterHandler = eval("(function() {return " + linkHandlerScript + "})()");
+//                                                                    linkHandlerScript = fs.readFileSync(linkFilterCommand + ".js", "UTF-8"),
+//                                                                    linkFilterHandler = eval("(function() {return " + linkHandlerScript + "})()");
+                                                                    linkFilterHandler = require(linkFilterCommand);
 
                                                                 function linkHrefExpander(uri, params) {
                                                                     if (uri) {
@@ -64,7 +63,7 @@ module.exports = function (app, config) {
                                                                         console.log("\tlooking up arg [" + arg + "] @ " + argUri);
 
                                                                         functionList[arg] = function (callback) {
-                                                                            console.log("Request[" + i + "] callback");
+                                                                            console.log("Request[" + i + "] callback for " + argUri);
                                                                             http.get("http://localhost:3000/" + argUri, function (res2) {
                                                                                 res2.on('data', function (res3) {
                                                                                     console.log("Response[" + i + "]: " + typeof res3);
@@ -109,7 +108,7 @@ module.exports = function (app, config) {
                                                                 console.log("path: " + req.path);
 
                                                                 var argValues = retrieveLinkFilterArguments(linkFilterArguments, function () {
-                                                                    linkFilterHandler({
+                                                                    linkFilterHandler.execute({
                                                                         params: context.params,
                                                                         link: instanceLink,
                                                                         entity: context.entity,
