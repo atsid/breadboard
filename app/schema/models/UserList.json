@@ -31,7 +31,7 @@
         }
     }, {
         "rel": "schema/rel/up",
-        "href": "/application",
+        "href": "application",
         "method": "GET",
         "schema": {
             "$ref": "schema/models/Application"
