@@ -1,13 +1,14 @@
 {
     "defaults": {
         "logic": {
-            "get": "./commands/logic-read-file",
-            "post": "./commands/logic-create-file",
-            "put": "./commands/logic-update-file",
-            "delete": "./commands/logic-delete-file"
+            "get": "./commands/logic-read",
+            "post": "./commands/logic-create",
+            "put": "./commands/logic-update",
+            "delete": "./commands/logic-delete"
         }
     },
-    "dataPath": "/tmp/breadboard-data/",
+    "fileDataPath": "/tmp/breadboard-data/",
+    "dataProvider": "../providers/file-reader",
     "mongodb": {
         "connect": "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw"
     }

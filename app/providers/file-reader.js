@@ -5,7 +5,7 @@ function makeFilename(args) {
     var collection = args.collection,
         id = args.id,
         app = args.app,
-        root = app.get("dataPath"),
+        root = app.get("fileDataPath"),
         path = root + collection,
         filename = path;
 

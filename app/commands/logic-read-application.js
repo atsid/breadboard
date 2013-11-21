@@ -1,6 +1,6 @@
 exports.execute = function (context, app, callback) {
 
-    var provider = require("../providers/file-reader");
+    var provider = require(app.get("dataProvider"));
 
     provider.readList({
         collection: "Application",
