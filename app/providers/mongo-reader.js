@@ -1,19 +1,19 @@
-exports.readOne = function () {
+exports.readOne = function (args, callback) {
 
 };
 
-exports.readList = function () {
+exports.readList = function (args, callback) {
 
 };
 
-exports.create = function () {
+exports.create = function (args, callback) {
 
 };
 
-exports.update = function () {
+exports.update = function (args, callback) {
 
 };
 
-exports.remove = function () {
+exports.remove = function (args, callback) {
 
 };
