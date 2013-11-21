@@ -3,37 +3,30 @@ exports.execute = function (context, app, callback) {
     console.log("update file called");
     console.log(JSON.stringify(context));
 
-    var file = require("../util/file"),
-        coll,
-        self,
-        cname,
-        root = app.get("dataPath"),
-        path,
+    var provider = require("../providers/file-reader"),
+        links = require("../util/links"),
+        //all this logic is to determine if it is one or a list based on link options. TODO: extract
+        //this could be done instead by looking at the schema itself instead of checking for collection/self links
+        coll = links.find(context.links, "schema/rel/collection"),
+        self = links.find(context.links, "schema/rel/self"),
+        link = coll || self,
+        cname = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1),
         uri = context.params.uri,
         id = uri.substring(uri.lastIndexOf("/"), uri.length),
-        filename;
+        args = {
+            data: context.entity,
+            collection: cname,
+            id: id,
+            app: app
+        };
 
-    context.links.forEach(function (link) {
-        if (link.rel === "schema/rel/collection") {
-            coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
-        } else if (link.rel === "schema/rel/self") {
-            self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
-        }
-    });
-
-    cname = coll || self;
-
-    path = root + cname;
-
-    console.log("object storage is in " + path);
-
-    filename = path + id;
-
-    console.log("saving edited object at [" + filename + "]", context.entity);
-
-    file.forceWriteJSONFile(filename, context.entity, function (err, result) {
-        context.result = result;
-        callback(context);
-    });
+    if (coll) {
+        provider.update(args, function (err, file) {
+            context.result = file;
+            callback(context);
+        });
+    } else {
+        throw new Error("Attempting to [update] entire collection");
+    }
 
 };

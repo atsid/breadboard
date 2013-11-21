@@ -31,7 +31,6 @@ exports.forceReadJSONDirectory = function (dirname, callback) {
 
     exports.forceReadDirectory(dirname, function (err, files) {
         var output = [];
-        console.log("files", files);
         files.forEach(function (file) {
             var json = JSON.parse(fs.readFileSync(dirname + "/" + file));
             output.push(json);

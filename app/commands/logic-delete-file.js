@@ -3,36 +3,29 @@ exports.execute = function (context, app, callback) {
     console.log("delete file called");
     console.log(JSON.stringify(context));
 
-    var file = require("../util/file"),
-        coll,
-        self,
-        cname,
-        root = app.get("dataPath"),
-        path,
+    var provider = require("../providers/file-reader"),
+        links = require("../util/links"),
+        //all this logic is to determine if it is one or a list based on link options. TODO: extract
+        //this could be done instead by looking at the schema itself instead of checking for collection/self links
+        coll = links.find(context.links, "schema/rel/collection"),
+        self = links.find(context.links, "schema/rel/self"),
+        link = coll || self,
+        cname = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1),
         uri = context.params.uri,
         id = uri.substring(uri.lastIndexOf("/"), uri.length),
-        filename;
-
-    context.links.forEach(function (link) {
-        if (link.rel === "schema/rel/collection") {
-            coll = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
-        } else if (link.rel === "schema/rel/self") {
-            self = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1);
-        }
-    });
-
-    cname = coll || self;
-
-    path = root + cname;
+        args = {
+            collection: cname,
+            id: id,
+            app: app
+        };
 
     //if it is an item in a collection, read one, otherwise read the directory
     if (coll) {
-        filename = path + id;
-        file.deleteJSONFile(filename, function (err) {
+        provider.remove(args, function (err) {
+            context.result = null; //??
             callback(context);
         });
     } else {
-        throw new Error("deleting of collections not yet supported");
+        throw new Error("Attempting to [delete] entire collection");
     }
-
 };
