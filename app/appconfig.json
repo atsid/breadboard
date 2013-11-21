@@ -8,7 +8,7 @@
         }
     },
     "fileDataPath": "/tmp/breadboard-data/",
-    "dataProvider": "../providers/file-reader",
+    "dataProvider": "../providers/mongo-reader",
     "mongodb": {
         "connect": "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw"
     }

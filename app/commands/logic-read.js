@@ -14,6 +14,7 @@ exports.execute = function (context, app, callback) {
         uri = context.params.uri,
         id = uri.substring(uri.lastIndexOf("/"), uri.length),
         args = {
+            uri: uri,
             collection: cname,
             app: app
         };
