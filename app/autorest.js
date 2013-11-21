@@ -114,7 +114,9 @@ module.exports = function (app, config) {
                                                                         entity: context.entity,
                                                                         result: context.result,
                                                                         args: argValues
-                                                                    }, function (linkToKeep) {
+                                                                    },
+                                                                    app,
+                                                                    function (linkToKeep) {
                                                                         if (linkToKeep) {
                                                                             var href = instanceLink.href;
                                                                             var len = req.path;
@@ -182,5 +184,6 @@ module.exports = function (app, config) {
 
     return {
         scan: scan
-    }
-}
+    };
+
+};

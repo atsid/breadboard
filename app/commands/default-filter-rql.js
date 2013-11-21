@@ -1,4 +1,4 @@
-exports.execute = function (context, callback) {
+exports.execute = function (context, app, callback) {
     /**
      * This filter function determines if a link should be present by applying an RQL query against the
      * arguments, and only returning the link if the query evaluates true.

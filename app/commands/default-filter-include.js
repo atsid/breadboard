@@ -1,4 +1,4 @@
-exports.execute = function (context, callback) {
+exports.execute = function (context, app, callback) {
 
     /**
      * This is the default filter function, and always includes the link in question.
