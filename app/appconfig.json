@@ -1,10 +1,10 @@
 {
     "defaults": {
         "logic": {
-            "get": "./commands/logic-read-file",
-            "post": "./commands/logic-create-file",
-            "put": "./commands/logic-update-file",
-            "delete": "./commands/logic-delete-file"
+            "get": "./commands/logic-read-mongo",
+            "post": "./commands/logic-create-mongo",
+            "put": "./commands/logic-update-mongo",
+            "delete": "./commands/logic-delete-mongo"
         }
     },
     "dataPath": "/tmp/breadboard-data/",
