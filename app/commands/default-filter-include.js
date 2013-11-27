@@ -1,3 +1,5 @@
+"use strict";
+
 exports.execute = function (context, app, callback) {
 
     /**

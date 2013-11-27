@@ -1,3 +1,5 @@
+"use strict";
+
 exports.execute = function (context, app, callback) {
     /**
      * This filter function determines if a link should be present by applying an RQL query against the

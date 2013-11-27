@@ -1,3 +1,5 @@
+"use strict";
+
 exports.execute = function (context, app, callback) {
 
     console.log("delete file called");
@@ -10,7 +12,7 @@ exports.execute = function (context, app, callback) {
         coll = links.find(context.links, "schema/rel/collection"),
         self = links.find(context.links, "schema/rel/self"),
         link = coll || self,
-        cname = link.schema['$ref'].substring(link.schema['$ref'].lastIndexOf("/")+1),
+        cname = link.schema.$ref.substring(link.schema.$ref.lastIndexOf("/") + 1),
         uri = context.params.uri,
         id = uri.substring(uri.lastIndexOf("/"), uri.length),
         args = {

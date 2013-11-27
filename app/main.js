@@ -1,3 +1,5 @@
+"use strict";
+
 //lets load newrelic - if we have it
 if (process.env.license) {
     require('newrelic');

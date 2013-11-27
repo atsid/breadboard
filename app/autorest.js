@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require("fs"),
     http = require("http"),
     async = require("async");
@@ -5,7 +7,7 @@ var fs = require("fs"),
 module.exports = function (app, config) {
     var scan = function () {
         var dirs = fs.readdir("schema/models", function (err, files) {
-                    if (err) throw err;
+                    if (err) { throw err; }
 
                     files.forEach(function (file) {
                             console.log("Scanning file " + file);
@@ -16,13 +18,13 @@ module.exports = function (app, config) {
                                 model.links.forEach(function (link) {
 
                                         var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
-                                            schemaModel = require("./" + link.schema['$ref'] + ".json"),
+                                            schemaModel = require("./" + link.schema.$ref + ".json"),
                                             handlerFunc = function (defaultHandlerPath, req, res) {
 
                                                 req.params.uri = req.path;
 
                                                 var context = {params: req.params, model: schemaModel, links: schemaModel.links, entity: req.body, results: {}},
-                                                    commandFilename = link.logic ? "./" + link.logic.command : defaultHandlerPath;
+                                                    commandFilename = link.logic ? "./" + link.logic.command : defaultHandlerPath,
                                                     handler = require(commandFilename);
 
                                                 handler.execute(context, app, function () {
@@ -127,8 +129,8 @@ module.exports = function (app, config) {
                                                                         }
                                                                     });
                                                                     schemaCallback(null);
-                                                                })
-                                                            }
+                                                                });
+                                                            };
 
                                                         schemaModel.links.forEach(function (schemaLink) {
                                                             schemaLinkFunctions.push(function (schemaCallback) {
@@ -138,7 +140,7 @@ module.exports = function (app, config) {
                                                         });
 
                                                         async.series(schemaLinkFunctions, function () {
-                                                            console.log("finished iterating links")
+                                                            console.log("finished iterating links");
                                                             var response = {
                                                                 data: context.result,
                                                                 links: outputLinks
@@ -154,7 +156,8 @@ module.exports = function (app, config) {
                                                 "GET": { appFunc: app.get.bind(app), responseCode: 200, processor: config.middleware, defaultCommand: app.get("defaults.logic.get") },
                                                 "PUT": { appFunc: app.put.bind(app), responseCode: 200, processor: config.middleware, defaultCommand: app.get("defaults.logic.put") },
                                                 "POST": { appFunc: app.post.bind(app), responseCode: 201, processor: config.middleware, defaultCommand: app.get("defaults.logic.post") },
-                                                "DELETE": { appFunc: app.delete.bind(app), responseCode: 204, processor: config.noparse, defaultCommand: app.get("defaults.logic.delete")}};
+                                                "DELETE": { appFunc: app.delete.bind(app), responseCode: 204, processor: config.noparse, defaultCommand: app.get("defaults.logic.delete")}
+                                            };
 
                                         console.log("Found " + link.rel + " with method " + link.method + " with url " + linkHref);
 

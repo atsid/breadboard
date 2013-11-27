@@ -1,3 +1,5 @@
+"use strict";
+
 exports.find = function (links, rel) {
     var result;
     links.some(function (link) {

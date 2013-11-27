@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * This file contains utilities for working with the file system,
  * and specifically for handling JSON files that are persisted to disk.

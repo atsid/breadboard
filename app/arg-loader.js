@@ -1,3 +1,5 @@
+"use strict";
+
 var async = require("async"),
     http = require("http"),
     links = require("./links");
@@ -31,4 +33,4 @@ module.exports = {
 
         return argValues;
     }
-}
+};

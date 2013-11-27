@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require('fs');
 
 module.exports = function (app, config) {
@@ -10,4 +12,4 @@ module.exports = function (app, config) {
     app.get('/schema/rql/:rql', config.middleware, function (req, res, next) {
         res.status(200).sendfile("schema/rql/" + req.params.rql + ".rql");
     });
-}
+};

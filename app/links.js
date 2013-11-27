@@ -1,3 +1,5 @@
+"use strict";
+
 var scriptLoader = require("./script-loader"),
     clone = require("clone"),
     async = require("async");
@@ -43,7 +45,7 @@ module.exports = {
                             }
                         });
                         schemaCallback(null);
-                    })
+                    });
 
                 if (context.result) {
                     console.log("result uri:" + context.result.uri);
@@ -58,7 +60,7 @@ module.exports = {
         });
 
         async.series(schemaLinkFunctions, function () {
-            console.log("finished iterating links")
+            console.log("finished iterating links");
             var response = {
                 data: context.result,
                 links: outputLinks
@@ -68,4 +70,4 @@ module.exports = {
         });
 
     }
-}
+};

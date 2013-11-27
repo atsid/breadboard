@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require("fs"),
     loadScriptText = function (scriptLocation, defaultScript) {
         if (scriptLocation) {
@@ -5,7 +7,7 @@ var fs = require("fs"),
         } else {
             return fs.readFileSync(defaultScript + ".js", "UTF-8");
         }
-    }
+    };
 
 
 module.exports = function (scriptLocation, defaultScript, locationKey) {
@@ -17,5 +19,6 @@ module.exports = function (scriptLocation, defaultScript, locationKey) {
 
     scriptText = loadScriptText(finalLocation, defaultScript);
 
+    /*jslint evil: true */
     return eval("(function(){return " + scriptText + "})()");
-}
+};

@@ -1,3 +1,5 @@
+"use strict";
+
 var Mongo = require("mongodb"),
     MongoClient = Mongo.MongoClient;
 
@@ -33,7 +35,7 @@ exports.create = function (args, callback) {
         args.data.uri = args.data._id;
         c.insert(args.data, function (err, docs) {
             console.log("Mongodb Provider created item: " + docs[0]._id);
-            callback(err, docs)
+            callback(err, docs);
             db.close();
         });
     });
@@ -60,7 +62,7 @@ exports.remove = function (args, callback) {
             db.close();
             console.log("Removing (x) items from collection: " + args.collection + " : " + count);
             console.log("Tried to remove: " + args.uri);
-            callback(err)
+            callback(err);
         });
     });
 };
