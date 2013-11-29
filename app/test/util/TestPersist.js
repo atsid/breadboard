@@ -8,9 +8,9 @@ describe("util/persist", function () {
     describe("#collection()", function () {
 
         var data = [{
-            "rel": "schema/rel/self"
+            "rel": "self"
         }, {
-            "rel": "schema/rel/collection",
+            "rel": "collection",
             "schema": {
                 "$ref": "schema/models/UserList"
             }

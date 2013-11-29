@@ -8,9 +8,10 @@
  * @returns {*}
  */
 exports.find = function (links, rel) {
-    var result;
+    var result,
+        reg = new RegExp(rel);
     links.some(function (link) {
-        if (link.rel === rel) {
+        if (reg.test(link.rel)) {
             result = link;
             return true;
         }
@@ -24,12 +25,10 @@ exports.find = function (links, rel) {
  * @param links
  */
 exports.inList = function (links) {
-    var result = false;
+    var result = false,
+        reg = /collection/;
     links.some(function (link) {
-        var rel = link.rel,
-            slash = rel.lastIndexOf("/"),
-            coll = rel.substring(slash + 1, rel.length);
-        if (coll === "collection") {
+        if (reg.test(link.rel)) {
             result = true;
             return true;
         }

@@ -17,8 +17,8 @@ var linkUtil = require("./links");
  */
 exports.collection = function (links) {
 
-    var coll = linkUtil.find(links, "schema/rel/collection"),
-        self = linkUtil.find(links, "schema/rel/self"),
+    var coll = linkUtil.find(links, "collection"),
+        self = linkUtil.find(links, "self"),
         link = coll || self,
         name = link.schema.$ref.substring(link.schema.$ref.lastIndexOf("/") + 1);
 

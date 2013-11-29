@@ -27,6 +27,7 @@ describe("util/links", function () {
 
     describe("#inList", function () {
 
+        //this is going to test multiple forms of the link, to ensure our regex match works
         var data1 = [{
             "rel": "self"
         }, {
