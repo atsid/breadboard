@@ -2,7 +2,7 @@
     "passfail": false,
     "maxerr": 100,
 
-    "browser": false,
+    "browser": true,
     "node": true,
     "rhino": false,
     "couch": false,
@@ -65,5 +65,12 @@
     "maxparams": 5,
     "maxdepth": 3,
     "maxstatements": 30,
-    "maxcomplexity": 8
+    "maxcomplexity": 8,
+
+    "globals": {
+        "describe": false, //bdd
+        "it": false, //bdd
+        "define": false, //amd
+        "require": false //amd
+    }
 }
