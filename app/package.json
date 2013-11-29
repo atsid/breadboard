@@ -11,8 +11,7 @@
         "mongodb": "*",
         "rql": "*",
         "async": "*",
-        "node-uuid": "*",
-        "level": "*"
+        "node-uuid": "*"
     },
     "devDependencies": {
         "grunt": "~0.4.2",
