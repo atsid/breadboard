@@ -1,4 +1,3 @@
-/* globals define, document, console, XMLHttpRequest */
 define([
     "dojo/dom",
     "dojo/dom-construct",
