@@ -1,3 +1,4 @@
+/* globals define, document, console, XMLHttpRequest */
 define([
     "dojo/dom",
     "dojo/dom-construct",
@@ -8,20 +9,22 @@ define([
     crudService
 ) {
 
+    "use strict";
+
     var friendly = {
         "schema/rel/self": "Refresh",
-        "schema/rel/up": "Back",
+        "schema/rel/up": "Up",
         "schema/rel/collection": "Parent List"
-    };
-
-    var actions = {
+    },
+    actions = {
         "schema/rel/create": function (link, links) {
 
             console.log("rendering edit form for " + link.rel);
-            var schema = getSchema(link.schema.$ref);
+            var schema = getSchema(link.schema.$ref),
+                backLink;
+
             link.schema = JSON.parse(schema);
 
-            var backLink;
             links.forEach(function (item) {
                 if (item.rel === "schema/rel/self") {
                     backLink = {
@@ -38,10 +41,11 @@ define([
         "schema/rel/edit": function (link, links, item) {
 
             console.log("rendering edit form for " + link.rel);
-            var schema = getSchema(link.schema.$ref);
+            var schema = getSchema(link.schema.$ref),
+                backLink;
+
             link.schema = JSON.parse(schema);
 
-            var backLink;
             links.forEach(function (item) {
                 if (item.rel === "schema/rel/self") {
                     backLink = {
@@ -66,46 +70,50 @@ define([
                 renderer.render(parentLink.href);
             });
         }
-    };
-
-    //these are links we don't show directly
-    var hide = {
+    },
+    hide = { //these are links we don't show directly
         "schema/rel/monitor": true,
         "schema/rel/item": true
-    };
-
-    //_id is private, let's not display
-    var hideProps = {
+    },
+    hideProps = { //_id is private, let's not display
         "_id": true
-    };
+    },
+    schemas = {};
 
-    var schemas = {};
     function getSchema(url) {
-        var cached = schemas[url];
+        var cached = schemas[url],
+            content;
+
         if (cached) {
             return cached;
         }
+
         function syncXhr(url) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, false);
             xhr.send();
             return xhr.responseText;
         }
-        var content = syncXhr(url);
+
+        content = syncXhr(url);
+
         schemas[url] = content;
         return content;
     }
 
     function addItem(item, container) {
-        var keys = Object.keys(item);
+        console.log("adding item " + item.uri);
+        var keys = Object.keys(item),
+            value, label, element;
+
         keys.sort();
         keys.forEach(function (key) {
 
             if (!hideProps[key]) {
-                var value = item[key];
-                var label = document.createElement("label");
+                value = item[key];
+                label = document.createElement("label");
                 label.innerHTML = key;
-                var element;
+                element;
                 if (key === "uri") {
                     element = document.createElement("a");
                     element.href = "#";
@@ -132,27 +140,29 @@ define([
     function renderForm(link, backLink, item) {
 
         console.log(link);
-        var schema = link.schema;
-        var properties = schema.properties;
+        var schema = link.schema,
+            properties = schema.properties,
+            keys = Object.keys(properties),
+            container, elements = {},
+            submit;
 
         domConstruct.empty("secondAppContainer");
 
-        var container = dom.byId("secondAppContainer");
-        var elements = {};
+        container = dom.byId("secondAppContainer");
 
-        var keys = Object.keys(properties);
         keys.sort();
 
         keys.forEach(function (key) {
 
             console.log(key);
-            var value = properties[key];
+            var value = properties[key],
+                label, element;
 
             if (!hideProps[key]) {
                 console.log("rendering " + key + " | " + value);
-                var label = document.createElement("label");
+                label = document.createElement("label");
                 label.innerHTML = key;
-                var element = document.createElement("input");
+                element = document.createElement("input");
                 element.type = "text";
                 element.className = "item-" + key;
                 elements[key] = element;
@@ -173,7 +183,7 @@ define([
             }
         });
 
-        var submit = document.createElement("button");
+        submit = document.createElement("button");
         submit.innerHTML = "Submit";
         submit.onclick = function () {
             var data = {};
@@ -202,53 +212,64 @@ define([
     }
 
     function renderItem(response, container) {
-        var header = document.createElement("header");
+        var header = document.createElement("header"),
+            data = response.data;
+
         header.innerHTML = "ITEM";
         container.appendChild(header);
 
-        var data = response.data;
-
-        addItem(data, container);
+        if (data) {
+            addItem(data, container);
+        }
 
     }
 
     function renderItems(response, container) {
-        var header = document.createElement("header");
+        var header = document.createElement("header"),
+            data = response.data,
+            items = data.items,
+            empty;
+
         header.innerHTML = "ITEMS";
         container.appendChild(header);
 
-        var data = response.data;
-        var items = data.items;
+        if (items.length === 0) {
+            empty = document.createElement("p");
+            empty.innerHTML = "(No items in list)";
+            container.appendChild(empty);
+        } else {
+            items.forEach(function (item) {
 
-        items.forEach(function (item) {
+                addItem(item, container);
 
-            addItem(item, container);
+                var br = document.createElement("br");
+                container.appendChild(br);
 
-            var br = document.createElement("br");
-            container.appendChild(br);
+            });
+        }
 
-        });
     }
 
     function renderLinks(response, container) {
 
-        var header = document.createElement("header");
+        var header = document.createElement("header"),
+            links = response.links;
+
         header.innerHTML = "LINKS";
         container.appendChild(header);
 
-        var links = response.links;
-
         links.forEach(function (link) {
             console.log("processing link", link);
-            var rel = link.rel;
+            var rel = link.rel,
+                button, text, word;
 
             if (!hide[rel]) {
 
-                var button = document.createElement("button");
-                var text = friendly[rel];
+                button = document.createElement("button");
+                text = friendly[rel];
                 if (!text) {
-                    var word = rel.substring(rel.lastIndexOf("/") + 1, rel.length);
-                    var text = word.substring(0, 1).toUpperCase() + word.substring(1, word.length);
+                    word = rel.substring(rel.lastIndexOf("/") + 1, rel.length);
+                    text = word.substring(0, 1).toUpperCase() + word.substring(1, word.length);
                     text = text.replace("-", " ");
                 }
                 button.innerHTML = text;
@@ -284,10 +305,12 @@ define([
                 var container = dom.byId("secondAppContainer");
 
                 console.log("got response to render", response);
-                if (response.data.items) {
-                    renderItems(response, container);
-                } else {
-                    renderItem(response, container);
+                if (response.data) {
+                    if (response.data.items) {
+                        renderItems(response, container);
+                    } else {
+                        renderItem(response, container);
+                    }
                 }
 
                 renderLinks(response, container);
