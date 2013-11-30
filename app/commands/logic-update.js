@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * Basic update logic for an object.
+ * @param context
+ * @param app
+ * @param callback
+ */
 exports.execute = function (context, app, callback) {
 
     console.log("update file called");

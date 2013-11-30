@@ -41,7 +41,7 @@ module.exports = function (app, config) {
                                                                 console.log("checking the links to determine if they should be added " + instanceLink.rel);
 
                                                                 var linkFilter = instanceLink.filter,
-                                                                    linkFilterCommand = linkFilter ? "./" + linkFilter.command : "./commands/default-filter-include",
+                                                                    linkFilterCommand = linkFilter ? "./" + linkFilter.command : app.get("defaults.filter"),
                                                                     linkFilterArguments = linkFilter && linkFilter.arguments ? linkFilter.arguments : {},
                                                                     linkFilterHandler = require(linkFilterCommand),
                                                                     selfUri, argValues;

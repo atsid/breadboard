@@ -30,7 +30,7 @@
             "$ref": "schema/models/Order"
         },
         "filter": {
-            "command": "commands/default-filter-rql",
+            "command": "commands/filter-rql",
             "arguments": {
                 "user": "application/users/{userId}",
                 "rql": "schema/rql/user-is-customer"

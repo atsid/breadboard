@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * Basic read logic for an object or collection.
+ * @param context
+ * @param app
+ * @param callback
+ */
 exports.execute = function (context, app, callback) {
 
     console.log("read file called");

@@ -22,7 +22,7 @@ module.exports = {
 
                 var linkFilter = instanceLink.filter,
                     linkFilterArguments = linkFilter && linkFilter.arguments ? linkFilter.arguments : {},
-                    linkFilterHandler = scriptLoader(linkFilter, "./commands/default-filter-include", "command"),
+                    linkFilterHandler = scriptLoader(linkFilter, "./commands/filter-include", "command"),
                     selfUri = context.result ? (context.result.uri || req.path) : "",
                     argValues = argLoader.loadArguments(context, linkFilterArguments, function () {
                         linkFilterHandler({

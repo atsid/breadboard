@@ -5,9 +5,10 @@
             "post": "./commands/logic-create",
             "put": "./commands/logic-update",
             "delete": "./commands/logic-delete"
-        }
+        },
+        "filter": "./commands/filter-include"
     },
-    "dataProvider": "../providers/mongo-reader",
+    "dataProvider": "../providers/mongodb",
     "filedb": {
         "path": "/tmp/breadboard-data/"
     },

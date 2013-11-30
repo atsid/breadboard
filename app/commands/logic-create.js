@@ -1,5 +1,12 @@
 "use strict";
 
+/**
+ * Basic create logic for an object.
+ * We use the links to determine which collection to store under, then delegate to the persistence provider.
+ * @param context
+ * @param app
+ * @param callback
+ */
 exports.execute = function (context, app, callback) {
 
     console.log("create file called");
