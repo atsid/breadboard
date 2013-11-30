@@ -1,0 +1,49 @@
+body {
+    font-family: Helvetica, Myriad, Arial, sans-serif;
+    font-size: 18px;
+}
+input {
+    width: 200px;
+    font-size: 18px;
+}
+.item-uri {
+    width: 400px;
+    color: #bbb;
+    font-size: 12px;
+}
+label {
+    margin: 0 5px 0 20px;
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+#app {
+    margin: 20px;
+    padding: 10px;
+}
+header {
+    margin-top: 20px;
+    color: #889;
+}
+button {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+h1 {
+    font-size: 48px;
+}
+.one, .three, .five, .seven {
+    color: #bbb;
+}
+.two, .four, .six {
+    color: #777;
+}
+tr {
+    text-align: left;
+}
+td {
+    width: 200px;
+    border: 1px solid #eee;
+}

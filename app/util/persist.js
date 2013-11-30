@@ -9,7 +9,7 @@ var linkUtil = require("./links");
  * The idea behind this is that the schema definitions themselves provide enough information that
  * a storage convention can be derived for automatic persistence.
  *
- * First is checks for a "collection" link indicating the collection the object instance is a part of.
+ * First it checks for a "collection" link indicating the collection the object instance is a part of.
  * If that doesn't exist, it checks for the "self" link, as we're retrieving an entire collection.
  *
  * Note that this assumes the schema attached to the link has not been resolved, as we look for $ref.

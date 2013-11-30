@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Breadboard</title>
+    <style >
+        @import url("./css/main.css");
+    </style>
+</head>
+<body>
+
+<h1><span class="one">HYPERMEDIA</span><span class="two">AS</span><span class="three">THE</span><span class="four">ENGINE</span><span class="five">OF</span><span class="six">APPLICATION</span><span class="seven">STATE</span></h1>
+
+<div id="app"></div>
+
+    <script>
+        var dojoConfig = {
+                async: true,
+                packages: [{
+                    name: "js",
+                    location: "/js"
+                }]
+            },
+            initialUri = "application";
+
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
+
+    <script>
+
+        require(["js/renderer", "js/dom"], function(renderer, dom) {
+
+            console.log("starting");
+
+            renderer.render(initialUri, dom.byId("app"));
+
+        });
+
+    </script>
+
+</body>
+</html>

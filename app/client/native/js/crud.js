@@ -1,7 +1,8 @@
 define([
-    '../lang',
     'dojo/request/xhr'
-], function (lang, xhr) {
+], function (xhr) {
+
+    "use strict";
 
     var bodyMethods = {
         "POST": 1,

@@ -16,7 +16,7 @@ describe("util/persist", function () {
             }
         }];
 
-        it("should return `schema name` from the 'collection' link", function () {
+        it("should return 'schema.id' from the 'collection' link", function () {
             var result = persist.collection(data);
             assert.strictEqual(result, "UserList");
         });
