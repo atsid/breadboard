@@ -298,7 +298,10 @@ define([
 
         for (i = 0, l = splits.length; i < l; i += 1) {
             split = splits[i];
-            full += split + "/";
+            full += split;
+            if (i < l - 1) {
+                full += "/";
+            }
             a = dom.create("a", {
                 innerHTML: split,
                 href: "#",
