@@ -19,6 +19,6 @@
         "path": "/client/native"
     },
     "app": {
-        "path": "../samples/restbucks"
+        "path": "./samples/restbucks"
     }
 }
