@@ -26,6 +26,15 @@ header {
     color: #889;
     font-size: 20px;
 }
+footnote {
+    display: block;
+    margin-top: 20px;
+    font-size: 10px;
+    color: #999;
+}
+a, footnote {
+    color: #999;
+}
 button {
     font-size: 14px;
     font-weight: bold;

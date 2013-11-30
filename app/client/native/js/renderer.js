@@ -157,6 +157,8 @@ define([
             links: [backLink]
         }, container);
 
+        breadcrumb(link.href, container);
+
     }
 
     function addItem(item, table, container, includeLinkCell) {
@@ -191,6 +193,7 @@ define([
             a = dom.create("a", {
                 href: "#",
                 innerHTML: "view",
+                title: uri,
                 className: "item-uri",
                 onclick: function () {
                     renderer.render(uri, container);
@@ -285,6 +288,36 @@ define([
 
     }
 
+    function breadcrumb(uri, container) {
+
+        var splits = uri.split("/"),
+            split,
+            full = "",
+            footnote = dom.create("footnote", {innerHTML: "You are here: "}),
+            i, l, a, text;
+
+        for (i = 0, l = splits.length; i < l; i += 1) {
+            split = splits[i];
+            full += split + "/";
+            a = dom.create("a", {
+                innerHTML: split,
+                href: "#",
+                tag: full,
+                onclick: function (e) {
+                    renderer.render(e.target.tag, container);
+                }
+            }, footnote);
+
+            if (l > 1 && i < l - 1) {
+                text = dom.create("text", {innerHTML: "&nbsp;/&nbsp;"}, footnote);
+            }
+
+        }
+
+        dom.append(container, footnote);
+
+    }
+
     var renderer = {
 
         render: function (uri, container) {
@@ -304,6 +337,8 @@ define([
                 }
 
                 renderLinks(response, container);
+
+                breadcrumb(uri, container);
 
             });
 
