@@ -69,13 +69,13 @@ define([
     },
     //properties on the response objects that may be "private" so we don't really want to show them
     hideProps = {
-        "_id": true
+        "_id": true,
+        "uri": true
     },
     friendlyMap = {
         "schema/rel/self": "Refresh",
         "schema/rel/collection": "Parent List"
     };
-
 
     //make a friendly label
     function friendly(rel) {
@@ -87,47 +87,6 @@ define([
             text = word.substring(0, 1).toUpperCase() + word.substring(1, word.length).replace("-", " ");
         }
         return text;
-    }
-
-    function addItem(item, table, container) {
-
-        console.log("adding item " + item.uri);
-
-        var keys = Object.keys(item),
-            tr = dom.create("tr");
-
-        keys.sort();
-
-        keys.forEach(function (key) {
-
-            var value = item[key],
-                label, element,
-                td = dom.create("td", {className: "item-" + key});
-
-            if (!hideProps[key]) {
-
-                label = dom.create("label", {innerHTML: key}, label);
-
-                if (key === "uri") {
-                    element = dom.create("a", {
-                        href: "#",
-                        innerHTML: value,
-                        onclick: function () {
-                            renderer.render(value, container);
-                        }
-                    });
-                    dom.append(td, element);
-                } else {
-                    td.innerHTML = value;
-                }
-
-                dom.append(tr, td);
-
-            }
-
-        });
-
-        dom.append(table, tr);
     }
 
     function createForm(link, backLink, item, container) {
@@ -179,15 +138,17 @@ define([
         //create the submit button
         dom.create("button", {
             innerHTML: "Submit",
-            onclick: function () {
+            onclick: function (e) {
+                e.target.disabled = true;
                 var data = {};
                 Object.keys(elements).forEach(function (key) {
                     var element = elements[key];
                     data[key] = element.value;
                 });
                 crud.exec(link, data, function (response) {
-                    var selfLink = schema.find("schema/rel/self");
-                    renderer.render(selfLink.href, container);
+                    console.log("received successful edit");
+                    //go back to the previous view now that the form submission is complete
+                    renderer.render(backLink.href, container);
                 });
             }
         }, container);
@@ -198,7 +159,50 @@ define([
 
     }
 
-    function tableStart(item, container) {
+    function addItem(item, table, container, includeLinkCell) {
+
+        console.log("adding item " + item.uri);
+
+        var keys = Object.keys(item),
+            tr = dom.create("tr"),
+            uri, linkcell, a;
+
+        keys.sort();
+
+        keys.forEach(function (key) {
+
+            var value = item[key], td;
+
+            if (key === "uri") {
+                uri = value;
+            }
+
+            if (!hideProps[key]) {
+
+                td = dom.create("td", {innerHTML: value, className: "item-" + key}, tr);
+
+            }
+
+        });
+
+        //special cell to hold the object link
+        if (includeLinkCell) {
+            linkcell = dom.create("td", {className: "link-cell"}, tr);
+            a = dom.create("a", {
+                href: "#",
+                innerHTML: "view",
+                className: "item-uri",
+                onclick: function () {
+                    renderer.render(uri, container);
+                }
+            }, linkcell);
+        }
+
+
+        dom.append(table, tr);
+    }
+
+    function tableStart(item, container, includeLinkCell) {
         //TODO: use the response schema to determine the table template, instead of grabbing an item from the list
         var keys = Object.keys(item),
             table = dom.create("table"),
@@ -212,7 +216,12 @@ define([
             }
         });
 
+        if (includeLinkCell) {
+            dom.create("th", {innerHTML: "details", className: "link-cell"}, tr);
+        }
+
         dom.append(container, table);
+
         return table;
     }
 
@@ -222,7 +231,7 @@ define([
             table;
 
         if (data) {
-            table = tableStart(data, container);
+            table = tableStart(data, container, false);
             addItem(data, table, container);
         } else {
             dom.create("p", {innerHTML: "(No item details)"}, container);
@@ -238,9 +247,9 @@ define([
             table;
 
         if (items.length > 0) {
-            table = tableStart(items[0], container);
+            table = tableStart(items[0], container, true);
             items.forEach(function (item) {
-                addItem(item, table, container);
+                addItem(item, table, container, true);
             });
         } else {
             dom.create("p", {innerHTML: "(No items in list)"}, container);

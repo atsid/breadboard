@@ -55,7 +55,7 @@
     "noempty": false,
     "nonew": false,
     "nomen": false,
-    "onevar": false,
+    "onevar": true,
     "plusplus": false,
     "sub": false,
     "trailing": false,

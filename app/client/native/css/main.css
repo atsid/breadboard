@@ -8,7 +8,7 @@ input {
 }
 .item-uri {
     width: 400px;
-    color: #bbb;
+    color: #888;
     font-size: 12px;
 }
 label {
@@ -24,6 +24,7 @@ label {
 header {
     margin-top: 20px;
     color: #889;
+    font-size: 20px;
 }
 button {
     font-size: 14px;
@@ -43,7 +44,19 @@ h1 {
 tr {
     text-align: left;
 }
+th {
+    color: #ffa347;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    background-color: #fbfbfb;
+    padding: 5px;
+}
 td {
     width: 200px;
     border: 1px solid #eee;
+    padding: 5px;
+    color: #444;
+}
+.linkCell {
+    width: 50px;
 }

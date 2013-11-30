@@ -42,13 +42,14 @@ exports.create = function (args, callback) {
     var uuid = require("node-uuid"),
         uri = args.uri,
         id = uuid.v4(),
-        data = args.data;
+        data = args.data,
+        filename;
 
     data._id = uri + "/" + id;
     data.uri = data._id;
     args.id = "/" + id; //TODO: fix this - other modules that are using substring get the leading slash
 
-    var filename = makeFilename(args);
+    filename = makeFilename(args);
     console.log("creating file " + filename);
     file.forceWriteJSONFile(filename, data, function (err, file) {
         callback(file);
