@@ -23,7 +23,7 @@ module.exports = function (app, config) {
     });
 
     app.get('/schema/rql/:rql', config.middleware, function (req, res, next) {
-        var filename = schemaPath + "/rql/" + req.params.model + ".rql";
+        var filename = schemaPath + "/rql/" + req.params.rql + ".rql";
         fs.readFile(filename, {encoding: "utf-8"}, function (err, content) {
             res.set("Content-Type", "text/plain");
             res.send(200, content);

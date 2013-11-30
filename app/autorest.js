@@ -90,14 +90,6 @@ module.exports = function (app, config) {
                                                                     });
 
                                                                     async.series(functionList, function (err, results) {
-                                                                            console.log("-----------------> results: ");
-//                                                                            Object.keys(results).forEach(function (key) {
-//                                                                                console.log("\tKey: " + key + " " + results[key]);
-//                                                                                Object.keys(results[key]).forEach(function (key2) {
-//                                                                                    console.log("\t\tKey: " + key2 + " " + results[key][key2]);
-//                                                                                });
-//                                                                            });
-
                                                                             filterCallback();
                                                                         }
                                                                     );
