@@ -6,19 +6,20 @@ var fs = require("fs"),
 
 module.exports = function (app, config) {
     var scan = function () {
-        var dirs = fs.readdir("schema/models", function (err, files) {
+        var appPath = config.path,
+            dirs = fs.readdir(appPath + "/schema/models", function (err, files) {
                     if (err) { throw err; }
 
                     files.forEach(function (file) {
                             console.log("Scanning file " + file);
-                            var model = require("./schema/models/" + file);
+                            var model = require(appPath + "/schema/models/" + file);
 
                             if (model.links) {
 
                                 model.links.forEach(function (link) {
 
                                         var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
-                                            schemaModel = require("./" + link.schema.$ref + ".json"),
+                                            schemaModel = require(appPath + "/" + link.schema.$ref + ".json"),
                                             endpoint,
                                             handlerFunc = function (defaultHandlerPath, req, res) {
 

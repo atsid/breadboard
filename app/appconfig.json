@@ -7,12 +7,17 @@
             "delete": "./commands/logic-delete"
         }
     },
-    "fileDataPath": "/tmp/breadboard-data/",
     "dataProvider": "../providers/mongo-reader",
+    "filedb": {
+        "path": "/tmp/breadboard-data/"
+    },
     "mongodb": {
         "connect": "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw"
     },
     "client": {
         "path": "/client/native"
+    },
+    "app": {
+        "path": "../samples/restbucks"
     }
 }

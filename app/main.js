@@ -21,15 +21,18 @@ var app = express();
 configLoader.load(app, "./appconfig.json");
 
 app.set('port', process.env.PORT || 3000);
+
 app.use(express.static(__dirname + app.get("client.path")));
 
 autorest(app, {
     middleware: [express.bodyParser()],
-    noparse: []
+    noparse: [],
+    path: app.get("app.path")
 }).scan();
 
 schemaService(app, {
-    middleware: [express.bodyParser()]
+    middleware: [express.bodyParser()],
+    path: app.get("app.path")
 });
 
 http.createServer(app).listen(app.get('port'), function () {
