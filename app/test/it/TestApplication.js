@@ -7,11 +7,11 @@ describe("Application HTTP requests", function () {
 
     describe("/application", function () {
 
-        var application;
+        var output;
 
         before(function (done) {
             helpers.request("/application", function (error, response, json) {
-                application = {
+                output = {
                     response: response,
                     json: json
                 };
@@ -20,17 +20,17 @@ describe("Application HTTP requests", function () {
         });
 
         it("application GET request should return `200`", function (done) {
-            assert.equal(application.response.statusCode, 200);
+            assert.equal(output.response.statusCode, 200);
             done();
         });
 
         it("root application URI should be `/application`", function (done) {
-            assert.equal(application.json.data.uri, "/application");
+            assert.equal(output.json.data.uri, "/application");
             done();
         });
 
         it("application should have `3` links", function (done) {
-            assert.equal(application.json.links.length, 3);
+            assert.equal(output.json.links.length, 3);
             done();
         });
 

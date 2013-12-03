@@ -10,7 +10,6 @@ var request = require("request"),
  * @param callback - should have the same signature as request.callback (error, response, body), but the body will be already parsed (https://github.com/mikeal/request)
  */
 exports.request = function (path, callback) {
-    console.log("requesting " + path);
     request("http://localhost:" + config.port + path, function (error, response, body) {
         try {
             var json = JSON.parse(body);
@@ -19,7 +18,6 @@ exports.request = function (path, callback) {
             console.log(body);
             callback(e);
         }
-
     });
 
 };

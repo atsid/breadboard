@@ -9,7 +9,6 @@ exports.expandHref = function (uri, params) {
             uri = uri.replace("{" + param + "}", params[param]);
         });
     }
-
     return uri;
 };
 
@@ -42,11 +41,12 @@ exports.filter = function (schema, context, reqPath, app, config, callback) {
                     if (linkToKeep) {
 
                         var linkCopy = {
-                            href: instanceLink.rel === "schema/rel/self" ? selfUri : exports.expandHref(linkToKeep.href, context.params),
+                            href: exports.expandHref(linkToKeep.href, context.params),
                             rel: linkToKeep.rel,
                             method: linkToKeep.method,
                             filter: linkToKeep.filter,
-                            logic: linkToKeep.logic
+                            logic: linkToKeep.logic,
+                            schema: linkToKeep.schema
                         }
 
                         done(null, linkCopy);
@@ -74,7 +74,7 @@ exports.filter = function (schema, context, reqPath, app, config, callback) {
 
     });
 
-    async.series(functions, function (err, results) {
+    async.parallel(functions, function (err, results) {
         callback(results);
     });
 
