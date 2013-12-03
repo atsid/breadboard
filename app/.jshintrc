@@ -68,9 +68,15 @@
     "maxcomplexity": 8,
 
     "globals": {
-        "describe": false, //bdd
-        "it": false, //bdd
-        "define": false, //amd
-        "require": false //amd
+        //mocha
+        "describe": false,
+        "before": false,
+        "beforeEach": false,
+        "after": false,
+        "afterEach": false,
+        "it": false,
+        //amd
+        "define": false,
+        "require": false
     }
 }

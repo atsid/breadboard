@@ -1,4 +1,5 @@
 {
+    "port": 3000,
     "defaults": {
         "logic": {
             "get": "./commands/logic-read",
@@ -8,7 +9,7 @@
         },
         "filter": "./commands/filter-include"
     },
-    "dataProvider": "../providers/mongodb",
+    "dataProvider": "../providers/filedb",
     "filedb": {
         "path": "/tmp/breadboard-data/"
     },

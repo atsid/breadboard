@@ -11,7 +11,7 @@ module.exports = function (grunt) {
         },
         mochaTest: {
             test: {
-                src: ['test/**/*.js'],
+                src: ['test/**/*.js', 'it/**/*.js'],
                 options: {
                     reporter: 'spec'
                 }

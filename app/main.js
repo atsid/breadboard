@@ -20,7 +20,7 @@ var app = express();
 
 configLoader.load(app, "./appconfig.json");
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || app.get("port") || 3000);
 
 app.use(express.static(__dirname + app.get("client.path")));
 
