@@ -1,73 +1,81 @@
 "use strict";
 
-var scriptLoader = require("./script-loader"),
-    clone = require("clone"),
-    async = require("async");
+var async = require("async"),
+    argLoader = require("./args");
 
-module.exports = {
-    expandHref: function (uri, params) {
-        if (uri) {
-            Object.keys(params).forEach(function (param) {
-                uri = uri.replace("{" + param + "}", params[param]);
-            });
-        }
-
-        return uri;
-    },
-    // Using argLoader as an argument here instead of a requires above due to circular referencing possibility.
-    filter: function (context, req, argLoader, schemaModel, filterCompleteCallback) {
-        var outputLinks = [], schemaLinkFunctions = [],
-            linkFunction = function (context, outputLinks, req, instanceLink, schemaCallback) {
-                console.log("checking the links to determine if they should be added " + instanceLink.rel);
-
-                var linkFilter = instanceLink.filter,
-                    linkFilterArguments = linkFilter && linkFilter.arguments ? linkFilter.arguments : {},
-                    linkFilterHandler = scriptLoader(linkFilter, "./commands/filter-include", "command"),
-                    selfUri = context.result ? (context.result.uri || req.path) : "",
-                    argValues = argLoader.loadArguments(context, linkFilterArguments, function () {
-                        linkFilterHandler({
-                            params: context.params,
-                            link: instanceLink,
-                            entity: context.entity,
-                            result: context.result,
-                            args: argValues
-                        }, function (linkToKeep) {
-                            if (linkToKeep) {
-                                var href = instanceLink.href[0] === "/" ? instanceLink.href : "/" + instanceLink.href;
-                                href = req.path + href.substring(req.path.length);
-                                console.log("----------------------");
-                                console.log("req.path: " + req.path);
-                                console.log("href: " + instanceLink.href);
-                                console.log("Rel: " + linkToKeep.rel);
-                                console.log("New href: " + href);
-                                linkToKeep.href = instanceLink.rel === "schema/rel/self" ? selfUri : module.exports.expandHref(linkToKeep.href, context.params);
-                                outputLinks.push(linkToKeep);
-                            }
-                        });
-                        schemaCallback(null);
-                    });
-
-                if (context.result) {
-                    console.log("result uri:" + context.result.uri);
-                }
-            };
-
-        schemaModel.links.forEach(function (schemaLink) {
-            schemaLinkFunctions.push(function (schemaCallback) {
-                // Make sure we use a clone of the schema model so we don't modify the original!!!
-                linkFunction(context, outputLinks, req, clone(schemaLink), schemaCallback);
-            });
+exports.expandHref = function (uri, params) {
+    if (uri) {
+        Object.keys(params).forEach(function (param) {
+            uri = uri.replace("{" + param + "}", params[param]);
         });
-
-        async.series(schemaLinkFunctions, function () {
-            console.log("finished iterating links");
-            var response = {
-                data: context.result,
-                links: outputLinks
-            };
-
-            filterCompleteCallback(response);
-        });
-
     }
+
+    return uri;
+};
+
+/**
+ * Iterate the list of links on a schema, and determine which ones to keep for a given instance based on filter execution.
+ * @param schema
+ * @param context
+ * @param reqPath
+ * @param app
+ * @param config
+ * @param callback
+ */
+exports.filter = function (schema, context, reqPath, app, config, callback) {
+
+    var functions = [],
+        linkFunction = function (instanceLink, done) {
+
+            console.log("checking link to determine if it should be added [" + instanceLink.rel + "]");
+
+            var filter = instanceLink.filter,
+                filterCommand = filter ? "./" + filter.command : app.get("defaults.filter"),
+                filterArguments = filter && filter.arguments ? filter.arguments : {},
+                filterHandler = require(filterCommand),
+                selfUri = context.result ? (context.result.uri || reqPath) : ""; //could be no result in the case of a DELETE
+
+            argLoader.load(filterArguments, app, function (args) {
+
+                function keeper (linkToKeep) {
+
+                    if (linkToKeep) {
+
+                        var linkCopy = {
+                            href: instanceLink.rel === "schema/rel/self" ? selfUri : exports.expandHref(linkToKeep.href, context.params),
+                            rel: linkToKeep.rel,
+                            method: linkToKeep.method,
+                            filter: linkToKeep.filter,
+                            logic: linkToKeep.logic
+                        }
+
+                        done(null, linkCopy);
+
+                    }
+                }
+
+                filterHandler.execute({
+                        params: context.params,
+                        link: instanceLink,
+                        entity: context.entity,
+                        result: context.result,
+                        args: args
+                    },
+                    app,
+                    keeper);
+
+            });
+        };
+
+    schema.links.forEach(function (schemaLink) {
+        functions.push(function (callback) {
+            linkFunction(schemaLink, callback);
+        });
+
+    });
+
+    async.series(functions, function (err, results) {
+        callback(results);
+    });
+
 };

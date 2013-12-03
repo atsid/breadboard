@@ -6,7 +6,7 @@
  */
 exports.execute = function (context, app, callback) {
 
-    console.log("adding link without filter check " + context.link.rel);
+    console.log("adding link without filter check [" + context.link.rel + "]");
     callback(context.link);
 
 };

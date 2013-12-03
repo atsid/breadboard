@@ -8,9 +8,6 @@
  */
 exports.execute = function (context, app, callback) {
 
-    console.log("update file called");
-    console.log(JSON.stringify(context));
-
     var provider = require(app.get("dataProvider")),
         links = require("../util/links"),
         persist = require("../util/persist"),

@@ -7,11 +7,11 @@ describe("UserList HTTP requests", function () {
 
     describe("/application/users", function () {
 
-        var users;
+        var output;
 
         before(function (done) {
             helpers.request("/application/users", function (error, response, json) {
-                users = {
+                output = {
                     response: response,
                     json: json
                 };
@@ -20,17 +20,17 @@ describe("UserList HTTP requests", function () {
         });
 
         it("users GET request should return `200`", function (done) {
-            assert.equal(users.response.statusCode, 200);
+            assert.equal(output.response.statusCode, 200);
             done();
         });
 
         it("should return a non-empty list of users", function (done) {
-            assert.equal(users.json.data.items.length > 0, true);
+            assert.equal(output.json.data.items.length > 0, true);
             done();
         });
 
         it("users list should have `4` links", function (done) {
-            assert.equal(users.json.links.length, 4);
+            assert.equal(output.json.links.length, 4);
             done();
         });
 

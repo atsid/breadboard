@@ -29,8 +29,6 @@ exports.forceReadDirectory = function (dirname, callback) {
  */
 exports.forceReadJSONDirectory = function (dirname, callback) {
 
-    console.log("forcing JSON read of directory " + dirname);
-
     exports.forceReadDirectory(dirname, function (err, files) {
         var output = [];
         files.forEach(function (file) {
@@ -50,10 +48,7 @@ exports.forceReadJSONDirectory = function (dirname, callback) {
  * @param callback
  */
 exports.readJSONFile = function (filename, callback) {
-
-    console.log("reading file: " + filename);
     fs.readFile(filename, function (err, file) {
-        console.log("read file: " + file);
         var json = JSON.parse(file);
         callback(null, json);
     });
@@ -68,11 +63,10 @@ exports.deleteJSONFile = function (filename, callback) {
 exports.forceWriteJSONFile = function (filename, obj, callback) {
 
     var dirname = filename.substring(0, filename.lastIndexOf("/"));
-    console.log("writing [" + filename + "] in dir [" + dirname  + "]");
+
     exports.ensureDirectoryPathSync(dirname);
 
     fs.writeFile(filename, JSON.stringify(obj, null, 2), { encoding: "utf8" }, function (err) {
-        console.log("file written");
         callback(null, obj);
     });
 
@@ -83,15 +77,11 @@ exports.forceWriteJSONFile = function (filename, obj, callback) {
  */
 exports.ensureDirectoryPathSync = function (destination) {
     var index, length, path = "",
-        //folder = destination.substring(0, destination.lastIndexOf("/")),
         parts = destination.split("/");
-
-    console.log("ensuring full path exists: " + destination);
 
     //make sure directory exists all the way down
     for (index = 0, length = parts.length; index < length; index += 1) {
         path += parts[index] + "/"; //TODO: use path.sep
-        console.log("forcing directory creation " + path);
         if (!fs.existsSync(path)) {
             fs.mkdirSync(path);
         }

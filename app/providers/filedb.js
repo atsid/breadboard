@@ -15,15 +15,12 @@ function makeFilename(args) {
         filename += id;
     }
 
-    console.log("making filename collection [" + collection + "] id [ " + id + "]");
-    console.log(filename);
     return filename;
 
 }
 
 exports.readOne = function (args, callback) {
     var filename = makeFilename(args);
-    console.log("reading file " + filename);
     file.readJSONFile(filename, function (err, file) {
         callback(err, file);
     });
@@ -31,7 +28,6 @@ exports.readOne = function (args, callback) {
 
 exports.readList = function (args, callback) {
     var path = makeFilename(args);
-    console.log("reading from path " + path);
     file.forceReadJSONDirectory(path, function (err, files) {
         callback(err, files);
     });
@@ -50,7 +46,6 @@ exports.create = function (args, callback) {
     args.id = "/" + id; //TODO: fix this - other modules that are using substring get the leading slash
 
     filename = makeFilename(args);
-    console.log("creating file " + filename);
     file.forceWriteJSONFile(filename, data, function (err, file) {
         callback(file);
     });
@@ -58,7 +53,6 @@ exports.create = function (args, callback) {
 
 exports.update = function (args, callback) {
     var filename = makeFilename(args);
-    console.log("updating file " + filename);
     file.forceWriteJSONFile(filename, args.data, function (err, file) {
         callback(file);
     });
