@@ -23,8 +23,8 @@ exports.execute = function (context, app, callback) {
         };
 
     if (inList) {
-        provider.update(args, function (err, file) {
-            context.result = file;
+        provider.update(args, function (err, item) {
+            context.result = item;
             callback(context);
         });
     } else {

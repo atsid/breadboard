@@ -48,8 +48,11 @@ exports.forceReadJSONDirectory = function (dirname, callback) {
  * @param callback
  */
 exports.readJSONFile = function (filename, callback) {
-    fs.readFile(filename, function (err, file) {
-        var json = JSON.parse(file);
+    fs.readFile(filename, function (err, contents) {
+        var json;
+        if (contents) {
+            json = JSON.parse(contents);
+        }
         callback(null, json);
     });
 };

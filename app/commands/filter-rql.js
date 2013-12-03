@@ -6,7 +6,7 @@
  */
 exports.execute = function (context, app, callback) {
 
-    console.log("executing filter with context" + JSON.stringify(context, null, 2));
+    console.log("executing filter with context" + JSON.stringify(context));
     var queryExecutor = require("rql/js-array"),
         args = context.args,
         queryText = args.rql,

@@ -28,7 +28,7 @@ exports.processModelFiles = function (files, app, config) {
                     endpoint,
                     handlerFunc = function (defaultHandlerPath, req, res) {
 
-                        req.params.uri = req.path;
+                        req.params.uri = linkFilter.expandHref(req.path, req.params);
 
                         var context = {params: req.params, model: schemaModel, links: schemaModel.links, entity: req.body, results: {}},
                             commandFilename = link.logic ? "./" + link.logic.command : defaultHandlerPath,
@@ -37,9 +37,7 @@ exports.processModelFiles = function (files, app, config) {
                         handler.execute(context, app, function () {
 
                                 console.log("executing handler with params");
-                                Object.keys(context.params).forEach(function (param) {
-                                    console.log("\t" + param + " : " + context.params[param]);
-                                });
+                                console.log(JSON.stringify(context.params, null, 2));
 
 
                                 function linksDone(links) {
@@ -54,7 +52,7 @@ exports.processModelFiles = function (files, app, config) {
                                 }
 
                                 //figure out which links belong on this response
-                                linkFilter.filter(schemaModel, context, req.path, app, config, linksDone);
+                                linkFilter.filter(schemaModel, context, app, config, linksDone);
 
                             }
                         );
@@ -72,9 +70,15 @@ exports.processModelFiles = function (files, app, config) {
                     endpoint.appFunc("/" + linkHref, endpoint.processor, function (req, res, next) {
 
                         console.log("Executing " + link.method + " on " + req.path + " with command " + endpoint.defaultCommand);
+                        console.log(req.params);
 
-                        handlerFunc(endpoint.defaultCommand, req, res);
-                        res.status(endpoint.responseCode);
+                        try {
+                            handlerFunc(endpoint.defaultCommand, req, res);
+                            res.status(endpoint.responseCode);
+                        } catch (e) {
+                            console.log("error: " + e);
+                            res.status(500);
+                        }
 
                     });
 

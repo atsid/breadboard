@@ -21,9 +21,10 @@ exports.expandHref = function (uri, params) {
  * @param config
  * @param callback
  */
-exports.filter = function (schema, context, reqPath, app, config, callback) {
+exports.filter = function (schema, context, app, config, callback) {
 
     var functions = [],
+        results = [],
         linkFunction = function (instanceLink, done) {
 
             console.log("checking link to determine if it should be added [" + instanceLink.rel + "]");
@@ -31,27 +32,31 @@ exports.filter = function (schema, context, reqPath, app, config, callback) {
             var filter = instanceLink.filter,
                 filterCommand = filter ? "./" + filter.command : app.get("defaults.filter"),
                 filterArguments = filter && filter.arguments ? filter.arguments : {},
-                filterHandler = require(filterCommand),
-                selfUri = context.result ? (context.result.uri || reqPath) : ""; //could be no result in the case of a DELETE
+                filterHandler = require(filterCommand);
 
             argLoader.load(filterArguments, app, function (args) {
 
-                function keeper (linkToKeep) {
+                function keeper(linkToKeep) {
+
+                    var linkCopy;
 
                     if (linkToKeep) {
 
-                        var linkCopy = {
+                        linkCopy = {
                             href: exports.expandHref(linkToKeep.href, context.params),
                             rel: linkToKeep.rel,
                             method: linkToKeep.method,
                             filter: linkToKeep.filter,
                             logic: linkToKeep.logic,
                             schema: linkToKeep.schema
-                        }
+                        };
 
-                        done(null, linkCopy);
+                        results.push(linkCopy);
 
                     }
+
+                    done(null, linkCopy);
+
                 }
 
                 filterHandler.execute({
@@ -74,7 +79,7 @@ exports.filter = function (schema, context, reqPath, app, config, callback) {
 
     });
 
-    async.parallel(functions, function (err, results) {
+    async.parallel(functions, function (err, links) {
         callback(results);
     });
 

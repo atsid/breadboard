@@ -21,8 +21,8 @@ exports.execute = function (context, app, callback) {
             app: app
         };
 
-    provider.create(args, function (err, file) {
-        context.result = file;
+    provider.create(args, function (err, item) {
+        context.result = item;
         callback(context);
     });
 

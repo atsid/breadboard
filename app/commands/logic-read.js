@@ -24,14 +24,14 @@ exports.execute = function (context, app, callback) {
     //if it is an item in a collection, read one, otherwise read the directory
     if (inList) {
         args.id = id;
-        provider.readOne(args, function (err, file) {
-            context.result = file;
+        provider.readOne(args, function (err, item) {
+            context.result = item;
             callback(context);
         });
     } else {
-        provider.readList(args, function (err, files) {
+        provider.readList(args, function (err, items) {
             context.result = {
-                items: files
+                items: items
             };
             callback(context);
         });

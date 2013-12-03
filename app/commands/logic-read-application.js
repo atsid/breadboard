@@ -13,8 +13,8 @@ exports.execute = function (context, app, callback) {
     provider.readList({
         collection: "Application",
         app: app
-    }, function (err, files) {
-        context.result = files[0] || null;
+    }, function (err, items) {
+        context.result = items[0] || null;
         if (context.result) {
             context.result.uri = "/application"; //TODO: kludge to override weird replacement
         }
