@@ -9,7 +9,7 @@
         },
         "filter": "./commands/filter-include"
     },
-    "dataProvider": "../providers/filedb",
+    "dataProvider": "../providers/mongodb",
     "filedb": {
         "path": "/tmp/breadboard-data/"
     },
