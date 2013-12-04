@@ -34,6 +34,7 @@ exports.filter = function (schema, context, app, config, callback) {
                 filterArguments = filter && filter.arguments ? filter.arguments : {},
                 filterHandler = require(filterCommand);
 
+
             argLoader.load(filterArguments, app, function (args) {
 
                 function keeper(linkToKeep) {

@@ -24,7 +24,7 @@
         }
     }, {
         "rel": "schema/rel/create",
-        "href": "application/users/{userId}/orders/payments",
+        "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "POST",
         "schema": {
             "$ref": "schema/models/Payment"

@@ -11,7 +11,8 @@ exports.processModelFiles = function (files, app, config) {
             "PUT": { appFunc: app.put.bind(app), responseCode: 200, processor: config.middleware, defaultCommand: app.get("defaults.logic.put") },
             "POST": { appFunc: app.post.bind(app), responseCode: 201, processor: config.middleware, defaultCommand: app.get("defaults.logic.post") },
             "DELETE": { appFunc: app.delete.bind(app), responseCode: 204, processor: config.noparse, defaultCommand: app.get("defaults.logic.delete")}
-        };
+        },
+        list = {};
 
     files.forEach(function (file) {
 
@@ -25,6 +26,7 @@ exports.processModelFiles = function (files, app, config) {
 
                 var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
                     schemaModel = require(appPath + "/" + link.schema.$ref + ".json"),
+                    target,
                     endpoint,
                     handlerFunc = function (defaultHandlerPath, req, res) {
 
@@ -36,13 +38,9 @@ exports.processModelFiles = function (files, app, config) {
 
                         handler.execute(context, app, function () {
 
-                                console.log("executing handler with params");
-                                console.log(JSON.stringify(context.params, null, 2));
-
-
                                 function linksDone(links) {
 
-                                    console.log("finished iterating links");
+                                    console.log("finished iterating links, response ready");
                                     var response = {
                                         data: context.result,
                                         links: links
@@ -66,25 +64,36 @@ exports.processModelFiles = function (files, app, config) {
                     endpoint = endpointMapping[link.method];
 
                     console.log("Creating endpoint " + link.method + " @ " + linkHref + " with command " + endpoint.defaultCommand);
+                    target = "/" + linkHref;
 
-                    endpoint.appFunc("/" + linkHref, endpoint.processor, function (req, res, next) {
+                    //we can get dups among the links of course, so ignore if they've already been setup
+                    if (!list[target]) {
+                        list[target] = true;
 
-                        console.log("Executing " + link.method + " on " + req.path + " with command " + endpoint.defaultCommand);
-                        console.log(req.params);
+                        endpoint.appFunc(target, endpoint.processor, function (req, res, next) {
 
-                        try {
-                            handlerFunc(endpoint.defaultCommand, req, res);
-                            res.status(endpoint.responseCode);
-                        } catch (e) {
-                            console.log("error: " + e);
-                            res.status(500);
-                        }
+                            console.log("Target " + target);
+                            console.log("Executing " + link.method + " on " + req.path + " with command " + endpoint.defaultCommand);
+                            console.log("Params: " + JSON.stringify(req.params, null, 2));
 
-                    });
+                            try {
+                                handlerFunc(endpoint.defaultCommand, req, res);
+                                res.status(endpoint.responseCode);
+                            } catch (e) {
+                                console.log("error: " + e);
+                                res.status(500);
+                            }
+
+                        });
+
+                    }
 
                 }
 
             });
         }
     });
+
+    console.log("setup total endpoints " + Object.keys(list).length);
+    console.log(JSON.stringify(list, null, 2));
 };
