@@ -17,7 +17,7 @@ function executePhase(phase, req, def, next) {
     if (!phase) {
         p = def;
     }
-    command.execute(p, req, "localhost:3000", function (err) {
+    command.execute(p, req, req.headers.host, function (err) {
         next();
     });
 }
