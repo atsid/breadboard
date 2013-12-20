@@ -27,6 +27,7 @@ exports.processModelFiles = function (files, app, config) {
                 var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
                     schemaModel = require(appPath + "/" + link.schema.$ref + ".json"),
                     target,
+                    unique,
                     endpoint,
                     handlerFunc = function (defaultHandlerPath, req, res) {
 
@@ -64,11 +65,12 @@ exports.processModelFiles = function (files, app, config) {
                     endpoint = endpointMapping[link.method];
 
                     console.log("Creating endpoint " + link.method + " @ " + linkHref + " with command " + endpoint.defaultCommand);
-                    target = "/" + linkHref;
+                    target = "/" + linkHref,
+                    unique = link.method + "|" + target;
 
                     //we can get dups among the links of course, so ignore if they've already been setup
-                    if (!list[target]) {
-                        list[target] = true;
+                    if (!list[unique]) {
+                        list[unique] = true;
 
                         endpoint.appFunc(target, endpoint.processor, function (req, res, next) {
 
