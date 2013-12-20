@@ -24,8 +24,8 @@
         "schema": {
             "$ref": "schema/models/Application"
         },
-        "logic": {
-            "command": "./commands/logic-read-application.js"
+        "process": {
+            "command": "commands/logic-read-application.js"
         }
     }, {
         "rel": "schema/rel/create",
@@ -40,6 +40,19 @@
         "method": "GET",
         "schema": {
             "$ref": "schema/models/UserList"
+        },
+        "before": {
+            "command": "samples/commands/before-command.js"
+        },
+        "after": {
+            "command": "samples/commands/after-command.js"
+        },
+        "filter": {
+            "command": "commands/filter-rql.js",
+            "arguments": {
+                "user": "application/users/{userId}",
+                "rql": "schema/rql/user-is-barista"
+            }
         }
     }]
 }

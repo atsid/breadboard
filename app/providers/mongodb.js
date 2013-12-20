@@ -4,7 +4,7 @@ var Mongo = require("mongodb"),
     MongoClient = Mongo.MongoClient;
 
 exports.readOne = function (args, callback) {
-    var dbstring = args.app.get("mongodb.connect");
+    var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         db.collection(args.collection)
             .findOne({_id: args.uri}, function (err, doc) {
@@ -16,7 +16,7 @@ exports.readOne = function (args, callback) {
 };
 
 exports.readList = function (args, callback) {
-    var dbstring = args.app.get("mongodb.connect");
+    var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         db.collection(args.collection)
             .find({}).toArray(function (err, doc) {
@@ -28,7 +28,7 @@ exports.readList = function (args, callback) {
 };
 
 exports.create = function (args, callback) {
-    var dbstring = args.app.get("mongodb.connect");
+    var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
         args.data._id = args.uri + "/" + new Mongo.BSONPure.ObjectID();
@@ -42,7 +42,7 @@ exports.create = function (args, callback) {
 };
 
 exports.update = function (args, callback) {
-    var dbstring = args.app.get("mongodb.connect");
+    var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
         console.log("trying to update to collection: " + args.collection + " : " + JSON.stringify(args.data));
@@ -55,7 +55,7 @@ exports.update = function (args, callback) {
 };
 
 exports.remove = function (args, callback) {
-    var dbstring = args.app.get("mongodb.connect");
+    var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
         c.remove({_id: args.uri}, function (err, count) {

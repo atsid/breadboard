@@ -2,14 +2,14 @@
     "port": 3000,
     "defaults": {
         "logic": {
-            "get": "./commands/logic-read",
-            "post": "./commands/logic-create",
-            "put": "./commands/logic-update",
-            "delete": "./commands/logic-delete"
+            "get": "commands/logic-read.js",
+            "post": "commands/logic-create.js",
+            "put": "commands/logic-update.js",
+            "delete": "commands/logic-delete.js"
         },
-        "filter": "./commands/filter-include"
+        "filter": "commands/filter-include.js"
     },
-    "dataProvider": "../providers/mongodb",
+    "dataProvider": "./providers/mongodb",
     "filedb": {
         "path": "/tmp/breadboard-data/"
     },

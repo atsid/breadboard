@@ -4,7 +4,7 @@
  * This filter function determines if a link should be present by applying an RQL query against the
  * arguments, and only returning the link if the query evaluates true.
  */
-exports.execute = function (context, app, callback) {
+exports.execute = function (context, callback) {
 
     console.log("executing rql filter " + context.args.rql);
     var queryExecutor = require("rql/js-array"),

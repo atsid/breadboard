@@ -41,7 +41,7 @@
             "$ref": "schema/models/Product"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "rql": "schema/rql/user-is-barista"
@@ -55,7 +55,7 @@
             "$ref": "schema/models/Product"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "rql": "schema/rql/user-is-barista"

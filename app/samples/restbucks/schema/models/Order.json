@@ -60,7 +60,7 @@
             "$ref": "schema/models/Payment"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "payments": "application/users/{userId}/orders/{orderId}/payments",
@@ -75,7 +75,7 @@
             "$ref": "schema/models/Order"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "rql": "schema/rql/user-is-barista"
@@ -89,7 +89,7 @@
             "$ref": "schema/models/Order"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "payments": "application/users/{userId}/orders/{orderId}/payments",
@@ -105,7 +105,7 @@
             "$ref": "schema/models/Order"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "rql": "schema/rql/user-is-customer"

@@ -7,18 +7,18 @@
  * @param app
  * @param callback
  */
-exports.execute = function (context, app, callback) {
+exports.execute = function (context, callback) {
 
-    var provider = require(app.get("dataProvider")),
-        links = require("../util/links"),
-        persist = require("../util/persist"),
+    var provider = require(context.config.dataProvider),
+        links = require("./util/links"),
+        persist = require("./util/persist"),
         cname = persist.collection(context.links),
         uri = context.params.uri,
         args = {
+            config: context.config,
             data: context.entity,
             uri: uri,
-            collection: cname,
-            app: app
+            collection: cname
         };
 
     provider.create(args, function (err, item) {

@@ -30,7 +30,7 @@
             "$ref": "schema/models/Payment"
         },
         "filter": {
-            "command": "commands/filter-rql",
+            "command": "commands/filter-rql.js",
             "arguments": {
                 "user": "application/users/{userId}",
                 "payments": "application/users/{userId}/orders/{orderId}/payments",

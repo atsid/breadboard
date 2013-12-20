@@ -35,7 +35,7 @@ exports.filter = function (schema, context, app, config, callback) {
                 filterHandler = require(filterCommand);
 
 
-            argLoader.load(filterArguments, app, function (args) {
+            argLoader.load(filterArguments, "localhost:" + app.get("port"), function (args) {
 
                 function keeper(linkToKeep) {
 

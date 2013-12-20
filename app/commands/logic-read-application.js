@@ -6,13 +6,13 @@
  * @param app
  * @param callback
  */
-exports.execute = function (context, app, callback) {
+exports.execute = function (context, callback) {
 
-    var provider = require(app.get("dataProvider"));
+    var provider = require(context.config.dataProvider);
 
     provider.readList({
-        collection: "Application",
-        app: app
+        config: context.config,
+        collection: "Application"
     }, function (err, items) {
         context.result = items[0] || null;
         if (context.result) {

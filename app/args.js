@@ -8,14 +8,14 @@ var async = require("async"),
  * @param args - map of args with key:uri
  * @param callback - callback for results. result should be a map with key:object|text
  */
-exports.load = function (args, app, callback) {
+exports.load = function (args, host, callback) {
 
     var functions = [],
         results = {};
 
     Object.keys(args).forEach(function (key) {
 
-        var url = "http://localhost:" + app.get("port") + "/" + args[key],
+        var url = args[key].indexOf("http") < 0 ? "http://" + host + "/" + args[key] : args[key],
             fetch = function (done) {
 
             request(url, function (err, response, body) {
