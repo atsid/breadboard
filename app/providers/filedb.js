@@ -6,8 +6,7 @@ function makeFilename(args) {
 
     var collection = args.collection,
         id = args.id,
-        app = args.app,
-        root = app.get("filedb.path"),
+        root = args.config.filedb.path,
         path = root + collection,
         filename = path;
 
