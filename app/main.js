@@ -24,6 +24,7 @@ configLoader.load(app, "./appconfig.json");
 app.set('port', process.env.PORT || app.get("port") || 3000);
 
 app.use(express.bodyParser());
+
 autorest(app).scan(function () {
     app.use("/application", hateoasAOP.addContext);
     app.use("/application", hateoasAOP.before);

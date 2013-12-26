@@ -70,7 +70,7 @@ exports.forceWriteJSONFile = function (filename, obj, callback) {
     exports.ensureDirectoryPathSync(dirname);
 
     fs.writeFile(filename, JSON.stringify(obj, null, 2), { encoding: "utf8" }, function (err) {
-        callback(null, obj);
+        callback(err, obj);
     });
 
 };

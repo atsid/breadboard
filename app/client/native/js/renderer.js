@@ -64,12 +64,10 @@ define([
     },
     //these are links we don't show directly
     hideLinks = {
-        "schema/rel/monitor": true, //monitor can be used to setup polling
-        "schema/rel/item": true //TODO: this should be used to load items in a collection, rather than clicking the href like we currently do
+        "schema/rel/monitor": true //monitor can be used to setup polling
     },
-    //properties on the response objects that may be "private" so we don't really want to show them
+    //properties on the response objects that don't direct value to the user
     hideProps = {
-        "_id": true,
         "uri": true
     },
     friendlyMap = {

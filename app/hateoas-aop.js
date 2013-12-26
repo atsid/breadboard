@@ -103,10 +103,35 @@ exports.final = function (req, res, next) {
         }
     }
 
+    //anything used on the backend that has an "_" prefix should be stripped from what is sent to clients, so recurse the result and clean it up
+    function stripPrivate(result) {
+        if (result) {
+            var copy = {};
+            Object.keys(result).forEach(function (key) {
+                var value = result[key],
+                    out = value;
+                if (key.indexOf("_") !== 0) {
+                    if (typeof value === "object") {
+                        if (value.length) {
+                            out = [];
+                            value.forEach(function (val) {
+                                out.push(stripPrivate(val));
+                            });
+                        } else {
+                            out = stripPrivate(value);
+                        }
+                    }
+                    copy[key] = out;
+                }
+            });
+            return copy;
+        }
+    }
+
     recurseProps("_links", req, req._ctx);
 
     res.status(status).send({
-        data: req._result,
+        data: stripPrivate(req._result),
         links: req._links
     });
 };

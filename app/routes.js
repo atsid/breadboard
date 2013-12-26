@@ -19,10 +19,6 @@ exports.processModelFiles = function (files, app) {
     var appPath = app.get("app.path"),
         targetPath,
         method,
-        defaultHandler = function (req, res, next) {
-            req.params.uri = expandUri(req.path, req.params);
-            next();
-        },
         targetHandler,
         list = {};
 
@@ -42,8 +38,8 @@ exports.processModelFiles = function (files, app) {
                 var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
                     rel = link.rel,
                     schemaModel = require(appPath + "/" + link.schema.$ref + ".json"),
+                    linkMethod = link.method || "GET",
                     target,
-                    endpoint,
                     handlerFunc = function (req, res, next) {
                         req.params.uri = expandUri(req.path, req.params);
                         req._hateoasLink = link;
@@ -53,9 +49,9 @@ exports.processModelFiles = function (files, app) {
                     };
                 target = "/" + linkHref;
                 list[target] = list[target] || {};
-                list[target][link.method] = list[target][link.method] || {};
-                list[target][link.method][rel] = list[target][link.method][rel] || handlerFunc;
-                console.log("created : " + target + " " + link.method + " " + rel);
+                list[target][linkMethod] = list[target][linkMethod] || {};
+                list[target][linkMethod][rel] = list[target][linkMethod][rel] || handlerFunc;
+                console.log("created : " + target + " " + linkMethod + " " + rel);
             });
         }
     });
@@ -65,11 +61,36 @@ exports.processModelFiles = function (files, app) {
     // handler to process
     //
     targetHandler = function (req, res, next) {
-        var rel = req.headers.pragma, handler;
-        rel = (rel && rel.split("=")[1]) || "schema/rel/self";
-        console.log("Target: " + req.route);
-        console.log("Rel: " + rel);
-        handler = (rel && list[req.route.path][req.method][rel]) || defaultHandler;
+
+        // given the target/method/rel, this will find the correct handler.
+        // however, we don't always have a rel accompanying the request,
+        // so this will compensate by finding the first target/method match if needed
+        //it also tries to default to a self link if a handler exists
+        function findHandler(t, m, r) {
+            var possible = list[t][m];
+            if (r) {
+                console.log("rel exists [" + r + "], using handler");
+            } else {
+                if (possible["schema/rel/self"]) {
+                    r = "schema/rel/self";
+                    console.log("no rel, but self exists, so using that");
+                } else {
+                    r = Object.keys(possible)[0];
+                    console.log("using first available rel [" + r + "] handler");
+                }
+
+            }
+            return possible[r];
+        }
+
+        //TODO: search possible pragma for exact rel key
+        var pragma = req.headers.pragma, handler,
+            rel = pragma && pragma.split("=")[1];
+        console.log("==========");
+        console.log("Invoking target: " + req.method + " | " + req.path);
+        console.log("route: " + JSON.stringify(req.route));
+        console.log("rel: " + rel);
+        handler = findHandler(req.route.path, req.method, rel);
 
         try {
             handler(req, res, next);

@@ -34,6 +34,19 @@ describe("UserList HTTP requests", function () {
             done();
         });
 
+        it("result objects should have no 'private' members ('_' prefix)", function (done) {
+            var has_ = false;
+            output.json.data.items.forEach(function (item) {
+                Object.keys(item).forEach(function (key) {
+                    if (key.indexOf("_") === 0) {
+                        has_ = true;
+                    }
+                });
+            });
+            assert.equal(has_, false);
+            done();
+        });
+
     });
 
 });
