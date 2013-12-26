@@ -1,11 +1,6 @@
 {
     "description": "Represents the root-level application. This is usually the main entry point for any user.",
     "properties": {
-        "_id": {
-            "type": "string",
-            "description": "Private, mongo-assigned identifier",
-            "readonly": true
-        },
         "uri": {
             "type": "string",
             "description": "URI of this object",

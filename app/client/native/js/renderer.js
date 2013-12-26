@@ -68,7 +68,6 @@ define([
     },
     //properties on the response objects that don't direct value to the user
     hideProps = {
-        "_id": true,
         "uri": true
     },
     friendlyMap = {

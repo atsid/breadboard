@@ -1,11 +1,6 @@
 {
     "description": "Represents a product available in the storefront for this application (e.g., a menu item).",
     "properties": {
-        "_id": {
-            "type": "string",
-            "description": "Private, mongo-assigned identifier",
-            "readonly": true
-        },
         "uri": {
             "type": "string",
             "description": "URI of this object",

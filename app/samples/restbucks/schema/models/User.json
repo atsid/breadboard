@@ -1,11 +1,6 @@
 {
     "description": "Represents a user within the system.",
     "properties": {
-        "_id": {
-            "type": "string",
-            "description": "Private, mongo-assigned identifier",
-            "readonly": true
-        },
         "uri": {
             "type": "string",
             "description": "URI of this object",

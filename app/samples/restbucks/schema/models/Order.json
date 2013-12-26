@@ -1,11 +1,6 @@
 {
     "description": "Represents an order placed by a user within the application, and operated on by internal agents, such as a barista.",
     "properties": {
-        "_id": {
-            "type": "string",
-            "description": "Private, mongo-assigned identifier",
-            "readonly": true
-        },
         "uri": {
             "type": "string",
             "description": "URI of this object",
