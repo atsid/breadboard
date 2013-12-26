@@ -64,30 +64,10 @@ define([
             });
         }
     },
-    //these are links we don't show directly
-    hideLinks = {
-        "schema/rel/monitor": true //monitor can be used to setup polling
-    },
-    //properties on the response objects that don't direct value to the user
+    //properties on the response objects that don't have direct value to the user
     hideProps = {
         "uri": true
-    },
-    friendlyMap = {
-        "schema/rel/self": "Refresh",
-        "schema/rel/collection": "Parent List"
     };
-
-    //make a friendly label
-    function friendly(rel) {
-        var text = friendlyMap[rel],
-            word;
-        if (!text) {
-            //if there isn't any friendly text pre-defined for a link, we'll make it look a little prettier
-            word = rel.substring(rel.lastIndexOf("/") + 1, rel.length);
-            text = word.substring(0, 1).toUpperCase() + word.substring(1, word.length).replace("-", " ");
-        }
-        return text;
-    }
 
     function createForm(link, backLink, item, container) {
 
@@ -95,7 +75,7 @@ define([
 
         dom.empty(container);
 
-        var header = dom.create("header", {innerHTML: friendly(link.rel).toUpperCase()}, container),
+        var header = dom.create("header", {innerHTML: link.title.toUpperCase()}, container),
             schema = link.schema,
             properties = schema.properties,
             keys = Object.keys(properties),
