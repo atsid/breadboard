@@ -46,7 +46,7 @@ exports.update = function (args, callback) {
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
         console.log("trying to update to collection: " + args.collection + " : " + JSON.stringify(args.data));
-        c.update({_id: args.data._id || args.data.uri}, args.data, function (err, doc) {
+        c.update({_id: args.uri}, args.data, function (err, doc) {
             callback(err, doc);
             db.close();
             console.log("Updating to collection: " + args.collection + " : " + JSON.stringify(doc));
