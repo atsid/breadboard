@@ -46,8 +46,10 @@ exports.update = function (args, callback) {
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
         console.log("trying to update to collection: " + args.collection + " : " + JSON.stringify(args.data));
-        c.update({_id: args.uri}, args.data, function (err, doc) {
-            callback(err, doc);
+        //to do an update, we need to use $set in order to force merge, since we may not have the entire representation
+        //http://docs.mongodb.org/manual/reference/operator/update/set/#up._S_set
+        c.update({_id: args.uri}, {$set: args.data }, function (err, doc) {
+            callback(err, args.data);
             db.close();
             console.log("Updating to collection: " + args.collection + " : " + JSON.stringify(doc));
         });

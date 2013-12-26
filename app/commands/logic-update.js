@@ -19,6 +19,7 @@ exports.execute = function (context, callback) {
             config: context.config,
             data: context.entity,
             collection: cname,
+            uri: uri,
             id: id
         };
 
