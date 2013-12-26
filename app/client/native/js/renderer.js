@@ -27,8 +27,9 @@ define([
             if (selfLink) {
                 backLink = {
                     rel: "schema/rel/up",
-                    "method": selfLink.method,
-                    "href": selfLink.href
+                    method: selfLink.method,
+                    href: selfLink.href,
+                    title: "Back"
                 };
             }
 
@@ -47,8 +48,9 @@ define([
             if (selfLink) {
                 backLink = {
                     rel: "schema/rel/up",
-                    "method": selfLink.method,
-                    "href": selfLink.href
+                    method: selfLink.method,
+                    href: selfLink.href,
+                    title: "Back"
                 };
             }
 
@@ -266,9 +268,10 @@ define([
         links.forEach(function (link) {
             var rel = link.rel,
                 method = link.method || "GET",
-                button, text = friendly(rel);
+                button, text = link.title;
 
-            if (!hideLinks[rel]) {
+            //only display links that have been given a title, so the schema can control the presentation
+            if (text) {
 
                 button = dom.create("button", {
                     innerHTML: text,

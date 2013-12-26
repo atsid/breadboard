@@ -20,6 +20,7 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}",
         "method": "GET",
+        "title": "Refresh",
         "schema": {
             "$ref": "schema/models/User"
         }
@@ -27,6 +28,7 @@
         "rel": "schema/rel/collection",
         "href": "application/users",
         "method": "GET",
+        "title": "Up to Users",
         "schema": {
             "$ref": "schema/models/UserList"
         }
@@ -34,6 +36,7 @@
         "rel": "schema/rel/products",
         "href": "application/users/{userId}/products",
         "method": "GET",
+        "title": "Products",
         "schema": {
             "$ref": "schema/models/ProductList"
         }
@@ -41,6 +44,7 @@
         "rel": "schema/rel/orders",
         "href": "application/users/{userId}/orders",
         "method": "GET",
+        "title": "Orders",
         "schema": {
             "$ref": "schema/models/OrderList"
         }
@@ -48,6 +52,7 @@
         "rel": "schema/rel/edit",
         "href": "application/users/{userId}",
         "method": "PUT",
+        "title": "Edit User",
         "schema": {
             "$ref": "schema/models/User"
         }
@@ -55,6 +60,7 @@
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}",
         "method": "DELETE",
+        "title": "Remove User",
         "schema": {
             "$ref": "schema/models/User"
         }

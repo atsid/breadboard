@@ -30,6 +30,7 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "GET",
+        "title": "Refresh",
         "schema": {
             "$ref": "schema/models/Order"
         }
@@ -44,6 +45,7 @@
         "rel": "schema/rel/collection",
         "href": "application/users/{userId}/orders",
         "method": "GET",
+        "title": "Up to Orders",
         "schema": {
             "$ref": "schema/models/OrderList"
         }
@@ -51,6 +53,7 @@
         "rel": "schema/rel/payment",
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "POST",
+        "title": "Payments",
         "schema": {
             "$ref": "schema/models/Payment"
         },
@@ -66,6 +69,7 @@
         "rel": "schema/rel/edit",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "PUT",
+        "title": "Edit Order",
         "schema": {
             "$ref": "schema/models/Order"
         },
@@ -80,6 +84,7 @@
         "rel": "schema/rel/receive-order",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "DELETE",
+        "title": "Receive Order",
         "schema": {
             "$ref": "schema/models/Order"
         },
@@ -96,6 +101,7 @@
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}/orders/{orderId}",
         "method": "DELETE",
+        "title": "Cancel Order",
         "schema": {
             "$ref": "schema/models/Order"
         },

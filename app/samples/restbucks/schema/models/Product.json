@@ -25,6 +25,7 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}/products/{productId}",
         "method": "GET",
+        "title": "Refresh",
         "schema": {
             "$ref": "schema/models/Product"
         }
@@ -32,6 +33,7 @@
         "rel": "schema/rel/edit",
         "href": "application/users/{userId}/products/{productId}",
         "method": "PUT",
+        "title": "Edit Product",
         "schema": {
             "$ref": "schema/models/Product"
         },
@@ -46,6 +48,7 @@
         "rel": "schema/rel/remove",
         "href": "application/users/{userId}/products/{productId}",
         "method": "DELETE",
+        "title": "Remove Product",
         "schema": {
             "$ref": "schema/models/Product"
         },
@@ -60,6 +63,7 @@
         "rel": "schema/rel/collection",
         "href": "application/users/{userId}/products",
         "method": "GET",
+        "title": "Up to Products",
         "schema": {
             "$ref": "schema/models/ProductList"
         }

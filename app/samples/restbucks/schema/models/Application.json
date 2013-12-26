@@ -16,6 +16,7 @@
         "rel": "schema/rel/self",
         "href": "application",
         "method": "GET",
+        "title": "Refresh",
         "schema": {
             "$ref": "schema/models/Application"
         },
@@ -26,6 +27,7 @@
         "rel": "schema/rel/create",
         "href": "application",
         "method": "POST",
+        "title": "Create Application",
         "schema": {
             "$ref": "schema/models/Application"
         }
@@ -33,6 +35,7 @@
         "rel": "schema/rel/users",
         "href": "application/users",
         "method": "GET",
+        "title": "Users",
         "schema": {
             "$ref": "schema/models/UserList"
         },

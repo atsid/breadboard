@@ -12,6 +12,7 @@
         "rel": "schema/rel/self",
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "GET",
+        "title": "Refresh",
         "schema": {
             "$ref": "schema/models/PaymentList"
         }
@@ -26,6 +27,7 @@
         "rel": "schema/rel/create",
         "href": "application/users/{userId}/orders/{orderId}/payments",
         "method": "POST",
+        "title": "Create Payment",
         "schema": {
             "$ref": "schema/models/Payment"
         },

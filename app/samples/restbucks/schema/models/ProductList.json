@@ -13,6 +13,7 @@
             "rel": "schema/rel/self",
             "href": "application/users/{userId}/products",
             "method": "GET",
+            "title": "Refresh",
             "schema": {
                 "$ref": "schema/models/ProductList"
             }
@@ -29,6 +30,7 @@
             "rel": "schema/rel/create",
             "href": "application/users/{userId}/products",
             "method": "POST",
+            "title": "Create Product",
             "schema": {
                 "$ref": "schema/models/Product"
             },
@@ -44,6 +46,7 @@
             "rel": "schema/rel/create-order",
             "href": "application/users/{userId}/orders",
             "method": "POST",
+            "title": "Create Order",
             "schema": {
                 "$ref": "schema/models/Order"
             },
@@ -59,6 +62,7 @@
             "rel": "schema/rel/up",
             "href": "application/users/{userId}",
             "method": "GET",
+            "title": "Up to User",
             "schema": {
                 "$ref": "schema/models/User"
             }
