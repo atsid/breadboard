@@ -11,6 +11,7 @@
         "mongodb": "*",
         "rql": "*",
         "async": "*",
+        "clone": "*",
         "node-uuid": "*"
     },
     "devDependencies": {

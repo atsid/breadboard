@@ -1,5 +1,7 @@
 "use strict";
 
+var clone = require("clone");
+
 function expandUri(uri, params) {
     if (uri) {
         Object.keys(params).forEach(function (param) {
@@ -41,9 +43,10 @@ exports.processModelFiles = function (files, app) {
                     linkMethod = link.method || "GET",
                     target,
                     handlerFunc = function (req, res, next) {
+                        //always clone the reference materials so templates aren't ruined by later expansions
                         req.params.uri = expandUri(req.path, req.params);
-                        req._hateoasLink = link;
-                        req._schema = schemaModel;
+                        req._hateoasLink = clone(link);
+                        req._schema = clone(schemaModel);
                         req._result = req.body;
                         next();
                     };

@@ -84,7 +84,8 @@ exports.filter = function (req, res, next) {
 // previous stages.
 //
 exports.final = function (req, res, next) {
-    var status = req.method === "post" ? 201 : (req.method === "delete" ? 204 : 200);
+    var method = req.method.toLowerCase(),
+        status = method === "post" ? 201 : (method === "delete" ? 204 : 200);
     function expandString(str, params) {
         if (str) {
             Object.keys(params).forEach(function (param) {
