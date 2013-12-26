@@ -14,7 +14,7 @@ exports.execute = function (context, callback) {
         inList = links.inList(context.links),
         cname = persist.collection(context.links),
         uri = context.params.uri,
-        id = uri.substring(uri.lastIndexOf("/"), uri.length),
+        id = uri.substring(uri.lastIndexOf("/") + 1, uri.length),
         args = {
             config: context.config,
             data: context.entity,
