@@ -42,7 +42,7 @@ exports.create = function (args, callback) {
 
     data._id = id;
     data.uri = uri + "/" + id;
-    args.id = "/" + id; //TODO: fix this - other modules that are using substring get the leading slash
+    args.id = id;
 
     filename = makeFilename(args);
     file.forceWriteJSONFile(filename, data, function (err, content) {
