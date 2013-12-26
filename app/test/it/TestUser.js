@@ -6,6 +6,8 @@ var assert = require("assert"),
 
 describe("User HTTP requests", function () {
 
+    this.timeout(10000);
+
     var output;
 
     before(function (done) {

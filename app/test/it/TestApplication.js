@@ -5,6 +5,8 @@ var assert = require("assert"),
 
 describe("Application HTTP requests", function () {
 
+    this.timeout(10000);
+
     describe("/application", function () {
 
         var output;

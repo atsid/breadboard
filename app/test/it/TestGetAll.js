@@ -11,6 +11,8 @@ var assert = require("assert"),
  */
 describe("All HTTP GET requests", function () {
 
+    this.timeout(10000);
+
     var queue = ["/application/users"],
         gotten = {}; //don't request them twice
 

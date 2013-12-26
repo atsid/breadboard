@@ -6,6 +6,8 @@ var assert = require("assert"),
 
 describe("ProductList HTTP requests", function () {
 
+    this.timeout(10000);
+
     var output;
 
     before(function (done) {

@@ -5,6 +5,8 @@ var assert = require("assert"),
 
 describe("UserList HTTP requests", function () {
 
+    this.timeout(10000);
+
     describe("/application/users", function () {
 
         var output;
