@@ -40,20 +40,20 @@ exports.create = function (args, callback) {
         data = args.data,
         filename;
 
-    data._id = uri + "/" + id;
-    data.uri = data._id;
+    data._id = id;
+    data.uri = uri + "/" + id;
     args.id = "/" + id; //TODO: fix this - other modules that are using substring get the leading slash
 
     filename = makeFilename(args);
     file.forceWriteJSONFile(filename, data, function (err, content) {
-        callback(err, content);
+        callback(err, data);
     });
 };
 
 exports.update = function (args, callback) {
     var filename = makeFilename(args);
     file.forceWriteJSONFile(filename, args.data, function (err, content) {
-        callback(err, content);
+        callback(err, args.data);
     });
 };
 
