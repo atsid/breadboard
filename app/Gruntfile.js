@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         },
         'node-inspector': {
             dev: { 
-                "debug-port": 3000,
+                "debug-port": 3000
             }
         }
     });

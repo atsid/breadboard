@@ -11,7 +11,7 @@ function makeFilename(args) {
         filename = path;
 
     if (id) {
-        filename += id;
+        filename += "/" + id;
     }
 
     return filename;
