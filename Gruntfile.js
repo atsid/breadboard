@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         jshint: {
-            src: ['**/*.js', '!client/**/*.*', '!node_modules/**/*.*'],
+            src: ['**/*.js', '!node_modules/**/*.*'],
             options: {
                 jshintrc: '.jshintrc'
             }
@@ -27,26 +27,22 @@ module.exports = function (grunt) {
             dev: { 
                 "debug-port": 3000
             }
+        },
+        express: {
+            dev: {
+                options: {
+                    script: './app/main.js'
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-node-inspector');
+    grunt.loadNpmTasks('grunt-express-server');
 
-    // start server using debug flag and start node-inspector
-    grunt.registerTask('start', 'Start server and node-inspector', function (brk) {
-        var node = grunt.util.spawn({
-            cmd: 'node',
-            args: [brk ? '--debug-brk' : '--debug', 'main.js']
-        });
-        node.stdout.pipe(process.stdout);
-        node.stderr.pipe(process.stderr);
-
-        grunt.task.run('node-inspector:dev');
-    });
-
+    grunt.registerTask('start', ['express:dev', 'watch']);
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('test', ['mochaTest']);
     grunt.registerTask('default', ['jshint', 'mochaTest']);

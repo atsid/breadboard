@@ -1,13 +1,7 @@
 "use strict";
 
-//lets load newrelic - if we have it
-if (process.env.license) {
-    require('newrelic');
-}
+process.chdir("./app");
 
-/**
- * Simple express app to serve tutorial pages and services.
- */
 var express = require('express'),
     fs = require('fs'),
     http = require('http'),
@@ -15,11 +9,10 @@ var express = require('express'),
     hateoasAOP = require('./hateoas-aop'),
     autorest = require('./hateoas-endpoints'),
     schemaService = require('./schema-service'),
-    configLoader = require('./config-loader');
+    configLoader = require('./config-loader'),
+    app = express();
 
-var app = express();
-
-configLoader.load(app, "./appconfig.json");
+configLoader.load(app, './appconfig.json');
 
 app.set('port', process.env.PORT || app.get("port") || 3000);
 
