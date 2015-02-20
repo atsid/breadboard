@@ -12,21 +12,19 @@
   },
   "dependencies": {
     "express": "3.2.3",
-    "newrelic": "*",
-    "mongodb": "*",
-    "rql": "*",
-    "async": "*",
-    "clone": "*",
-    "node-uuid": "*"
+    "mongodb": "1.4.31",
+    "rql": "0.3.3",
+    "async": "0.9.0",
+    "clone": "1.0.0",
+    "node-uuid": "1.4.2"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "mocha": "~1.14.0",
-    "request": "~2.2.7",
-    "grunt-contrib-jshint": "~0.7.2",
+    "grunt": "0.4.2",
+    "mocha": "1.14.0",
+    "request": "2.53.0",
+    "grunt-contrib-jshint": "0.7.2",
     "grunt-mocha-test": "0.8.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-node-inspector": "~0.1.2",
+    "grunt-contrib-watch": "0.5.3",
     "grunt-express-server": "0.4.19"
   }
 }
