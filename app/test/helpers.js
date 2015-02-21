@@ -2,7 +2,7 @@
 //handful of utilities to reduce test boilerplate and bootstrap config
 var request = require("request"),
     fs = require("fs"),
-    config = JSON.parse(fs.readFileSync(__dirname + '/../appconfig.json'));
+    config = require(__dirname + '/../appconfig.json');
 
 /**
  * Wraps up a request, using localhost and the configured app port, and parsing JSON automatically.

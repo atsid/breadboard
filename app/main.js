@@ -1,8 +1,9 @@
-"use strict";
+'use strict';
 
-process.chdir("./app");
+process.chdir('./app');
 
-var express = require('express'),
+var config = require('./appconfig.json'),
+    express = require('express'),
     fs = require('fs'),
     http = require('http'),
     path = require('path'),
@@ -12,27 +13,34 @@ var express = require('express'),
     configLoader = require('./config-loader'),
     app = express();
 
-configLoader.load(app, './appconfig.json');
+hateoasAOP.configure(config);
 
-app.set('port', process.env.PORT || app.get("port") || 3000);
+configLoader.load(app, config);
+
+app.set('port', process.env.PORT || app.get('port') || 3000);
 
 app.use(express.bodyParser());
 
 autorest(app).scan(function () {
-    app.use("/application", hateoasAOP.addContext);
-    app.use("/application", hateoasAOP.before);
-    app.use("/application", hateoasAOP.process);
-    app.use("/application", hateoasAOP.after);
-    app.use("/application", hateoasAOP.filter);
-    app.use("/application", hateoasAOP.final);
-    app.use(express.static(__dirname + app.get("client.path")));
-    app.use("/samples", express.static(__dirname + "/samples/restbucks"));
-    app.use("/commands", express.static(__dirname + "/commands"));
+    app.use('/application', hateoasAOP.addContext);
+    app.use('/application', hateoasAOP.before);
+    app.use('/application', hateoasAOP.process);
+    app.use('/application', hateoasAOP.after);
+    app.use('/application', hateoasAOP.filter);
+    app.use('/application', hateoasAOP.final);
+    //default command set
+    app.use('/commands', express.static(__dirname + '/commands'));
+    //app-instance-specific schema set
+    app.use('/' + app.get('app.name'), express.static(__dirname + app.get('app.path')));
+    //default dev client
+    app.use(express.static(__dirname + app.get('client.path')));
+
+
 });
 
 schemaService(app, {
     middleware: [express.bodyParser()],
-    path: app.get("app.path")
+    path: app.get('app.path')
 });
 
 http.createServer(app).listen(app.get('port'), function () {

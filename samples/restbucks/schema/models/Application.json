@@ -40,10 +40,10 @@
             "$ref": "schema/models/UserList"
         },
         "before": {
-            "command": "samples/commands/before-command.js"
+            "command": "restbucks/commands/before-command.js"
         },
         "after": {
-            "command": "samples/commands/after-command.js"
+            "command": "restbucks/commands/after-command.js"
         },
         "filter": {
             "command": "commands/filter-rql.js",

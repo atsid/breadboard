@@ -16,7 +16,8 @@ exports.execute = function (context, callback) {
     }, function (err, items) {
         context.result = items[0] || null;
         if (context.result) {
-            context.result.uri = "/application"; //TODO: kludge to override weird replacement
+            //applications in breadboard always 'root' under this
+            context.result.uri = "/application";
         }
         callback(context);
     });

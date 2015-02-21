@@ -1,10 +1,11 @@
 {
-  "name": "breadboard",
+  "name": "breadboard-node",
   "version": "0.0.1",
   "private": false,
   "scripts": {
     "start": "node app/main.js"
   },
+  "main": "app/main.js",
   "license": "Apache-2.0",
   "repository": {
     "type" : "git",

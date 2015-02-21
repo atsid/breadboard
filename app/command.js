@@ -1,9 +1,13 @@
 "use strict";
 
 var async = require("async"),
-    config = require("./appconfig.json"),
     request = require("request"),
-    argLoader = require("./args");
+    argLoader = require("./args"),
+    config;
+
+exports.configure = function (configuration) {
+    config = configuration;
+};
 
 exports.execute = function (link, req, host, callback) {
 

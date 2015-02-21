@@ -9,7 +9,7 @@
 "use strict";
 
 var command = require("./command"),
-    config = require("./appconfig.json");
+    config;
 
 // Generalize execution for some of the phases.
 function executePhase(phase, req, def, next) {
@@ -21,6 +21,11 @@ function executePhase(phase, req, def, next) {
         next();
     });
 }
+
+exports.configure = function (configuration) {
+    config = configuration;
+    command.configure(configuration);
+};
 
 //
 // Add a context to the request used for uri template replacements.
