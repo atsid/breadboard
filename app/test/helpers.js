@@ -1,17 +1,16 @@
 "use strict";
 //handful of utilities to reduce test boilerplate and bootstrap config
 var request = require("request"),
-    fs = require("fs"),
-    config = require(__dirname + '/../../samples/restbucks/appconfig.json');
+    fs = require("fs");
 
 /**
  * Wraps up a request, using localhost and the configured app port, and parsing JSON automatically.
- * @param path
+ * @param path - relative path of request (not including host:port). Note that port is set to 3000 based on assumption that IT tests are targeted at restbucks sample app.
  * @param callback - should have the same signature as request.callback (error, response, body), but the body will be already parsed (https://github.com/mikeal/request)
  */
 exports.request = function (path, rel, callback) {
     var opts = {
-        url: "http://localhost:" + config.port + path
+        url: "http://localhost:3000" + path
     };
     typeof (rel) === 'function' ? callback = rel : "";
     if (rel && typeof (rel) !== "function") {

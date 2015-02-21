@@ -21,6 +21,6 @@
     },
     "app": {
         "name": "restbucks",
-        "path": "../samples/restbucks"
+        "path": "./samples/restbucks"
     }
 }

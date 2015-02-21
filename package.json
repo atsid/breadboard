@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "start": "node app/main.js"
+    "start": "node dev-server.js"
   },
   "main": "app/main.js",
   "license": "Apache-2.0",

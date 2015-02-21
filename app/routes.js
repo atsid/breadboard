@@ -1,6 +1,7 @@
 "use strict";
 
-var clone = require("clone");
+var fs = require("fs"),
+    clone = require("clone");
 
 function expandUri(uri, params) {
     if (uri) {
@@ -18,6 +19,8 @@ function expandUri(uri, params) {
  */
 exports.processModelFiles = function (files, app) {
 
+    console.log("Processing models " + JSON.stringify(files));
+
     var appPath = app.get("app.path"),
         targetPath,
         method,
@@ -31,7 +34,7 @@ exports.processModelFiles = function (files, app) {
 
         console.log("Scanning file " + file);
 
-        var model = require(appPath + "/schema/models/" + file);
+        var model = JSON.parse(fs.readFileSync(appPath + "/schema/models/" + file));
 
         if (model.links) {
 
@@ -39,7 +42,7 @@ exports.processModelFiles = function (files, app) {
 
                 var linkHref = link.href.replace(/\{/g, ":").replace(/\}/g, ""),
                     rel = link.rel,
-                    schemaModel = require(appPath + "/" + link.schema.$ref + ".json"),
+                    schemaModel = JSON.parse(fs.readFileSync(appPath + "/" + link.schema.$ref + ".json")),
                     linkMethod = link.method || "GET",
                     target,
                     handlerFunc = function (req, res, next) {

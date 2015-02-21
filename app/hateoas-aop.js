@@ -1,6 +1,6 @@
 /**
  * Stages of request processing to implement hateoas using express middleware.
- * The following additinoal internal fields on the request are used if they exist:
+ * The following additional internal fields on the request are used if they exist:
  * req._hateoasLink
  * req._schema
  * req._result
