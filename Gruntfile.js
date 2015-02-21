@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         express: {
             dev: {
                 options: {
-                    script: './app/main.js'
+                    script: './dev-server.js'
                 }
             }
         }
