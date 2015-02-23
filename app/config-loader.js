@@ -17,11 +17,9 @@ var fs = require("fs");
  * @param app
  * @param configFile
  */
-exports.load = function (app, configFile) {
+exports.load = function (app, config) {
 
-    console.log("loading config from file " + configFile);
-
-    var config = JSON.parse(fs.readFileSync(configFile));
+    console.log("loading config for " + config.app.path);
 
     function walk(parent, obj) {
 

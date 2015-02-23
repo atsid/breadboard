@@ -11,63 +11,64 @@ define([
     "use strict";
 
     //this maps CRUD operations to link methods
-    var actions = {
-        "GET": function (link, links, data, container) {
-            renderer.render(link.href, container);
-        },
-        "POST": function (link, links, data, container) {
+    var renderer,
+        actions = {
+            "GET": function (link, links, data, container) {
+                renderer.render(link.href, container);
+            },
+            "POST": function (link, links, data, container) {
 
-            console.log("rendering create form for " + link.rel);
-            var s = schema.load(link.schema.$ref),
-                selfLink = schema.find(links, "schema/rel/self"),
-                backLink;
+                console.log("rendering create form for " + link.rel);
+                var s = schema.load(link.schema.$ref),
+                    selfLink = schema.find(links, "schema/rel/self"),
+                    backLink;
 
-            link.schema = s;
+                link.schema = s;
 
-            if (selfLink) {
-                backLink = {
-                    rel: "schema/rel/up",
-                    method: selfLink.method,
-                    href: selfLink.href,
-                    title: "Back"
-                };
+                if (selfLink) {
+                    backLink = {
+                        rel: "schema/rel/up",
+                        method: selfLink.method,
+                        href: selfLink.href,
+                        title: "Back"
+                    };
+                }
+
+                createForm(link, backLink, data, container);
+
+            },
+            "PUT": function (link, links, data, container) {
+
+                console.log("rendering edit form for " + link.rel);
+                var s = schema.load(link.schema.$ref),
+                    selfLink = schema.find(links, "schema/rel/self"),
+                    backLink;
+
+                link.schema = s;
+
+                if (selfLink) {
+                    backLink = {
+                        rel: "schema/rel/up",
+                        method: selfLink.method,
+                        href: selfLink.href,
+                        title: "Back"
+                    };
+                }
+
+                createForm(link, backLink, data, container);
+
+            },
+            "DELETE": function (link, links, data, container) {
+                crud.exec(link, null, function (response) {
+                    var parentLink = schema.find(links, "schema/rel/collection");
+                    renderer.render(parentLink.href, container);
+                });
             }
-
-            createForm(link, backLink, data, container);
-
         },
-        "PUT": function (link, links, data, container) {
-
-            console.log("rendering edit form for " + link.rel);
-            var s = schema.load(link.schema.$ref),
-                selfLink = schema.find(links, "schema/rel/self"),
-                backLink;
-
-            link.schema = s;
-
-            if (selfLink) {
-                backLink = {
-                    rel: "schema/rel/up",
-                    method: selfLink.method,
-                    href: selfLink.href,
-                    title: "Back"
-                };
-            }
-
-            createForm(link, backLink, data, container);
-
-        },
-        "DELETE": function (link, links, data, container) {
-            crud.exec(link, null, function (response) {
-                var parentLink = schema.find(links, "schema/rel/collection");
-                renderer.render(parentLink.href, container);
-            });
-        }
-    },
-    //properties on the response objects that don't have direct value to the user
-    hideProps = {
-        "uri": true
-    };
+        //properties on the response objects that don't have direct value to the user
+        hideProps = {
+            "uri": true
+        };
 
     function createForm(link, backLink, item, container) {
 
@@ -277,6 +278,10 @@ define([
             footnote = dom.create("footnote", {innerHTML: "You are here: "}),
             i, l, a, text;
 
+        function click(e) {
+            renderer.render(e.target.tag, container);
+        }
+
         for (i = 0, l = splits.length; i < l; i += 1) {
             split = splits[i];
             full += split;
@@ -287,9 +292,7 @@ define([
                 innerHTML: split,
                 href: "#",
                 tag: full,
-                onclick: function (e) {
-                    renderer.render(e.target.tag, container);
-                }
+                onclick: click
             }, footnote);
 
             if (l > 1 && i < l - 1) {
@@ -302,7 +305,7 @@ define([
 
     }
 
-    var renderer = {
+    renderer = {
 
         render: function (uri, container) {
 
@@ -331,4 +334,5 @@ define([
     };
 
     return renderer;
+
 });

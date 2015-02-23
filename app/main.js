@@ -1,47 +1,53 @@
-"use strict";
+'use strict';
 
-//lets load newrelic - if we have it
-if (process.env.license) {
-    require('newrelic');
-}
+exports.start = function (config) {
 
-/**
- * Simple express app to serve tutorial pages and services.
- */
-var express = require('express'),
-    fs = require('fs'),
-    http = require('http'),
-    path = require('path'),
-    hateoasAOP = require('./hateoas-aop'),
-    autorest = require('./hateoas-endpoints'),
-    schemaService = require('./schema-service'),
-    configLoader = require('./config-loader');
+    console.log("Working dir: " + process.cwd());
+    var express = require('express'),
+        fs = require('fs'),
+        http = require('http'),
+        path = require('path'),
+        aop = require('./hateoas-aop'),
+        endpoints = require('./hateoas-endpoints'),
+        schemaService = require('./schema-service'),
+        configLoader = require('./config-loader'),
+        app = express();
 
-var app = express();
+    aop.configure(config);
 
-configLoader.load(app, "./appconfig.json");
+    configLoader.load(app, config);
 
-app.set('port', process.env.PORT || app.get("port") || 3000);
+    app.set('port', process.env.PORT || app.get('port') || 3000);
 
-app.use(express.bodyParser());
+    app.use(express.bodyParser());
 
-autorest(app).scan(function () {
-    app.use("/application", hateoasAOP.addContext);
-    app.use("/application", hateoasAOP.before);
-    app.use("/application", hateoasAOP.process);
-    app.use("/application", hateoasAOP.after);
-    app.use("/application", hateoasAOP.filter);
-    app.use("/application", hateoasAOP.final);
-    app.use(express.static(__dirname + app.get("client.path")));
-    app.use("/samples", express.static(__dirname + "/samples/restbucks"));
-    app.use("/commands", express.static(__dirname + "/commands"));
-});
+    endpoints(app).scan(function () {
+        app.use('/application', aop.addContext);
+        app.use('/application', aop.before);
+        app.use('/application', aop.process);
+        app.use('/application', aop.after);
+        app.use('/application', aop.filter);
+        app.use('/application', aop.final);
 
-schemaService(app, {
-    middleware: [express.bodyParser()],
-    path: app.get("app.path")
-});
+        //default command set
+        app.use('/commands', express.static(__dirname + '/commands'));
 
-http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
-});
+        //app-instance-specific schema set
+        app.use('/' + app.get('app.name'), express.static(__dirname + app.get('app.path')));
+
+        //default dev client
+        app.use(express.static(__dirname + app.get('client.path')));
+
+
+    });
+
+    schemaService(app, {
+        middleware: [express.bodyParser()],
+        path: app.get('app.path')
+    });
+
+    http.createServer(app).listen(app.get('port'), function () {
+        console.log('Express server listening on port ' + app.get('port'));
+    });
+
+};

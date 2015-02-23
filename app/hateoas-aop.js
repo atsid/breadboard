@@ -1,6 +1,6 @@
 /**
  * Stages of request processing to implement hateoas using express middleware.
- * The following additinoal internal fields on the request are used if they exist:
+ * The following additional internal fields on the request are used if they exist:
  * req._hateoasLink
  * req._schema
  * req._result
@@ -9,7 +9,7 @@
 "use strict";
 
 var command = require("./command"),
-    config = require("./appconfig.json");
+    config;
 
 // Generalize execution for some of the phases.
 function executePhase(phase, req, def, next) {
@@ -21,6 +21,11 @@ function executePhase(phase, req, def, next) {
         next();
     });
 }
+
+exports.configure = function (configuration) {
+    config = configuration;
+    command.configure(configuration);
+};
 
 //
 // Add a context to the request used for uri template replacements.

@@ -1,5 +1,7 @@
 define(function () {
 
+    "use strict";
+
     var schemas = {};
 
     return {
@@ -33,5 +35,5 @@ define(function () {
             });
             return result;
         }
-    }
+    };
 });

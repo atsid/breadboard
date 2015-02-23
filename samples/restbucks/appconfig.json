@@ -20,6 +20,7 @@
         "path": "/client/native"
     },
     "app": {
+        "name": "restbucks",
         "path": "./samples/restbucks"
     }
 }
