@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "start": "node dev-server.js"
+    "start": "node dev-server.js",
+    "test": "grunt lint"
   },
   "main": "app/main.js",
   "license": "Apache-2.0",
