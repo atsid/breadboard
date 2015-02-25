@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require("assert"),
-    helpers = require("../helpers");
+    helpers = require("./helpers");
 
 describe("Application HTTP requests", function () {
 

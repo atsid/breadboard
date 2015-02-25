@@ -11,7 +11,13 @@ module.exports = function (grunt) {
         },
         mochaTest: {
             test: {
-                src: ['app/test/**/*.js', 'app/it/**/*.js'],
+                src: ['app/test/**/Test*.js'],
+                options: {
+                    reporter: 'spec'
+                }
+            },
+            it: {
+                src: ['app/it/**/Test*.js'],
                 options: {
                     reporter: 'spec'
                 }
@@ -21,11 +27,6 @@ module.exports = function (grunt) {
             js: {
                 files: ['**/*.js', '!**/node_modules/**'],
                 tasks: ['lint', 'test']
-            }
-        },
-        'node-inspector': {
-            dev: { 
-                "debug-port": 3000
             }
         },
         express: {
@@ -44,7 +45,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('start', ['express:dev', 'watch']);
     grunt.registerTask('lint', ['jshint']);
-    grunt.registerTask('test', ['mochaTest']);
-    grunt.registerTask('default', ['jshint', 'mochaTest']);
+    grunt.registerTask('test', ['mochaTest:test']);
+    grunt.registerTask('it', ['mochaTest:it']);
+    grunt.registerTask('default', ['lint', 'test', 'it']);
 
 };

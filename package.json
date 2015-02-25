@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "start": "node dev-server.js",
-    "test": "node -e \"require('grunt').tasks(['lint']);\""
+    "test": "grunt lint test"
   },
   "main": "app/main.js",
   "license": "Apache-2.0",
