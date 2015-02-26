@@ -31,11 +31,12 @@ exports.create = function (args, callback) {
     var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
-        args.data._id = new Mongo.BSONPure.ObjectID();
+        args.data._id = new Mongo.ObjectID();
         args.data.uri = args.uri + "/" + args.data._id;
-        c.insert(args.data, function (err, docs) {
-            console.log("Mongodb Provider created item: " + docs[0]._id);
-            callback(err, docs);
+        c.insertOne(args.data, function (err, result) {
+            console.log(err);
+            console.log("Mongodb Provider created item: ", result.ops[0]._id);
+            callback(err, result.ops[0]);
             db.close();
         });
     });
@@ -48,10 +49,10 @@ exports.update = function (args, callback) {
         console.log("trying to update to collection: " + args.collection + " : " + JSON.stringify(args.data));
         //to do an update, we need to use $set in order to force merge, since we may not have the entire representation
         //http://docs.mongodb.org/manual/reference/operator/update/set/#up._S_set
-        c.update({_id: Mongo.ObjectID(args.id)}, {$set: args.data }, function (err, doc) {
+        c.updateOne({_id: Mongo.ObjectID(args.id)}, {$set: args.data }, function (err, result) {
             callback(err, args.data);
             db.close();
-            console.log("Updating to collection: " + args.collection + " : " + JSON.stringify(doc));
+            console.log("Updating to collection: " + args.collection + " : " + JSON.stringify(args.data));
         });
     });
 };
@@ -60,7 +61,7 @@ exports.remove = function (args, callback) {
     var dbstring = args.config.mongodb.connect;
     MongoClient.connect(dbstring, function (err, db) {
         var c = db.collection(args.collection);
-        c.remove({_id: Mongo.ObjectID(args.id)}, function (err, count) {
+        c.deleteOne({_id: Mongo.ObjectID(args.id)}, function (err, count) {
             db.close();
             console.log("Removing (x) items from collection: " + args.collection + " : " + count);
             console.log("Tried to remove: " + args.uri);

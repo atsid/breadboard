@@ -11,7 +11,7 @@
     },
     "dataProvider": "./providers/filedb",
     "filedb": {
-        "path": "/tmp/breadboard-data/"
+        "path": "/tmp/breadboard-data/restbucks"
     },
     "mongodb": {
         "connect": "mongodb://test:mongotest@paulo.mongohq.com:10045/dysxI4lRS8s1qBCj5pzDUw"
