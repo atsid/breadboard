@@ -1,8 +1,7 @@
 "use strict";
 
 var assert = require("assert"),
-    helpers = require("../helpers"),
-    links = require("../../util/links");
+    helpers = require("./helpers");
 
 describe("ProductList HTTP requests", function () {
 

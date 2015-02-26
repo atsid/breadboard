@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require("assert"),
-    helpers = require("../helpers"),
+    helpers = require("./helpers"),
     async = require("async");
 
 /**

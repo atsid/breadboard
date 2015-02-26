@@ -1,8 +1,8 @@
 "use strict";
 
 var assert = require("assert"),
-    helpers = require("../helpers"),
-    links = require("../../util/links");
+    helpers = require("./helpers"),
+    links = require("../util/links");
 
 describe("User HTTP requests", function () {
 
