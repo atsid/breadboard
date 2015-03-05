@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/atsid/breadboard.svg?branch=master)](https://travis-ci.org/atsid/breadboard)
+[![Dependency Status](https://david-dm.org/atsid/breadboard.svg)](https://david-dm.org/atsid/breadboard)
 
 Breadboard is a rapid-prototyping platform for Node.js applications that include RESTful services with hypermedia.
 
